@@ -44,8 +44,8 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   macos:
     generate: true
-    image_path: "design/icon_final.png"
-  image_path: "design/icon_final.png"
+    image_path: "design/icon.png"
+  image_path: "design/icon.png"
 
 flutter:
   uses-material-design: true

@@ -306,83 +306,86 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      isScrollControlled: true, // 추가: 내용이 길면 화면 위쪽까지 시트가 올라갈 수 있도록 허용
       builder: (_) => Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40, height: 4,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(2),
+        child: SingleChildScrollView( // 추가: 오버플로우 방지를 위해 스크롤뷰로 감쌈
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40, height: 4,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.3),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 20),
-            Text('가져오기', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 16),
+              const SizedBox(height: 20),
+              Text('가져오기', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+              const SizedBox(height: 16),
 
-            _importOption(
-              context: context,
-              icon: Icons.folder_open_outlined,
-              iconColor: theme.colorScheme.primary,
-              title: '이 기기에서 가져오기',
-              subtitle: '로컬 폴더에서 오디오+스크립트 불러오기',
-              onTap: () {
-                Navigator.pop(context);
-                ref.read(studyItemsProvider.notifier).pickAndScanDirectory();
-              },
-            ),
-            const SizedBox(height: 12),
+              _importOption(
+                context: context,
+                icon: Icons.folder_open_outlined,
+                iconColor: theme.colorScheme.primary,
+                title: '이 기기에서 가져오기',
+                subtitle: '로컬 폴더에서 오디오+스크립트 불러오기',
+                onTap: () {
+                  Navigator.pop(context);
+                  ref.read(studyItemsProvider.notifier).pickAndScanDirectory();
+                },
+              ),
+              const SizedBox(height: 12),
 
-            _importOption(
-              context: context,
-              icon: Icons.cloud_outlined,
-              iconColor: AppTheme.accentPrimary,
-              title: 'iCloud Drive에서 가져오기',
-              subtitle: 'iCloud Drive 폴더를 라이브러리에 연결',
-              onTap: () {
-                Navigator.pop(context);
-                ref.read(studyItemsProvider.notifier).pickAndScanDirectory();
-              },
-            ),
-            const SizedBox(height: 12),
+              _importOption(
+                context: context,
+                icon: Icons.cloud_outlined,
+                iconColor: AppTheme.accentPrimary,
+                title: 'iCloud Drive에서 가져오기',
+                subtitle: 'iCloud Drive 폴더를 라이브러리에 연결',
+                onTap: () {
+                  Navigator.pop(context);
+                  ref.read(studyItemsProvider.notifier).pickAndScanDirectory();
+                },
+              ),
+              const SizedBox(height: 12),
 
-            _importOption(
-              context: context,
-              icon: Icons.add_to_drive_outlined,
-              iconColor: const Color(0xFF4285F4),
-              title: 'Google Drive에서 가져오기',
-              subtitle: 'Google Drive 폴더를 탐색하고 다운로드',
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const GoogleDriveBrowserScreen()),
-                );
-              },
-            ),
-            const SizedBox(height: 12),
+              _importOption(
+                context: context,
+                icon: Icons.add_to_drive_outlined,
+                iconColor: const Color(0xFF4285F4),
+                title: 'Google Drive에서 가져오기',
+                subtitle: 'Google Drive 폴더를 탐색하고 다운로드',
+                onTap: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (_) => const GoogleDriveBrowserScreen()),
+                  );
+                },
+              ),
+              const SizedBox(height: 12),
 
-            _importOption(
-              context: context,
-              icon: Icons.sync_outlined,
-              iconColor: AppTheme.accentDim,
-              title: 'Scripta Sync iCloud 폴더 자동 동기화',
-              subtitle: 'iCloud Drive/Scripta Sync/ 폴더를 자동 스캔',
-              onTap: () {
-                Navigator.pop(context);
-                ref.read(studyItemsProvider.notifier).syncFromICloud();
-              },
-            ),
-          ],
+              _importOption(
+                context: context,
+                icon: Icons.sync_outlined,
+                iconColor: AppTheme.accentDim,
+                title: 'Scripta Sync iCloud 폴더 자동 동기화',
+                subtitle: 'iCloud Drive/Scripta Sync/ 폴더를 자동 스캔',
+                onTap: () {
+                  Navigator.pop(context);
+                  ref.read(studyItemsProvider.notifier).syncFromICloud();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
