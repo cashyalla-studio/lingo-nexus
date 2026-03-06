@@ -4,14 +4,57 @@ import 'package:path/path.dart' as path;
 import '../../core/models/study_item.dart';
 
 class DirectoryScannerService {
-  /// 사용자가 직접 폴더를 선택하여 스캔합니다.
-  /// 선택된 경로를 반환하여 호출부에서 영속화할 수 있도록 합니다.
+  /// 사용자가 직접 파일들을 선택하여 라이브러리에 추가합니다. (Android Scoped Storage 호환)
   Future<({List<StudyItem> items, String? selectedPath})> scanDirectory() async {
-    final selectedDirectory = await FilePicker.platform.getDirectoryPath();
-    if (selectedDirectory == null) return (items: <StudyItem>[], selectedPath: null);
+    // 폴더 선택 대신 파일 다중 선택으로 변경하여 권한 문제를 우회합니다.
+    final result = await FilePicker.platform.pickFiles(
+      allowMultiple: true,
+      type: FileType.custom,
+      allowedExtensions: ['mp3', 'm4a', 'wav', 'txt', 'srt'],
+    );
 
-    final items = await scanFromPath(selectedDirectory);
-    return (items: items, selectedPath: selectedDirectory);
+    if (result == null || result.files.isEmpty) {
+      return (items: <StudyItem>[], selectedPath: null);
+    }
+
+    final audioFiles = <PlatformFile>[];
+    final textFiles = <PlatformFile>[];
+
+    for (final file in result.files) {
+      if (file.path == null) continue;
+      final ext = file.extension?.toLowerCase() ?? '';
+      if (ext == 'mp3' || ext == 'm4a' || ext == 'wav') {
+        audioFiles.add(file);
+      } else if (ext == 'txt' || ext == 'srt') {
+        textFiles.add(file);
+      }
+    }
+
+    final studyItems = <StudyItem>[];
+    for (final audio in audioFiles) {
+      final baseName = path.basenameWithoutExtension(audio.name);
+      PlatformFile? matchingText;
+      for (final txt in textFiles) {
+        if (path.basenameWithoutExtension(txt.name) == baseName) {
+          matchingText = txt;
+          break;
+        }
+      }
+      studyItems.add(StudyItem(
+        title: baseName,
+        audioPath: audio.path!,
+        scriptPath: matchingText?.path,
+        source: StudyItemSource.local,
+      ));
+    }
+
+    // 파일들의 공통 상위 디렉터리를 selectedPath로 간주
+    String? commonDir;
+    if (audioFiles.isNotEmpty && audioFiles.first.path != null) {
+      commonDir = path.dirname(audioFiles.first.path!);
+    }
+
+    return (items: studyItems, selectedPath: commonDir);
   }
 
   /// 지정된 경로를 스캔하여 StudyItem 목록을 반환합니다.

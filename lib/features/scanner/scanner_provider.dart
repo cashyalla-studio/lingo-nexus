@@ -67,33 +67,31 @@ class StudyItemsNotifier extends StateNotifier<AsyncValue<List<StudyItem>>> {
     }
   }
 
-  /// 사용자가 직접 폴더를 선택하여 라이브러리에 추가합니다.
+  /// 사용자가 직접 파일(또는 폴더)을 선택하여 라이브러리에 추가합니다.
   Future<void> pickAndScanDirectory() async {
     state = const AsyncValue.loading();
     try {
       final result = await _scanner.scanDirectory();
-      if (result.selectedPath == null) {
-        // 취소 — 기존 상태 유지
+      if (result.items.isEmpty) {
+        // 취소하거나 파일을 선택하지 않은 경우 — 기존 상태 복원
         await initLibrary();
         return;
       }
 
-      final dirPath = result.selectedPath!;
-      final source = _detectSource(dirPath);
+      final dirPath = result.selectedPath;
+      final source = dirPath != null ? _detectSource(dirPath) : StudyItemSource.local;
 
-      // 북마크 생성 및 경로 영속화
-      final bookmark = await _icloud.createBookmark(dirPath);
-      await _persistence.addPath(dirPath);
-      if (bookmark != null) {
-        await _persistence.saveBookmark(dirPath, bookmark);
+      // macOS 등에서 디렉터리 경로가 있다면 북마크 생성 및 경로 영속화
+      if (dirPath != null) {
+        final bookmark = await _icloud.createBookmark(dirPath);
+        await _persistence.addPath(dirPath);
+        if (bookmark != null) {
+          await _persistence.saveBookmark(dirPath, bookmark);
+        }
       }
 
-      final newItems = result.items.map((item) => StudyItem(
-        title: item.title,
-        audioPath: item.audioPath,
-        scriptPath: item.scriptPath,
-        source: source,
-      )).toList();
+      // 이미 스캐너에서 source를 설정해서 반환하지만, 만약 덮어쓸 필요가 있다면 여기서 병합
+      final newItems = result.items;
 
       final current = state.value ?? [];
       final merged = _mergeItems(current, newItems);
