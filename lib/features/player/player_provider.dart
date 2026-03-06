@@ -5,6 +5,7 @@ import '../../core/models/study_item.dart';
 import '../../core/models/sync_item.dart';
 import '../../core/services/progress_service.dart';
 import '../scanner/scanner_provider.dart';
+import '../playlist/playlist_provider.dart';
 import 'audio_engine.dart';
 
 final currentStudyItemProvider = StateProvider<StudyItem?>((ref) => null);
@@ -130,6 +131,7 @@ final progressTrackingProvider = Provider<void>((ref) {
   ref.onDispose(() => sub.cancel());
 });
 
+
 // 한 곡 재생이 완료되었을 때 다음 곡으로 자동 이동하는 프로바이더
 final autoPlayNextProvider = Provider<void>((ref) {
   final engine = ref.watch(audioEngineProvider);
@@ -141,17 +143,32 @@ final autoPlayNextProvider = Provider<void>((ref) {
 
       final currentItem = ref.read(currentStudyItemProvider);
       final itemsAsync = ref.read(studyItemsProvider);
+      final currentPlaylistId = ref.read(currentPlaylistIdProvider);
+      final playlists = ref.read(playlistProvider);
       
       if (currentItem != null && itemsAsync is AsyncData<List<StudyItem>>) {
-        final items = itemsAsync.value;
-        if (items.isEmpty) return;
+        final allItems = itemsAsync.value;
+        if (allItems.isEmpty) return;
+
+        List<String> targetPaths = [];
         
-        final currentIndex = items.indexWhere((i) => i.audioPath == currentItem.audioPath);
+        if (currentPlaylistId != null) {
+          // 플레이리스트 재생 중
+          final pl = playlists.firstWhere((p) => p.id == currentPlaylistId, orElse: () => Playlist(id: '', name: '', audioPaths: []));
+          targetPaths = pl.audioPaths;
+        } else {
+          // 전체 라이브러리 재생 중
+          targetPaths = allItems.map((i) => i.audioPath).toList();
+        }
+
+        if (targetPaths.isEmpty) return;
+
+        final currentIndex = targetPaths.indexOf(currentItem.audioPath);
         if (currentIndex != -1) {
           int nextIndex = currentIndex + 1;
           
           // 마지막 곡일 때
-          if (nextIndex >= items.length) {
+          if (nextIndex >= targetPaths.length) {
             if (engine.player.loopMode == LoopMode.all) {
               nextIndex = 0; // 처음으로 돌아감
             } else {
@@ -159,7 +176,9 @@ final autoPlayNextProvider = Provider<void>((ref) {
             }
           }
           
-          final nextItem = items[nextIndex];
+          final nextPath = targetPaths[nextIndex];
+          final nextItem = allItems.firstWhere((i) => i.audioPath == nextPath, orElse: () => allItems.first);
+
           ref.read(currentStudyItemProvider.notifier).state = nextItem;
           ref.read(currentSyncItemsProvider.notifier).state = nextItem.syncItems ?? [];
           
