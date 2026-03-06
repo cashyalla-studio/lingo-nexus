@@ -6,6 +6,7 @@ import '../../core/theme/app_theme.dart';
 import '../scanner/scanner_provider.dart';
 import '../player/audio_engine.dart';
 import '../player/player_provider.dart';
+import '../player/player_screen.dart'; // 추가: PlayerScreen 라우팅을 위해 임포트
 import 'google_drive_browser_screen.dart';
 import 'script_attach_sheet.dart';
 
@@ -214,7 +215,8 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
           ref.read(currentStudyItemProvider.notifier).state = item;
           final engine = ref.read(audioEngineProvider);
           engine.loadFile(item.audioPath).then((_) => engine.player.play());
-          Navigator.pop(context);
+          Navigator.pop(context); // Close the library sheet
+          Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PlayerScreen())); // Open Player
         },
         onLongPress: () => _showItemActions(item),
       ),

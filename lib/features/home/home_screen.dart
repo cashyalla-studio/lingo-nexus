@@ -41,10 +41,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           ),
         ),
         child: BottomNavigationBar(
-          currentIndex: _currentIndex == 1 ? 0 : _currentIndex, // Prevent Library tab from staying selected
+          currentIndex: _currentIndex,
           onTap: (index) {
             if (index == 1) {
-              // Open Library as a full-screen modal sheet
+              // Open Library as a full-screen modal sheet (don't change index)
               showModalBottomSheet(
                 context: context,
                 isScrollControlled: true,
