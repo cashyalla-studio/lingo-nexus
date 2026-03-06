@@ -67,7 +67,7 @@ class _IntroScreenState extends State<IntroScreen> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(26),
                         child: Image.asset(
-                          'design/icon_final.png',
+                          'design/icon.png',
                           fit: BoxFit.cover,
                         ),
                       ),
