@@ -1,4 +1,6 @@
+import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/sync_item.dart';
 
 class ProgressService {
   static const String _prefixPosition = 'progress_pos_';
@@ -50,6 +52,34 @@ class ProgressService {
     final prefs = await SharedPreferences.getInstance();
     final key = _sanitizeKey(audioPath);
     return prefs.getDouble('progress_speed_$key') ?? defaultSpeed;
+  }
+
+  Future<void> saveSyncItems(String audioPath, List<SyncItem> items) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = _sanitizeKey(audioPath);
+    final jsonList = items.map((i) => {
+      'startTime': i.startTime.inMilliseconds,
+      'endTime': i.endTime.inMilliseconds,
+      'sentence': i.sentence,
+    }).toList();
+    await prefs.setString('progress_sync_$key', jsonEncode(jsonList));
+  }
+
+  Future<List<SyncItem>?> loadSyncItems(String audioPath) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = _sanitizeKey(audioPath);
+    final str = prefs.getString('progress_sync_$key');
+    if (str == null) return null;
+    try {
+      final List<dynamic> jsonList = jsonDecode(str);
+      return jsonList.map((e) => SyncItem(
+        startTime: Duration(milliseconds: e['startTime'] as int),
+        endTime: Duration(milliseconds: e['endTime'] as int),
+        sentence: e['sentence'] as String,
+      )).toList();
+    } catch (_) {
+      return null;
+    }
   }
 
   String _sanitizeKey(String path) {

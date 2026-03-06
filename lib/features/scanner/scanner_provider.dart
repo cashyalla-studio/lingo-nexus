@@ -198,6 +198,10 @@ class StudyItemsNotifier extends StateNotifier<AsyncValue<List<StudyItem>>> {
       item.lastPosition = prog['position'] as Duration;
       item.lastPlayedAt = prog['lastPlayedAt'] as DateTime?;
       item.totalDuration = prog['totalDuration'] as Duration?;
+      final syncItems = await _progress.loadSyncItems(item.audioPath);
+      if (syncItems != null) {
+        item.syncItems = syncItems;
+      }
     }
   }
 }

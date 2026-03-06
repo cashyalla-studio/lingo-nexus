@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import '../player/player_provider.dart';
 import '../player/audio_engine.dart';
+import '../scanner/scanner_provider.dart';
 import 'auto_sync_service.dart';
 
 class AutoSyncSetupScreen extends ConsumerStatefulWidget {
@@ -73,8 +74,9 @@ class _AutoSyncSetupScreenState extends ConsumerState<AutoSyncSetupScreen> with 
       // Store sync items in player provider
       ref.read(currentSyncItemsProvider.notifier).state = syncItems;
 
-      // Also persist on the StudyItem
+      // Also persist on the StudyItem and ProgressService
       item.syncItems = syncItems;
+      await ref.read(progressServiceProvider).saveSyncItems(item.audioPath, syncItems);
 
       if (mounted) {
         setState(() { _isSyncing = false; });

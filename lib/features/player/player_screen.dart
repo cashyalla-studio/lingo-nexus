@@ -24,6 +24,7 @@ class PlayerScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.watch(progressTrackingProvider); // 진도 추적 활성화
     final engine = ref.watch(audioEngineProvider);
     
     final isPlayingAsync = ref.watch(isPlayingProvider);
@@ -778,7 +779,7 @@ class _StudyListDrawer extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(16),
                           onTap: () {
                              ref.read(currentStudyItemProvider.notifier).state = item;
-                             ref.read(currentSyncItemsProvider.notifier).state = []; // Reset sync on item change
+                             ref.read(currentSyncItemsProvider.notifier).state = item.syncItems ?? []; // Load existing sync or reset
                              final engine = ref.read(audioEngineProvider);
                              engine.loadFile(item.audioPath).then((_) {
                                engine.player.play();

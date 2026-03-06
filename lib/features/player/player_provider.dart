@@ -107,3 +107,25 @@ final activeSentenceIndexProvider = Provider<int>((ref) {
   }
   return 0;
 });
+
+// 주기적으로 현재 진행률을 저장하는 프로바이더 (5초 간격)
+final progressTrackingProvider = Provider<void>((ref) {
+  final item = ref.watch(currentStudyItemProvider);
+  if (item == null) return;
+
+  final engine = ref.watch(audioEngineProvider);
+  final scannerNotifier = ref.watch(studyItemsProvider.notifier);
+
+  DateTime lastSave = DateTime.now();
+
+  final sub = engine.player.positionStream.listen((pos) {
+    final now = DateTime.now();
+    if (now.difference(lastSave).inSeconds >= 5) {
+      lastSave = now;
+      final duration = engine.player.duration;
+      scannerNotifier.updateItemProgress(item.audioPath, pos, duration);
+    }
+  });
+
+  ref.onDispose(() => sub.cancel());
+});

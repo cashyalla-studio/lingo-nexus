@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(flutter pub:*)",
+      "Bash(flutter gen-l10n:*)",
+      "Bash(dart run:*)",
+      "Bash(dart:*)",
+      "Bash(flutter build:*)",
+      "Bash(flutter:*)",
+      "Bash(./android/gradlew assembleDebug:*)"
+    ]
+  }
+}
