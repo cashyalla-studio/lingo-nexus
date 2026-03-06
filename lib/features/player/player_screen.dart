@@ -25,6 +25,7 @@ class PlayerScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(progressTrackingProvider); // 진도 추적 활성화
+    ref.watch(autoPlayNextProvider); // 자동 다음 곡 재생 활성화
     final engine = ref.watch(audioEngineProvider);
     
     final isPlayingAsync = ref.watch(isPlayingProvider);
@@ -651,6 +652,17 @@ class PlayerBottomBar extends ConsumerWidget {
               ),
 
               IconButton(icon: const Icon(Icons.forward_10, size: 32), onPressed: () => engine.skipForward()),
+
+              // 루프 모드 (반복 설정) 토글 버튼
+              GestureDetector(
+                onTap: () => hasItem ? engine.toggleLoopMode() : null,
+                child: _buildSmallChip(
+                  context,
+                  loopMode == LoopMode.off ? '반복 끄기' : loopMode == LoopMode.one ? '1곡 반복' : '전체 반복',
+                  loopMode == LoopMode.one ? Icons.repeat_one : Icons.repeat,
+                  isActive: loopMode != LoopMode.off,
+                ),
+              ),
 
               // A-B 루프 버튼 (롱프레스: A, 숏탭: B)
               GestureDetector(

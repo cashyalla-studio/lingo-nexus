@@ -129,3 +129,50 @@ final progressTrackingProvider = Provider<void>((ref) {
 
   ref.onDispose(() => sub.cancel());
 });
+
+// 한 곡 재생이 완료되었을 때 다음 곡으로 자동 이동하는 프로바이더
+final autoPlayNextProvider = Provider<void>((ref) {
+  final engine = ref.watch(audioEngineProvider);
+  
+  final sub = engine.player.playerStateStream.listen((state) {
+    if (state.processingState == ProcessingState.completed) {
+      // LoopMode.one 인 경우 just_audio가 알아서 다시 재생하므로 무시
+      if (engine.player.loopMode == LoopMode.one) return;
+
+      final currentItem = ref.read(currentStudyItemProvider);
+      final itemsAsync = ref.read(studyItemsProvider);
+      
+      if (currentItem != null && itemsAsync is AsyncData<List<StudyItem>>) {
+        final items = itemsAsync.value;
+        if (items.isEmpty) return;
+        
+        final currentIndex = items.indexWhere((i) => i.audioPath == currentItem.audioPath);
+        if (currentIndex != -1) {
+          int nextIndex = currentIndex + 1;
+          
+          // 마지막 곡일 때
+          if (nextIndex >= items.length) {
+            if (engine.player.loopMode == LoopMode.all) {
+              nextIndex = 0; // 처음으로 돌아감
+            } else {
+              return; // 반복이 아니면 정지
+            }
+          }
+          
+          final nextItem = items[nextIndex];
+          ref.read(currentStudyItemProvider.notifier).state = nextItem;
+          ref.read(currentSyncItemsProvider.notifier).state = nextItem.syncItems ?? [];
+          
+          engine.loadFile(nextItem.audioPath).then((_) {
+            engine.player.play();
+            // Restore speed
+            final progressService = ref.read(progressServiceProvider);
+            progressService.loadSpeed(nextItem.audioPath).then((spd) => engine.setSpeed(spd));
+          });
+        }
+      }
+    }
+  });
+  
+  ref.onDispose(() => sub.cancel());
+});
