@@ -601,7 +601,45 @@ class PlayerBottomBar extends ConsumerWidget {
               },
             ),
           ),
-          const SizedBox(height: 8),
+          
+          // 메인 재생 컨트롤 바 (가운데 정렬)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(icon: const Icon(Icons.replay_10, size: 36), onPressed: () => engine.skipBackward()),
+              const SizedBox(width: 24),
+              // 중앙 거대 재생 버튼
+              GestureDetector(
+                onTap: () => hasItem ? engine.togglePlayPause() : null,
+                child: Container(
+                  width: 72,
+                  height: 72,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surfaceContainerHighest,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      if (isPlaying)
+                        BoxShadow(
+                          color: theme.colorScheme.primary.withValues(alpha: 0.2),
+                          blurRadius: 16,
+                          spreadRadius: 4
+                        )
+                    ]
+                  ),
+                  child: Icon(
+                    isPlaying ? Icons.pause : Icons.play_arrow,
+                    size: 40,
+                    color: hasItem ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant
+                  ),
+                ),
+              ),
+              const SizedBox(width: 24),
+              IconButton(icon: const Icon(Icons.forward_10, size: 36), onPressed: () => engine.skipForward()),
+            ],
+          ),
+          const SizedBox(height: 16),
+          
+          // 부가 옵션 컨트롤 바 (배속, 반복, A-B 루프)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -623,42 +661,12 @@ class PlayerBottomBar extends ConsumerWidget {
                 ).toList(),
               ),
 
-              IconButton(icon: const Icon(Icons.replay_10, size: 32), onPressed: () => engine.skipBackward()),
-
-              // 중앙 거대 재생 버튼
-              GestureDetector(
-                onTap: () => hasItem ? engine.togglePlayPause() : null,
-                child: Container(
-                  width: 64,
-                  height: 64,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surfaceContainerHighest,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      if (isPlaying)
-                        BoxShadow(
-                          color: theme.colorScheme.primary.withValues(alpha: 0.2),
-                          blurRadius: 16,
-                          spreadRadius: 4
-                        )
-                    ]
-                  ),
-                  child: Icon(
-                    isPlaying ? Icons.pause : Icons.play_arrow,
-                    size: 36,
-                    color: hasItem ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant
-                  ),
-                ),
-              ),
-
-              IconButton(icon: const Icon(Icons.forward_10, size: 32), onPressed: () => engine.skipForward()),
-
               // 루프 모드 (반복 설정) 토글 버튼
               GestureDetector(
                 onTap: () => hasItem ? engine.toggleLoopMode() : null,
                 child: _buildSmallChip(
                   context,
-                  loopMode == LoopMode.off ? '반복 끄기' : loopMode == LoopMode.one ? '1곡 반복' : '전체 반복',
+                  loopMode == LoopMode.off ? '반복 끔' : loopMode == LoopMode.one ? '1곡 반복' : '전체 반복',
                   loopMode == LoopMode.one ? Icons.repeat_one : Icons.repeat,
                   isActive: loopMode != LoopMode.off,
                 ),
