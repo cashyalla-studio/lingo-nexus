@@ -9,6 +9,7 @@ import '../../core/providers/ai_provider.dart';
 import '../../core/services/secure_storage_service.dart';
 import '../../core/services/pronunciation_history_service.dart';
 import '../../core/models/pronunciation_history_entry.dart';
+import '../subscription/subscription_provider.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:http_parser/http_parser.dart';
@@ -90,6 +91,17 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
       return;
     }
 
+    // Check shadowing usage limit
+    final canShadow = await _ref.read(subscriptionServiceProvider).canUseShadowing();
+    if (!canShadow) {
+      _score = const ShadowingScore(
+        accuracy: -1, intonation: 0, fluency: 0,
+        recordedTranscription: '이번 달 무료 쉐도잉 한도(10회)에 도달했습니다.\n프리미엄으로 업그레이드하면 무제한으로 사용할 수 있어요!',
+      );
+      state = ShadowingState.done;
+      return;
+    }
+
     try {
       // Transcribe with Whisper
       final file = File(_recordingPath!);
@@ -119,6 +131,8 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
       if (streamedResponse.statusCode == 200) {
         final transcription = jsonDecode(body)['text'] as String;
         _score = _calculateScore(originalText, transcription);
+        // Record successful shadowing usage
+        await _ref.read(subscriptionServiceProvider).recordShadowing();
       } else {
         _score = const ShadowingScore(accuracy: 0, intonation: 0, fluency: 0);
       }

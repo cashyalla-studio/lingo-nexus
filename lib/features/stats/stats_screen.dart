@@ -8,6 +8,7 @@ import '../../core/services/streak_provider.dart';
 import '../shadowing/shadowing_provider.dart';
 import '../minimal_pair/minimal_pair_screen.dart';
 import 'learning_heatmap.dart';
+import 'share_card_screen.dart';
 
 class StatsScreen extends ConsumerWidget {
   const StatsScreen({super.key});
@@ -243,6 +244,94 @@ class StatsScreen extends ConsumerWidget {
                               error: (_, __) => const SizedBox.shrink(),
                             );
                           }),
+                          const SizedBox(height: 24),
+                          Text('학습 일지',
+                            style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 16),
+                          Consumer(builder: (ctx, ref, _) {
+                            final journalAsync = ref.watch(journalEntriesProvider);
+                            return journalAsync.when(
+                              data: (entries) {
+                                if (entries.isEmpty) {
+                                  return Text('학습을 시작하면 자동으로 일지가 기록됩니다.',
+                                    style: theme.textTheme.bodyMedium?.copyWith(
+                                      color: theme.colorScheme.onSurfaceVariant));
+                                }
+                                return Column(
+                                  children: entries.take(7).map((entry) => Padding(
+                                    padding: const EdgeInsets.only(bottom: 8),
+                                    child: Container(
+                                      padding: const EdgeInsets.all(14),
+                                      decoration: BoxDecoration(
+                                        color: theme.colorScheme.surfaceContainerHighest,
+                                        borderRadius: BorderRadius.circular(14),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(entry.formattedDate,
+                                                style: theme.textTheme.labelMedium?.copyWith(
+                                                  color: theme.colorScheme.primary, fontWeight: FontWeight.bold)),
+                                              const SizedBox(height: 2),
+                                              Text(entry.summary,
+                                                style: theme.textTheme.bodySmall?.copyWith(
+                                                  color: theme.colorScheme.onSurfaceVariant)),
+                                            ],
+                                          ),
+                                          const Spacer(),
+                                          if (entry.minutesStudied > 0)
+                                            Text('${entry.minutesStudied}분',
+                                              style: theme.textTheme.labelMedium?.copyWith(
+                                                color: theme.colorScheme.onSurfaceVariant)),
+                                        ],
+                                      ),
+                                    ),
+                                  )).toList(),
+                                );
+                              },
+                              loading: () => const SizedBox.shrink(),
+                              error: (_, __) => const SizedBox.shrink(),
+                            );
+                          }),
+                          const SizedBox(height: 16),
+                          GestureDetector(
+                            onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                              builder: (_) => const ShareCardScreen())),
+                            child: Container(
+                              padding: const EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                color: theme.colorScheme.surfaceContainerHighest,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(color: const Color(0xFF00FFD1).withValues(alpha: 0.3)),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: BoxDecoration(
+                                      color: const Color(0xFF00FFD1).withValues(alpha: 0.1),
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                    child: const Icon(Icons.share, color: Color(0xFF00FFD1), size: 28),
+                                  ),
+                                  const SizedBox(width: 16),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('학습 카드 공유', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                                        Text('내 학습 성과를 SNS에 공유해보세요',
+                                          style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
+                                ],
+                              ),
+                            ),
+                          ),
                           const SizedBox(height: 32),
                           GestureDetector(
                             onTap: () => Navigator.of(context).push(MaterialPageRoute(
