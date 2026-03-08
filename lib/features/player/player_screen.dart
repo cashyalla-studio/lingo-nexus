@@ -462,14 +462,15 @@ class PlayerScreen extends ConsumerWidget {
   Widget _buildEmptyState(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
-    return Center(
+    return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(32.0),
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 12),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.library_music_outlined, size: 64, color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
-            const SizedBox(height: 24),
+            const SizedBox(height: 8),
+            Icon(Icons.library_music_outlined, size: 48, color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
+            const SizedBox(height: 16),
             Text(
               l10n.noContentFound.split('\n').first,
               style: theme.textTheme.titleLarge,
@@ -481,7 +482,7 @@ class PlayerScreen extends ConsumerWidget {
               style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 32),
+            const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: () {
                 Scaffold.of(context).openDrawer();
@@ -491,12 +492,12 @@ class PlayerScreen extends ConsumerWidget {
               style: ElevatedButton.styleFrom(
                 backgroundColor: theme.colorScheme.surfaceContainerHighest,
                 foregroundColor: theme.colorScheme.primary,
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 elevation: 0,
               ),
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             OutlinedButton.icon(
               onPressed: () {
                 final engine = ref.read(audioEngineProvider);
@@ -508,7 +509,7 @@ class PlayerScreen extends ConsumerWidget {
               style: OutlinedButton.styleFrom(
                 foregroundColor: theme.colorScheme.onSurfaceVariant,
                 side: BorderSide(color: theme.colorScheme.outline),
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
               ),
             ),

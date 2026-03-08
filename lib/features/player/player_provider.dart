@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import '../../core/models/study_item.dart';
 import '../../core/models/sync_item.dart';
-import '../../core/services/progress_service.dart';
 import '../../core/services/streak_service.dart';
 import '../../core/services/journal_service.dart';
 import '../scanner/scanner_provider.dart';
@@ -66,8 +65,11 @@ final speedUpgradeSuggestionProvider = Provider<bool>((ref) {
   final position = ref.watch(positionProvider).value ?? Duration.zero;
   final duration = ref.watch(durationProvider).value;
   final speed = ref.watch(playbackSpeedProvider).value ?? 1.0;
+  final loopMode = ref.watch(loopModeProvider).value ?? LoopMode.off;
 
   if (duration == null || duration.inSeconds == 0) return false;
+  // 1곡 반복 시 루프마다 position 리셋 → 배너가 깜빡이므로 비활성
+  if (loopMode == LoopMode.one) return false;
   final progress = position.inMilliseconds / duration.inMilliseconds;
   // Suggest upgrade if: listened >70% of content AND speed is below 1.25x
   return progress > 0.7 && speed < 1.25;

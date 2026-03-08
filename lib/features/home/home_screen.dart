@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
-import '../player/player_screen.dart'; // 기존 플레이어 화면 (임시)
+import '../player/player_screen.dart';
+import '../player/player_provider.dart';
+import '../player/audio_engine.dart';
 import '../library/library_sheet.dart';
 import '../scanner/scanner_provider.dart';
 import '../../core/models/study_item.dart';
@@ -82,6 +84,21 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
+
+  void _openItem(BuildContext context, WidgetRef ref, StudyItem item) async {
+    ref.read(currentStudyItemProvider.notifier).state = item;
+    ref.read(currentSyncItemsProvider.notifier).state = item.syncItems ?? [];
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PlayerScreen()));
+    try {
+      final engine = ref.read(audioEngineProvider);
+      await engine.loadFile(item.audioPath);
+      engine.player.play();
+      final spd = await ref.read(progressServiceProvider).loadSpeed(item.audioPath);
+      engine.setSpeed(spd);
+    } catch (e) {
+      debugPrint('Failed to load audio: $e');
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -239,9 +256,7 @@ class HomeScreen extends ConsumerWidget {
                     }
 
                     return GestureDetector(
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(builder: (_) => const PlayerScreen()));
-                      },
+                      onTap: () => _openItem(context, ref, continueItem),
                       child: Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
@@ -308,7 +323,13 @@ class HomeScreen extends ConsumerWidget {
                       style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        useSafeArea: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (context) => const LibrarySheet(),
+                      ),
                       child: Text(l10n.seeAll, style: TextStyle(color: theme.colorScheme.primary)),
                     )
                   ],
@@ -348,7 +369,10 @@ class HomeScreen extends ConsumerWidget {
                         final statusLabel = item.isCompleted ? '완료' : '학습 중';
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12.0),
-                          child: Container(
+                          child: InkWell(
+                            onTap: () => _openItem(context, ref, item),
+                            borderRadius: BorderRadius.circular(16),
+                            child: Container(
                             padding: const EdgeInsets.all(16),
                             decoration: BoxDecoration(
                               color: theme.colorScheme.surface,
@@ -379,6 +403,7 @@ class HomeScreen extends ConsumerWidget {
                                 Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
                               ],
                             ),
+                          ),
                           ),
                         );
                       },
