@@ -4,6 +4,8 @@ import '../../core/theme/app_theme.dart';
 import '../../core/providers/ai_provider.dart';
 import '../tutor/tutor_provider.dart';
 import 'minimal_pair_data.dart';
+import '../phonetics/tts_service.dart';
+import '../phonetics/phoneme_eval_service.dart';
 
 class MinimalPairScreen extends ConsumerStatefulWidget {
   const MinimalPairScreen({super.key});
@@ -75,6 +77,163 @@ class _PhonemeSetCardState extends ConsumerState<_PhonemeSetCard> {
   bool _expanded = false;
   String? _aiExplanation;
   bool _loadingAi = false;
+  final TtsService _tts = TtsService();
+  final PhonemeEvalService _eval = PhonemeEvalService();
+  bool _challengeMode = false;
+  bool _isListening = false;
+  String? _challengeTarget;
+  PronunciationResult? _challengeResult;
+  int _correctStreak = 0;
+  bool _sttAvailable = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _eval.initialize().then((ok) {
+      if (mounted) setState(() => _sttAvailable = ok);
+    });
+  }
+
+  @override
+  void dispose() {
+    _tts.dispose();
+    _eval.dispose();
+    super.dispose();
+  }
+
+  String _getLanguageCode() {
+    switch (widget.pairSet.language) {
+      case 'Japanese': return 'ja-JP';
+      case 'Spanish': return 'es-ES';
+      default: return 'en-US';
+    }
+  }
+
+  Widget _buildChallengeMode(ThemeData theme) {
+    final pair = widget.pairSet.pairs.isNotEmpty
+        ? widget.pairSet.pairs[DateTime.now().second % widget.pairSet.pairs.length]
+        : null;
+    if (pair == null) return const SizedBox.shrink();
+
+    // Randomly pick which word to test
+    final target = _challengeTarget ??
+        (DateTime.now().millisecond % 2 == 0 ? pair.wordA : pair.wordB);
+
+    return Container(
+      margin: const EdgeInsets.only(top: 12),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.orange.withValues(alpha: 0.06),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.orange.withValues(alpha: 0.25)),
+      ),
+      child: Column(
+        children: [
+          Text('이 단어를 발음해보세요:',
+            style: theme.textTheme.labelMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant)),
+          const SizedBox(height: 8),
+          Text(
+            target.split(' ').first,
+            style: const TextStyle(
+              color: Colors.orange, fontSize: 32, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 4),
+          Text('연속 정답: $_correctStreak개 🔥',
+            style: theme.textTheme.labelSmall?.copyWith(color: Colors.orange)),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              Expanded(
+                child: OutlinedButton.icon(
+                  onPressed: () => _tts.speak(target.split(' ').first, language: _getLanguageCode()),
+                  icon: const Icon(Icons.volume_up, size: 16),
+                  label: const Text('듣기'),
+                  style: OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              Expanded(
+                flex: 2,
+                child: ElevatedButton.icon(
+                  onPressed: _isListening ? null : () async {
+                    setState(() { _isListening = true; _challengeTarget = target; _challengeResult = null; });
+                    await _eval.startListening(
+                      localeId: _getLanguageCode(),
+                      onResult: (text) {
+                        if (mounted) {
+                          final result = _eval.evaluate(recognized: text, target: target.split(' ').first);
+                          setState(() {
+                            _challengeResult = result;
+                            _isListening = false;
+                            if (result.score >= 70) _correctStreak++;
+                            else _correctStreak = 0;
+                          });
+                        }
+                      },
+                    );
+                    await Future.delayed(const Duration(seconds: 6));
+                    if (mounted && _isListening) {
+                      await _eval.stopListening();
+                      setState(() => _isListening = false);
+                    }
+                  },
+                  icon: _isListening
+                      ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.black))
+                      : const Icon(Icons.mic, size: 18),
+                  label: Text(_isListening ? '듣는 중...' : '발음 도전'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orange,
+                    foregroundColor: Colors.black,
+                    padding: const EdgeInsets.symmetric(vertical: 10),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          if (_challengeResult != null) ...[
+            const SizedBox(height: 12),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: (_challengeResult!.score >= 70
+                    ? const Color(0xFF00FFD1)
+                    : Colors.red).withValues(alpha: 0.08),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Text('${_challengeResult!.score}점 ${_challengeResult!.score >= 70 ? "✅" : "❌"}',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: _challengeResult!.score >= 70 ? const Color(0xFF00FFD1) : Colors.red)),
+                  const SizedBox(height: 4),
+                  Text(_challengeResult!.feedback,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant),
+                    textAlign: TextAlign.center),
+                  const SizedBox(height: 8),
+                  TextButton(
+                    onPressed: () => setState(() {
+                      _challengeTarget = null;
+                      _challengeResult = null;
+                    }),
+                    child: const Text('다음 도전 →'),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
 
   Future<void> _loadAiExplanation() async {
     setState(() => _loadingAi = true);
@@ -190,6 +349,16 @@ class _PhonemeSetCardState extends ConsumerState<_PhonemeSetCard> {
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
+                                IconButton(
+                                  icon: const Icon(Icons.volume_up, size: 16),
+                                  color: theme.colorScheme.primary,
+                                  onPressed: () => _tts.speak(
+                                    pair.wordA.split(' ').first,
+                                    language: _getLanguageCode(),
+                                  ),
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                ),
                               ],
                             ),
                           ),
@@ -230,6 +399,16 @@ class _PhonemeSetCardState extends ConsumerState<_PhonemeSetCard> {
                                     ),
                                     textAlign: TextAlign.center,
                                   ),
+                                IconButton(
+                                  icon: const Icon(Icons.volume_up, size: 16),
+                                  color: Colors.orange,
+                                  onPressed: () => _tts.speak(
+                                    pair.wordB.split(' ').first,
+                                    language: _getLanguageCode(),
+                                  ),
+                                  padding: EdgeInsets.zero,
+                                  constraints: const BoxConstraints(),
+                                ),
                               ],
                             ),
                           ),
@@ -275,6 +454,25 @@ class _PhonemeSetCardState extends ConsumerState<_PhonemeSetCard> {
                           style: theme.textTheme.bodyMedium?.copyWith(height: 1.6),
                         ),
                       ),
+                    if (_sttAvailable) ...[
+                      const SizedBox(height: 8),
+                      OutlinedButton.icon(
+                        onPressed: () => setState(() {
+                          _challengeMode = !_challengeMode;
+                          _challengeResult = null;
+                          _challengeTarget = null;
+                        }),
+                        icon: Icon(_challengeMode ? Icons.close : Icons.mic, size: 18),
+                        label: Text(_challengeMode ? '도전 모드 종료' : '발음 도전 모드 (STT)'),
+                        style: OutlinedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12)),
+                          side: BorderSide(color: Colors.orange.withValues(alpha: 0.5)),
+                          foregroundColor: Colors.orange,
+                        ),
+                      ),
+                      if (_challengeMode) _buildChallengeMode(theme),
+                    ],
                   ],
                 ),
               ),

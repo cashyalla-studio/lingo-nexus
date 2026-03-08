@@ -11,6 +11,7 @@ import '../shadowing/shadow_deck_screen.dart';
 import '../shadowing/shadow_deck_provider.dart';
 import '../conversation/conversation_screen.dart';
 import '../../core/services/streak_provider.dart';
+import '../phonetics/phonetics_hub_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -463,6 +464,56 @@ class HomeScreen extends ConsumerWidget {
                           ),
                         ),
                         Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                GestureDetector(
+                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => const PhoneticsHubScreen())),
+                  child: Container(
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          const Color(0xFF00FFD1).withValues(alpha: 0.10),
+                          theme.colorScheme.surface,
+                        ],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                        color: const Color(0xFF00FFD1).withValues(alpha: 0.25)),
+                    ),
+                    child: Row(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.all(12),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF00FFD1).withValues(alpha: 0.12),
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                          child: const Icon(Icons.record_voice_over,
+                            color: Color(0xFF00FFD1), size: 28),
+                        ),
+                        const SizedBox(width: 16),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text('발음 훈련 센터',
+                                style: theme.textTheme.titleMedium?.copyWith(
+                                  fontWeight: FontWeight.bold)),
+                              Text('TTS + 온디바이스 채점 · API 불필요',
+                                style: theme.textTheme.bodySmall?.copyWith(
+                                  color: theme.colorScheme.onSurfaceVariant)),
+                            ],
+                          ),
+                        ),
+                        Icon(Icons.chevron_right,
+                          color: theme.colorScheme.onSurfaceVariant),
                       ],
                     ),
                   ),
