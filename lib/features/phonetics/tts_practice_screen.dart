@@ -26,15 +26,40 @@ class TtsPracticeScreen extends ConsumerStatefulWidget {
 
 class _TtsPracticeScreenState extends ConsumerState<TtsPracticeScreen> {
   final _ipaService = IpaLookupService();
-  String _selectedCategory = IpaData.categories.keys.first;
+
+  // Language toggle
+  String _language = 'English';
+
+  // Separate category state per language
+  String _selectedCategoryEn = IpaData.categories.keys.first;
+  String _selectedCategoryEs = IpaData.spanishCategories.keys.first;
+
   int _currentIndex = 0;
   bool _isSpeaking = false;
   bool _isListening = false;
   PronunciationResult? _result;
   bool _sttAvailable = false;
 
-  List<({String word, String ipa})> get _words =>
-      _ipaService.getWordsWithIpa(_selectedCategory);
+  Map<String, List<String>> get _activeCategories =>
+      _language == 'Spanish' ? IpaData.spanishCategories : IpaData.categories;
+
+  String get _selectedCategory =>
+      _language == 'Spanish' ? _selectedCategoryEs : _selectedCategoryEn;
+
+  List<({String word, String ipa})> get _words {
+    if (_language == 'Spanish') {
+      final wordList = IpaData.spanishCategories[_selectedCategoryEs] ?? [];
+      return wordList
+          .map((w) {
+            final ipa = IpaData.spanish[w];
+            if (ipa == null) return null;
+            return (word: w, ipa: ipa);
+          })
+          .whereType<({String word, String ipa})>()
+          .toList();
+    }
+    return _ipaService.getWordsWithIpa(_selectedCategoryEn);
+  }
 
   ({String word, String ipa})? get _current =>
       _words.isEmpty ? null : _words[_currentIndex];
@@ -56,10 +81,18 @@ class _TtsPracticeScreenState extends ConsumerState<TtsPracticeScreen> {
     if (word == null) return;
     setState(() => _isSpeaking = true);
     final tts = ref.read(_ttsServiceProvider);
-    if (slow) {
-      await tts.speakSlow(word);
+    if (_language == 'Spanish') {
+      if (slow) {
+        await tts.speakSlow(word, language: 'es-ES');
+      } else {
+        await tts.speakSpanish(word);
+      }
     } else {
-      await tts.speak(word);
+      if (slow) {
+        await tts.speakSlow(word);
+      } else {
+        await tts.speak(word);
+      }
     }
     if (mounted) setState(() => _isSpeaking = false);
   }
@@ -73,8 +106,9 @@ class _TtsPracticeScreenState extends ConsumerState<TtsPracticeScreen> {
     }
     setState(() { _isListening = true; _result = null; });
 
+    final localeId = _language == 'Spanish' ? 'es-ES' : 'en-US';
     await eval.startListening(
-      localeId: 'en-US',
+      localeId: localeId,
       onResult: (text) {
         if (mounted) {
           final result = eval.evaluate(
@@ -124,13 +158,41 @@ class _TtsPracticeScreenState extends ConsumerState<TtsPracticeScreen> {
       ),
       body: Column(
         children: [
+          // Language toggle
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              children: ['English', 'Spanish'].map((lang) {
+                final isSelected = lang == _language;
+                return Padding(
+                  padding: const EdgeInsets.only(right: 8),
+                  child: ChoiceChip(
+                    label: Text(lang, style: TextStyle(
+                      color: isSelected ? Colors.black : null,
+                      fontWeight: isSelected ? FontWeight.bold : null,
+                    )),
+                    selected: isSelected,
+                    selectedColor: const Color(0xFF00FFD1),
+                    onSelected: (_) => setState(() {
+                      _language = lang;
+                      _currentIndex = 0;
+                      _result = null;
+                    }),
+                  ),
+                );
+              }).toList(),
+            ),
+          ),
+
+          const SizedBox(height: 4),
+
           // Category selector
           SizedBox(
             height: 48,
             child: ListView(
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              children: IpaData.categories.keys.map((cat) {
+              children: _activeCategories.keys.map((cat) {
                 final isSelected = cat == _selectedCategory;
                 return Padding(
                   padding: const EdgeInsets.only(right: 8),
@@ -144,7 +206,11 @@ class _TtsPracticeScreenState extends ConsumerState<TtsPracticeScreen> {
                     selectedColor: const Color(0xFF00FFD1),
                     backgroundColor: theme.colorScheme.surfaceContainerHighest,
                     onSelected: (_) => setState(() {
-                      _selectedCategory = cat;
+                      if (_language == 'Spanish') {
+                        _selectedCategoryEs = cat;
+                      } else {
+                        _selectedCategoryEn = cat;
+                      }
                       _currentIndex = 0;
                       _result = null;
                     }),

@@ -116,4 +116,26 @@ class IpaData {
     '일상 필수 단어': ['water', 'work', 'world', 'year', 'people', 'think', 'place', 'great'],
     '고급 어휘': ['question', 'different', 'because', 'every', 'always', 'never', 'other'],
   };
+
+  static const Map<String, String> spanish = {
+    'agua': 'ˈa.ɣwa', 'bien': 'bjen', 'casa': 'ˈka.sa', 'ciudad': 'sjuˈðað',
+    'comer': 'koˈmer', 'con': 'kon', 'dar': 'dar', 'decir': 'deˈθir',
+    'día': 'ˈdi.a', 'donde': 'ˈdon.de', 'estar': 'esˈtar', 'gracias': 'ˈɡra.θjas',
+    'grande': 'ˈɡran.de', 'hablar': 'aˈβlar', 'hacer': 'aˈθer', 'hola': 'ˈo.la',
+    'libro': 'ˈli.βro', 'llegar': 'ʎeˈɣar', 'más': 'mas', 'mucho': 'ˈmu.tʃo',
+    'muy': 'mwi', 'noche': 'ˈno.tʃe', 'nuevo': 'ˈnwe.βo', 'paella': 'paˈeʎa',
+    'pero': 'ˈpe.ro', 'perro': 'ˈpe.ro', 'puede': 'ˈpwe.ðe', 'que': 'ke',
+    'querer': 'keˈrer', 'saber': 'saˈβer', 'ser': 'ser', 'si': 'si',
+    'también': 'tamˈbjen', 'tener': 'teˈner', 'tiempo': 'ˈtjem.po', 'todo': 'ˈto.ðo',
+    'trabajar': 'tɾaβaˈxar', 'ver': 'ber', 'venir': 'beˈnir', 'vida': 'ˈbi.ða',
+    'año': 'ˈa.ɲo', 'español': 'espaˈɲol', 'mañana': 'maˈɲa.na', 'niño': 'ˈni.ɲo',
+  };
+
+  static const Map<String, List<String>> spanishCategories = {
+    '기초 인사': ['hola', 'gracias', 'bien', 'mucho', 'muy'],
+    '동사': ['ser', 'estar', 'tener', 'hacer', 'ver', 'dar', 'venir', 'hablar', 'comer'],
+    'ñ 발음': ['año', 'español', 'mañana', 'niño'],
+    'R vs RR 구별': ['pero', 'perro'],
+    '명사': ['casa', 'libro', 'agua', 'día', 'noche', 'tiempo', 'vida'],
+  };
 }
