@@ -20,11 +20,25 @@ import 'audio_engine.dart';
 import 'player_provider.dart';
 import 'widgets/animated_waveform.dart';
 
-class PlayerScreen extends ConsumerWidget {
+class PlayerScreen extends ConsumerStatefulWidget {
   const PlayerScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PlayerScreen> createState() => _PlayerScreenState();
+}
+
+class _PlayerScreenState extends ConsumerState<PlayerScreen> {
+  @override
+  void dispose() {
+    final engine = ref.read(audioEngineProvider);
+    if (engine.player.playing) {
+      engine.player.pause();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     ref.watch(progressTrackingProvider); // 진도 추적 활성화
     ref.watch(autoPlayNextProvider); // 자동 다음 곡 재생 활성화
     final engine = ref.watch(audioEngineProvider);
@@ -100,6 +114,7 @@ class PlayerScreen extends ConsumerWidget {
                  context: context,
                  backgroundColor: Colors.transparent,
                  isScrollControlled: true,
+                 useSafeArea: true,
                  builder: (context) => const ApiKeySettingsSheet(),
                );
             },
@@ -118,7 +133,7 @@ class PlayerScreen extends ConsumerWidget {
                 child: scriptAsync.when(
                   data: (text) {
                     if (currentItem == null) {
-                      return _buildEmptyState(context, ref);
+                      return _buildEmptyState(context);
                     }
 
                     if (currentItem.scriptPath == null) {
@@ -141,7 +156,7 @@ class PlayerScreen extends ConsumerWidget {
                           text: sentences[index].trim(),
                           timeCode: hasSync ? syncItems[index].formattedTime : "00:00",
                           onTap: hasSync ? () => engine.seek(syncItems[index].startTime) : () {},
-                          onLongPress: () => _showAiMenu(context, ref, sentences[index].trim(), theme, l10n),
+                          onLongPress: () => _showAiMenu(context, sentences[index].trim(), theme, l10n),
                         );
                       },
                     );
@@ -216,11 +231,12 @@ class PlayerScreen extends ConsumerWidget {
     );
   }
 
-  void _showAiMenu(BuildContext context, WidgetRef ref, String text, ThemeData theme, AppLocalizations l10n) {
+  void _showAiMenu(BuildContext context, String text, ThemeData theme, AppLocalizations l10n) {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
+      useSafeArea: true,
       builder: (context) {
         return Container(
           padding: const EdgeInsets.all(24),
@@ -254,6 +270,7 @@ class PlayerScreen extends ConsumerWidget {
                     context: context,
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,
+                    useSafeArea: true,
                     builder: (context) => AiTutorBottomSheet(sentence: text),
                   );
                 }),
@@ -264,6 +281,7 @@ class PlayerScreen extends ConsumerWidget {
                     context: context,
                     backgroundColor: Colors.transparent,
                     isScrollControlled: true,
+                    useSafeArea: true,
                     builder: (context) => VocabularyBottomSheet(
                       word: text,
                       contextSentence: text,
@@ -459,7 +477,7 @@ class PlayerScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildEmptyState(BuildContext context, WidgetRef ref) {
+  Widget _buildEmptyState(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(

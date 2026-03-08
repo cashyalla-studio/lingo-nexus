@@ -340,12 +340,13 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      useSafeArea: true,
       builder: (_) => Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -401,6 +402,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                     context: context,
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
+                    useSafeArea: true,
                     builder: (_) => ScriptAttachSheet(
                       audioPath: item.audioPath,
                       itemTitle: item.title,
@@ -438,12 +440,13 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
+      useSafeArea: true,
       builder: (context) => Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -478,12 +481,13 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true, // 추가: 내용이 길면 화면 위쪽까지 시트가 올라갈 수 있도록 허용
+      useSafeArea: true,
       builder: (_) => Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
+        padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
         child: SingleChildScrollView( // 추가: 오버플로우 방지를 위해 스크롤뷰로 감쌈
           child: Column(
             mainAxisSize: MainAxisSize.min,

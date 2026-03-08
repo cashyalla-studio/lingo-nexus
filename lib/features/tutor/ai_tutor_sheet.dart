@@ -109,7 +109,7 @@ class _AiTutorBottomSheetState extends ConsumerState<AiTutorBottomSheet> {
       ),
       padding: EdgeInsets.only(
         left: 20, right: 20, top: 20,
-        bottom: MediaQuery.of(context).viewInsets.bottom + 20
+        bottom: MediaQuery.of(context).viewInsets.bottom + MediaQuery.of(context).viewPadding.bottom + 20
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
