@@ -4,6 +4,7 @@ import 'package:just_audio/just_audio.dart';
 import '../../core/models/study_item.dart';
 import '../../core/models/sync_item.dart';
 import '../../core/services/progress_service.dart';
+import '../../core/services/streak_service.dart';
 import '../scanner/scanner_provider.dart';
 import '../playlist/playlist_provider.dart';
 import 'audio_engine.dart';
@@ -117,9 +118,16 @@ final progressTrackingProvider = Provider<void>((ref) {
   final engine = ref.watch(audioEngineProvider);
   final scannerNotifier = ref.watch(studyItemsProvider.notifier);
 
+  bool streakRecorded = false;
   DateTime lastSave = DateTime.now();
 
   final sub = engine.player.positionStream.listen((pos) {
+    // Record streak on first meaningful play (after 10 seconds)
+    if (!streakRecorded && pos.inSeconds >= 10) {
+      streakRecorded = true;
+      StreakService().recordStudyToday();
+    }
+
     final now = DateTime.now();
     if (now.difference(lastSave).inSeconds >= 5) {
       lastSave = now;

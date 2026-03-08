@@ -20,7 +20,9 @@
       "Read(//c/flutter/**)",
       "Read(//d/flutter/**)",
       "Read(//e/flutter/**)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)"
     ]
   }
 }

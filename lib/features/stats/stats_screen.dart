@@ -4,8 +4,10 @@ import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import '../scanner/scanner_provider.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/services/pronunciation_history_service.dart';
+import '../../core/services/streak_provider.dart';
 import '../shadowing/shadowing_provider.dart';
 import '../minimal_pair/minimal_pair_screen.dart';
+import 'learning_heatmap.dart';
 
 class StatsScreen extends ConsumerWidget {
   const StatsScreen({super.key});
@@ -195,6 +197,52 @@ class StatsScreen extends ConsumerWidget {
                               );
                             },
                           ),
+                          // Streak & Heatmap Section
+                          const SizedBox(height: 32),
+                          Text('학습 스트릭',
+                            style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
+                          const SizedBox(height: 16),
+                          Consumer(builder: (ctx, ref, _) {
+                            final streakAsync = ref.watch(streakDataProvider);
+                            return streakAsync.when(
+                              data: (streak) => Row(
+                                children: [
+                                  Expanded(child: _StatCard(
+                                    icon: Icons.local_fire_department,
+                                    label: '연속 학습',
+                                    value: '${streak.current}일',
+                                    theme: theme,
+                                    color: const Color(0xFFFF6B00),
+                                  )),
+                                  const SizedBox(width: 12),
+                                  Expanded(child: _StatCard(
+                                    icon: Icons.emoji_events,
+                                    label: '최장 스트릭',
+                                    value: '${streak.longest}일',
+                                    theme: theme,
+                                  )),
+                                  const SizedBox(width: 12),
+                                  Expanded(child: _StatCard(
+                                    icon: Icons.calendar_today,
+                                    label: '총 학습일',
+                                    value: '${streak.totalDays}일',
+                                    theme: theme,
+                                  )),
+                                ],
+                              ),
+                              loading: () => const SizedBox.shrink(),
+                              error: (_, __) => const SizedBox.shrink(),
+                            );
+                          }),
+                          const SizedBox(height: 24),
+                          Consumer(builder: (ctx, ref, _) {
+                            final journalAsync = ref.watch(journalEntriesProvider);
+                            return journalAsync.when(
+                              data: (entries) => LearningHeatmap(entries: entries),
+                              loading: () => const SizedBox.shrink(),
+                              error: (_, __) => const SizedBox.shrink(),
+                            );
+                          }),
                           const SizedBox(height: 32),
                           GestureDetector(
                             onTap: () => Navigator.of(context).push(MaterialPageRoute(

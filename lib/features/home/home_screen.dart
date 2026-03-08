@@ -10,6 +10,7 @@ import '../settings/settings_screen.dart';
 import '../shadowing/shadow_deck_screen.dart';
 import '../shadowing/shadow_deck_provider.dart';
 import '../conversation/conversation_screen.dart';
+import '../../core/services/streak_provider.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -139,6 +140,47 @@ class HomeScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
+                ),
+
+                const SizedBox(height: 16),
+                // Streak Card
+                Consumer(
+                  builder: (ctx, ref, _) {
+                    final streakAsync = ref.watch(streakDataProvider);
+                    return streakAsync.when(
+                      data: (streak) => streak.current == 0 ? const SizedBox.shrink() : Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              const Color(0xFFFF6B00).withValues(alpha: 0.15),
+                              const Color(0xFFFF6B00).withValues(alpha: 0.05),
+                            ],
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: const Color(0xFFFF6B00).withValues(alpha: 0.3)),
+                        ),
+                        child: Row(
+                          children: [
+                            const Text('🔥', style: TextStyle(fontSize: 28)),
+                            const SizedBox(width: 12),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('${streak.current}일 연속 학습 중!',
+                                  style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                                Text('최장 ${streak.longest}일 · 총 ${streak.totalDays}일 학습',
+                                  style: theme.textTheme.labelMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      loading: () => const SizedBox.shrink(),
+                      error: (_, __) => const SizedBox.shrink(),
+                    );
+                  },
                 ),
 
                 const SizedBox(height: 32),

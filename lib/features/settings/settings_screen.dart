@@ -8,6 +8,9 @@ import '../../core/services/secure_storage_service.dart';
 import '../../core/theme/app_theme.dart';
 import '../scanner/scanner_provider.dart';
 import 'api_key_settings_sheet.dart';
+import '../subscription/subscription_screen.dart';
+import '../subscription/subscription_provider.dart';
+import '../../core/services/subscription_service.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -134,6 +137,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
                     ),
                   ),
+                ),
+                const SizedBox(height: 32),
+                _SectionTitle(title: '구독', theme: theme),
+                const SizedBox(height: 12),
+                Consumer(
+                  builder: (ctx, ref, _) {
+                    final tierAsync = ref.watch(subscriptionTierProvider);
+                    return tierAsync.when(
+                      data: (tier) => _SettingsTile(
+                        icon: tier == SubscriptionTier.pro ? Icons.workspace_premium : Icons.person_outline,
+                        title: tier == SubscriptionTier.pro ? 'Pro 플랜 구독 중' : 'Free 플랜 사용 중',
+                        subtitle: tier == SubscriptionTier.pro
+                            ? '모든 기능 무제한 사용 가능'
+                            : 'AI 월 20회, 발음 연습 월 10회',
+                        theme: theme,
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => const SubscriptionScreen())),
+                      ),
+                      loading: () => const SizedBox.shrink(),
+                      error: (_, __) => const SizedBox.shrink(),
+                    );
+                  },
                 ),
                 const SizedBox(height: 32),
 
