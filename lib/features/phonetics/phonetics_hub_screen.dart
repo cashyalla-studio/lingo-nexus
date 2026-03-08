@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../minimal_pair/minimal_pair_screen.dart';
 import 'tts_practice_screen.dart';
+import 'pitch_accent_screen.dart';
+import 'kana_drill_screen.dart';
+import 'phonetics_quiz_screen.dart';
 
 class PhoneticsHubScreen extends ConsumerWidget {
   const PhoneticsHubScreen({super.key});
@@ -11,6 +14,14 @@ class PhoneticsHubScreen extends ConsumerWidget {
     final theme = Theme.of(context);
 
     final tools = [
+      _PhoneticsTool(
+        icon: Icons.quiz,
+        title: '발음 퀴즈',
+        description: 'IPA 발음기호 ↔ 단어 매칭 퀴즈\n스트릭 보너스 + 정확도 통계',
+        color: Colors.deepPurple,
+        onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (_) => const PhoneticsQuizScreen())),
+      ),
       _PhoneticsTool(
         icon: Icons.volume_up,
         title: 'TTS 발음 연습',
@@ -26,6 +37,22 @@ class PhoneticsHubScreen extends ConsumerWidget {
         color: Colors.orange,
         onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => const MinimalPairScreen())),
+      ),
+      _PhoneticsTool(
+        icon: Icons.graphic_eq,
+        title: '일본어 피치 악센트',
+        description: '同音異義語의 높낮이 패턴 시각화 훈련\n예: はし(箸/橋/端) 구별하기',
+        color: Colors.purple,
+        onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (_) => const PitchAccentScreen())),
+      ),
+      _PhoneticsTool(
+        icon: Icons.translate,
+        title: '히라가나 · 가타카나 드릴',
+        description: '모든 가나 문자를 탭하여 TTS 발음 청취\n50음도 전체 수록',
+        color: Colors.blue,
+        onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (_) => const KanaDrillScreen())),
       ),
     ];
 
@@ -151,9 +178,7 @@ class PhoneticsHubScreen extends ConsumerWidget {
                 fontWeight: FontWeight.w600)),
             const SizedBox(height: 12),
             ...[
-              ('일본어 피치 악센트', '高低アクセント 시각화 훈련', Icons.graphic_eq),
-              ('히라가나·가타카나 드릴', '문자별 TTS 발음 연습', Icons.translate),
-              ('스페인어 IPA', '스페인어 발음기호 + 연습', Icons.language),
+              ('스페인어 IPA', '스페인어 발음기호 + 연습 (준비 중)', Icons.language),
             ].map((item) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Container(
