@@ -5,6 +5,7 @@ import '../../core/models/study_item.dart';
 import '../../core/models/sync_item.dart';
 import '../../core/services/progress_service.dart';
 import '../../core/services/streak_service.dart';
+import '../../core/services/journal_service.dart';
 import '../scanner/scanner_provider.dart';
 import '../playlist/playlist_provider.dart';
 import 'audio_engine.dart';
@@ -121,11 +122,24 @@ final progressTrackingProvider = Provider<void>((ref) {
   bool streakRecorded = false;
   DateTime lastSave = DateTime.now();
 
+  // Track minutes for journal
+  int lastRecordedMinute = 0;
+
   final sub = engine.player.positionStream.listen((pos) {
     // Record streak on first meaningful play (after 10 seconds)
     if (!streakRecorded && pos.inSeconds >= 10) {
       streakRecorded = true;
       StreakService().recordStudyToday();
+    }
+
+    // Record journal every minute of listening
+    final currentMinute = pos.inMinutes;
+    if (currentMinute > lastRecordedMinute) {
+      lastRecordedMinute = currentMinute;
+      JournalService().recordActivity(
+        studiedTitle: item.title,
+        minutesStudied: 1,
+      );
     }
 
     final now = DateTime.now();

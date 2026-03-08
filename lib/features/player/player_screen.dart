@@ -15,6 +15,7 @@ import '../vocabulary/vocabulary_sheet.dart';
 import '../sync/auto_sync_setup_screen.dart';
 import '../../core/models/sync_item.dart';
 import '../clip/clip_editor_screen.dart';
+import '../active_recall/active_recall_screen.dart';
 import 'audio_engine.dart';
 import 'player_provider.dart';
 import 'widgets/animated_waveform.dart';
@@ -328,6 +329,37 @@ class PlayerScreen extends ConsumerWidget {
                       ),
                     ),
                   );
+                }),
+                const SizedBox(height: 12),
+                _buildMenuButton(context, Icons.psychology_outlined, '능동 회상 훈련', theme, () {
+                  Navigator.pop(context);
+                  final currentItem = ref.read(currentStudyItemProvider);
+                  if (currentItem == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('먼저 오디오 파일을 선택해주세요.')),
+                    );
+                    return;
+                  }
+                  final syncItemsForRecall = ref.read(currentSyncItemsProvider);
+                  SyncItem? matchingSyncItemForRecall;
+                  if (syncItemsForRecall.isNotEmpty) {
+                    try {
+                      matchingSyncItemForRecall = syncItemsForRecall.firstWhere(
+                        (s) => s.sentence.toLowerCase().contains(
+                          text.toLowerCase().substring(0, text.length.clamp(0, 15))),
+                      );
+                    } catch (_) {
+                      matchingSyncItemForRecall = syncItemsForRecall.first;
+                    }
+                  }
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => ActiveRecallScreen(
+                      sentence: text,
+                      audioPath: currentItem.audioPath,
+                      startTime: matchingSyncItemForRecall?.startTime,
+                      endTime: matchingSyncItemForRecall?.endTime,
+                    ),
+                  ));
                 }),
                 const SizedBox(height: 12),
                 _buildMenuButton(context, Icons.bookmark_add_outlined, '북마크 저장', theme, () async {
