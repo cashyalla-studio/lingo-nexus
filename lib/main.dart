@@ -4,6 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import 'core/theme/app_theme.dart';
 import 'core/services/file_open_service.dart';
+import 'core/services/temp_cleanup_service.dart';
 import 'features/intro/intro_screen.dart';
 import 'features/scanner/scanner_provider.dart';
 
@@ -63,6 +64,8 @@ class _AppInitState extends ConsumerState<_AppInit> with WidgetsBindingObserver 
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await ref.read(studyItemsProvider.notifier).initLibrary();
       await _checkPendingFile();
+      // 임시 파일 정리 (백그라운드)
+      TempCleanupService().cleanOldTempFiles();
     });
   }
 

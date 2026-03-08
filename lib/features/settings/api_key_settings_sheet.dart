@@ -28,13 +28,42 @@ class _ApiKeySettingsSheetState extends ConsumerState<ApiKeySettingsSheet> {
   }
 
   Future<void> _saveKeys() async {
+    // Validate: warn if all fields are empty
+    final googleKey = _googleController.text.trim();
+    final openAiKey = _openAiController.text.trim();
+    final claudeKey = _claudeController.text.trim();
+
+    if (googleKey.isEmpty && openAiKey.isEmpty && claudeKey.isEmpty) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('최소 하나의 API 키를 입력해 주세요.', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+      return;
+    }
+
+    // Validate key formats (basic length check)
+    if (openAiKey.isNotEmpty && (!openAiKey.startsWith('sk-') || openAiKey.length < 20)) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('OpenAI API 키 형식이 올바르지 않습니다. (sk- 로 시작해야 합니다)', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+            backgroundColor: Colors.orange,
+          ),
+        );
+      }
+      return;
+    }
+
     final storage = ref.read(secureStorageProvider);
-    await storage.saveGoogleApiKey(_googleController.text.trim());
-    await storage.saveOpenAiKey(_openAiController.text.trim());
-    await storage.saveClaudeKey(_claudeController.text.trim());
-    
+    await storage.saveGoogleApiKey(googleKey);
+    await storage.saveOpenAiKey(openAiKey);
+    await storage.saveClaudeKey(claudeKey);
+
     if (mounted) {
-      // 강제로 프로바이더 상태를 갱신하여 UI 전체에 새 키를 전파합니다.
       ref.invalidate(currentApiKeyProvider);
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(

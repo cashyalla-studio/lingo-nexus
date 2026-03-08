@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/models/sync_item.dart';
 import '../../core/providers/ai_provider.dart';
 import '../../core/services/secure_storage_service.dart';
+import '../../core/services/srt_parser_service.dart';
 
 final autoSyncServiceProvider = Provider((ref) {
   final storage = ref.watch(secureStorageProvider);
@@ -61,7 +63,7 @@ class AutoSyncService {
       contentType: MediaType.parse(mimeType),
     ));
 
-    final response = await request.send();
+    final response = await request.send().timeout(const Duration(seconds: 120));
     final body = await response.stream.bytesToString();
 
     if (response.statusCode != 200) throw Exception('Whisper 오류: $body');
@@ -84,7 +86,13 @@ class AutoSyncService {
     }).toList();
   }
 
+  /// SRT 파일을 직접 파싱하여 SyncItem 목록으로 변환합니다.
+  List<SyncItem> parseSrtSync(String srtContent) {
+    return SrtParserService().parse(srtContent);
+  }
+
   List<SyncItem> _fallbackSync(String fullText, Duration audioDuration) {
+    if (fullText.trim().isEmpty) return [];
     final RegExp sentenceRegex = RegExp(r'[^.!?]+[.!?]+');
     final matches = sentenceRegex.allMatches(fullText);
     List<String> sentences = matches.map((m) => m.group(0)!.trim()).toList();

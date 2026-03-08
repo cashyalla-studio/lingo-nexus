@@ -8,7 +8,19 @@
       "Bash(dart:*)",
       "Bash(flutter build:*)",
       "Bash(flutter:*)",
-      "Bash(./android/gradlew assembleDebug:*)"
+      "Bash(./android/gradlew assembleDebug:*)",
+      "Bash(wc:*)",
+      "Read(//c/Users/$USER/flutter/bin/**)",
+      "Bash(find /c /d -name \"flutter\" -type f)",
+      "Read(//c//**)",
+      "Read(//d//**)",
+      "Bash(cmd:*)",
+      "Bash(powershell:*)",
+      "Read(//c/src/flutter/**)",
+      "Read(//c/flutter/**)",
+      "Read(//d/flutter/**)",
+      "Read(//e/flutter/**)",
+      "Bash(git add:*)"
     ]
   }
 }

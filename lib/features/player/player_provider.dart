@@ -135,63 +135,67 @@ final progressTrackingProvider = Provider<void>((ref) {
 // 한 곡 재생이 완료되었을 때 다음 곡으로 자동 이동하는 프로바이더
 final autoPlayNextProvider = Provider<void>((ref) {
   final engine = ref.watch(audioEngineProvider);
-  
-  final sub = engine.player.playerStateStream.listen((state) {
+  bool isTransitioning = false;
+
+  final sub = engine.player.playerStateStream.listen((state) async {
     if (state.processingState == ProcessingState.completed) {
-      // LoopMode.one 인 경우 just_audio가 알아서 다시 재생하므로 무시
       if (engine.player.loopMode == LoopMode.one) return;
+      if (isTransitioning) return;
+      isTransitioning = true;
 
-      final currentItem = ref.read(currentStudyItemProvider);
-      final itemsAsync = ref.read(studyItemsProvider);
-      final currentPlaylistId = ref.read(currentPlaylistIdProvider);
-      final playlists = ref.read(playlistProvider);
-      
-      if (currentItem != null && itemsAsync is AsyncData<List<StudyItem>>) {
-        final allItems = itemsAsync.value;
-        if (allItems.isEmpty) return;
+      try {
+        final currentItem = ref.read(currentStudyItemProvider);
+        final itemsAsync = ref.read(studyItemsProvider);
+        final currentPlaylistId = ref.read(currentPlaylistIdProvider);
+        final playlists = ref.read(playlistProvider);
 
-        List<String> targetPaths = [];
-        
-        if (currentPlaylistId != null) {
-          // 플레이리스트 재생 중
-          final pl = playlists.firstWhere((p) => p.id == currentPlaylistId, orElse: () => Playlist(id: '', name: '', audioPaths: []));
-          targetPaths = pl.audioPaths;
-        } else {
-          // 전체 라이브러리 재생 중
-          targetPaths = allItems.map((i) => i.audioPath).toList();
-        }
+        if (currentItem != null && itemsAsync is AsyncData<List<StudyItem>>) {
+          final allItems = itemsAsync.value;
+          if (allItems.isEmpty) { isTransitioning = false; return; }
 
-        if (targetPaths.isEmpty) return;
+          List<String> targetPaths = [];
+          if (currentPlaylistId != null) {
+            final pl = playlists.firstWhere((p) => p.id == currentPlaylistId, orElse: () => Playlist(id: '', name: '', audioPaths: []));
+            targetPaths = pl.audioPaths;
+          } else {
+            targetPaths = allItems.map((i) => i.audioPath).toList();
+          }
 
-        final currentIndex = targetPaths.indexOf(currentItem.audioPath);
-        if (currentIndex != -1) {
-          int nextIndex = currentIndex + 1;
-          
-          // 마지막 곡일 때
-          if (nextIndex >= targetPaths.length) {
-            if (engine.player.loopMode == LoopMode.all) {
-              nextIndex = 0; // 처음으로 돌아감
-            } else {
-              return; // 반복이 아니면 정지
+          if (targetPaths.isEmpty) { isTransitioning = false; return; }
+
+          final currentIndex = targetPaths.indexOf(currentItem.audioPath);
+          if (currentIndex != -1) {
+            int nextIndex = currentIndex + 1;
+            if (nextIndex >= targetPaths.length) {
+              if (engine.player.loopMode == LoopMode.all) {
+                nextIndex = 0;
+              } else {
+                isTransitioning = false;
+                return;
+              }
+            }
+
+            final nextPath = targetPaths[nextIndex];
+            final nextItem = allItems.firstWhere((i) => i.audioPath == nextPath, orElse: () => allItems.first);
+
+            // Only proceed if item hasn't changed since we started
+            if (ref.read(currentStudyItemProvider) == currentItem) {
+              ref.read(currentStudyItemProvider.notifier).state = nextItem;
+              ref.read(currentSyncItemsProvider.notifier).state = nextItem.syncItems ?? [];
+
+              await engine.loadFile(nextItem.audioPath);
+              engine.player.play();
+              final progressService = ref.read(progressServiceProvider);
+              final spd = await progressService.loadSpeed(nextItem.audioPath);
+              engine.setSpeed(spd);
             }
           }
-          
-          final nextPath = targetPaths[nextIndex];
-          final nextItem = allItems.firstWhere((i) => i.audioPath == nextPath, orElse: () => allItems.first);
-
-          ref.read(currentStudyItemProvider.notifier).state = nextItem;
-          ref.read(currentSyncItemsProvider.notifier).state = nextItem.syncItems ?? [];
-          
-          engine.loadFile(nextItem.audioPath).then((_) {
-            engine.player.play();
-            // Restore speed
-            final progressService = ref.read(progressServiceProvider);
-            progressService.loadSpeed(nextItem.audioPath).then((spd) => engine.setSpeed(spd));
-          });
         }
+      } finally {
+        isTransitioning = false;
       }
     }
   });
-  
+
   ref.onDispose(() => sub.cancel());
 });

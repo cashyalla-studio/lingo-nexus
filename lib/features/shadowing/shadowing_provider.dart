@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:math' as math;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -111,10 +112,11 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
         contentType: MediaType.parse('audio/mp4'),
       ));
 
-      final response = await request.send();
-      final body = await response.stream.bytesToString();
+      final streamedResponse = await request.send()
+          .timeout(const Duration(seconds: 60));
+      final body = await streamedResponse.stream.bytesToString();
 
-      if (response.statusCode == 200) {
+      if (streamedResponse.statusCode == 200) {
         final transcription = jsonDecode(body)['text'] as String;
         _score = _calculateScore(originalText, transcription);
       } else {
