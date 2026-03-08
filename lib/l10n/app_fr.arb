@@ -33,5 +33,8 @@
   "intonation": "Intonation",
   "fluency": "Fluidité",
   "syncCompleted": "Auto-sync terminée !",
-  "noContentFound": "Aucun contenu trouvé. Appuyez sur l'icône du dossier."
+  "noContentFound": "Aucun contenu trouvé. Appuyez sur l'icône du dossier.",
+  "selectFile": "Sélectionner un fichier",
+  "noScriptFile": "Fichier de script introuvable.",
+  "noScriptHint": "Ajoutez un fichier .txt portant le même nom que l'audio dans le même dossier."
 }

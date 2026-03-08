@@ -114,4 +114,14 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get noContentFound =>
       'Kein Inhalt gefunden. Tippen Sie auf das Ordnersymbol.';
+
+  @override
+  String get selectFile => 'Datei auswählen';
+
+  @override
+  String get noScriptFile => 'Keine Skriptdatei gefunden.';
+
+  @override
+  String get noScriptHint =>
+      'Fügen Sie eine .txt-Datei mit demselben Namen wie die Audiodatei im gleichen Ordner hinzu.';
 }

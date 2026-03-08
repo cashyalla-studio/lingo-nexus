@@ -33,5 +33,8 @@
   "intonation": "Intonation",
   "fluency": "Flüssigkeit",
   "syncCompleted": "Auto-Sync abgeschlossen!",
-  "noContentFound": "Kein Inhalt gefunden. Tippen Sie auf das Ordnersymbol."
+  "noContentFound": "Kein Inhalt gefunden. Tippen Sie auf das Ordnersymbol.",
+  "selectFile": "Datei auswählen",
+  "noScriptFile": "Keine Skriptdatei gefunden.",
+  "noScriptHint": "Fügen Sie eine .txt-Datei mit demselben Namen wie die Audiodatei im gleichen Ordner hinzu."
 }

@@ -114,4 +114,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noContentFound =>
       'لم يتم العثور على محتوى. اضغط على أيقونة المجلد للاستيراد.';
+
+  @override
+  String get selectFile => 'اختر ملفاً';
+
+  @override
+  String get noScriptFile => 'لم يتم العثور على ملف النص.';
+
+  @override
+  String get noScriptHint => 'أضف ملف .txt بنفس اسم الصوت في نفس المجلد.';
 }

@@ -114,4 +114,14 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get noContentFound =>
       'Nenhum conteúdo encontrado. Toque no ícone da pasta.';
+
+  @override
+  String get selectFile => 'Selecione um arquivo';
+
+  @override
+  String get noScriptFile => 'Arquivo de roteiro não encontrado.';
+
+  @override
+  String get noScriptHint =>
+      'Adicione um arquivo .txt com o mesmo nome do áudio na mesma pasta.';
 }

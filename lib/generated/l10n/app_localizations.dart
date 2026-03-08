@@ -317,6 +317,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No content found. Tap the folder icon to import.'**
   String get noContentFound;
+
+  /// No description provided for @selectFile.
+  ///
+  /// In en, this message translates to:
+  /// **'Select a file'**
+  String get selectFile;
+
+  /// No description provided for @noScriptFile.
+  ///
+  /// In en, this message translates to:
+  /// **'No script file found.'**
+  String get noScriptFile;
+
+  /// No description provided for @noScriptHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a .txt file with the same name as the audio in the same folder.'**
+  String get noScriptHint;
 }
 
 class _AppLocalizationsDelegate

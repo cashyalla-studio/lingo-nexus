@@ -33,5 +33,8 @@
   "intonation": "Entonación",
   "fluency": "Fluidez",
   "syncCompleted": "¡Sincronización completada!",
-  "noContentFound": "No se encontró contenido. Toca el icono de la carpeta."
+  "noContentFound": "No se encontró contenido. Toca el icono de la carpeta.",
+  "selectFile": "Selecciona un archivo",
+  "noScriptFile": "No se encontró el archivo de guión.",
+  "noScriptHint": "Agrega un archivo .txt con el mismo nombre que el audio en la misma carpeta."
 }

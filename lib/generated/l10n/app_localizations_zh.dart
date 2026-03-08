@@ -109,4 +109,13 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get noContentFound => '未找到内容。点击文件夹图标进行导入。';
+
+  @override
+  String get selectFile => '请选择文件';
+
+  @override
+  String get noScriptFile => '未找到脚本文件。';
+
+  @override
+  String get noScriptHint => '请在同一文件夹中添加与音频同名的 .txt 文件。';
 }

@@ -33,5 +33,8 @@
   "intonation": "语调",
   "fluency": "流利度",
   "syncCompleted": "自动同步完成！",
-  "noContentFound": "未找到内容。点击文件夹图标进行导入。"
+  "noContentFound": "未找到内容。点击文件夹图标进行导入。",
+  "selectFile": "请选择文件",
+  "noScriptFile": "未找到脚本文件。",
+  "noScriptHint": "请在同一文件夹中添加与音频同名的 .txt 文件。"
 }

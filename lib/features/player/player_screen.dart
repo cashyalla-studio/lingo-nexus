@@ -60,7 +60,7 @@ class PlayerScreen extends ConsumerWidget {
           child: Column(
             children: [
               Text(
-                currentItem?.title ?? l10n.appTitle,
+                currentItem?.title ?? l10n.selectFile,
                 style: theme.textTheme.titleLarge,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -117,10 +117,14 @@ class PlayerScreen extends ConsumerWidget {
               Expanded(
                 child: scriptAsync.when(
                   data: (text) {
-                    if (text.isEmpty && currentItem == null) {
+                    if (currentItem == null) {
                       return _buildEmptyState(context, ref);
                     }
-                    
+
+                    if (currentItem.scriptPath == null) {
+                      return _buildNoScriptState(context);
+                    }
+
                     // 임시 문장 분리 로직 (추후 STT LRC로 교체)
                     final sentences = text.split(RegExp(r'(?<=[.!?])\s+')).where((s) => s.isNotEmpty).toList();
                     if (sentences.isEmpty) {
@@ -296,7 +300,7 @@ class PlayerScreen extends ConsumerWidget {
                   Navigator.of(context).push(MaterialPageRoute(
                     builder: (_) => ScribeModeScreen(
                       originalText: text,
-                      audioPath: currentItem!.audioPath,
+                      audioPath: currentItem.audioPath,
                       startTime: matchingSyncItem?.startTime ?? Duration.zero,
                       endTime: matchingSyncItem?.endTime ?? const Duration(seconds: 10),
                     ),
@@ -421,6 +425,34 @@ class PlayerScreen extends ConsumerWidget {
             Text(label, style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500)),
             const Spacer(),
             Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildNoScriptState(BuildContext context) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(32.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.article_outlined, size: 48, color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4)),
+            const SizedBox(height: 16),
+            Text(
+              l10n.noScriptFile,
+              style: theme.textTheme.titleMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.noScriptHint,
+              style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.7)),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
       ),
@@ -570,9 +602,10 @@ class PlayerBottomBar extends ConsumerWidget {
         ? (position.inMilliseconds / duration.inMilliseconds).clamp(0.0, 1.0)
         : 0.0;
     final abLoop = ref.watch(abLoopProvider);
+    final bottomInset = MediaQuery.of(context).viewPadding.bottom;
 
     return Container(
-      padding: EdgeInsets.fromLTRB(horizontalPadding, 0, horizontalPadding, 32),
+      padding: EdgeInsets.fromLTRB(horizontalPadding, 0, horizontalPadding, 16 + bottomInset),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         boxShadow: [
@@ -638,7 +671,7 @@ class PlayerBottomBar extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(icon: const Icon(Icons.replay_10, size: 36), onPressed: () => engine.skipBackward()),
+              IconButton(icon: const Icon(Icons.replay_10, size: 36), onPressed: hasItem ? () => engine.skipBackward() : null),
               const SizedBox(width: 24),
               // 중앙 거대 재생 버튼
               GestureDetector(
@@ -666,7 +699,7 @@ class PlayerBottomBar extends ConsumerWidget {
                 ),
               ),
               const SizedBox(width: 24),
-              IconButton(icon: const Icon(Icons.forward_10, size: 36), onPressed: () => engine.skipForward()),
+              IconButton(icon: const Icon(Icons.forward_10, size: 36), onPressed: hasItem ? () => engine.skipForward() : null),
             ],
           ),
           const SizedBox(height: 16),

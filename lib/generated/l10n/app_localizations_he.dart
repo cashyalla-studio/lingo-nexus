@@ -113,4 +113,14 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get noContentFound => 'לא נמצא תוכן. הקש על סמל התיקייה לייבוא.';
+
+  @override
+  String get selectFile => 'בחר קובץ';
+
+  @override
+  String get noScriptFile => 'קובץ תמליל לא נמצא.';
+
+  @override
+  String get noScriptHint =>
+      'הוסף קובץ .txt עם אותו שם כמו האודיו באותה תיקייה.';
 }

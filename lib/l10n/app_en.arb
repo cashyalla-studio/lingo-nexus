@@ -33,5 +33,8 @@
   "intonation": "Intonation",
   "fluency": "Fluency",
   "syncCompleted": "Auto-Sync Completed!",
-  "noContentFound": "No content found. Tap the folder icon to import."
+  "noContentFound": "No content found. Tap the folder icon to import.",
+  "selectFile": "Select a file",
+  "noScriptFile": "No script file found.",
+  "noScriptHint": "Add a .txt file with the same name as the audio in the same folder."
 }

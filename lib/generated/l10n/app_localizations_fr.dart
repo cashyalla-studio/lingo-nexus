@@ -115,4 +115,14 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get noContentFound =>
       'Aucun contenu trouvé. Appuyez sur l\'icône du dossier.';
+
+  @override
+  String get selectFile => 'Sélectionner un fichier';
+
+  @override
+  String get noScriptFile => 'Fichier de script introuvable.';
+
+  @override
+  String get noScriptHint =>
+      'Ajoutez un fichier .txt portant le même nom que l\'audio dans le même dossier.';
 }

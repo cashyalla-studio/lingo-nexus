@@ -33,5 +33,8 @@
   "intonation": "Entonação",
   "fluency": "Fluência",
   "syncCompleted": "Sincronização concluída!",
-  "noContentFound": "Nenhum conteúdo encontrado. Toque no ícone da pasta."
+  "noContentFound": "Nenhum conteúdo encontrado. Toque no ícone da pasta.",
+  "selectFile": "Selecione um arquivo",
+  "noScriptFile": "Arquivo de roteiro não encontrado.",
+  "noScriptHint": "Adicione um arquivo .txt com o mesmo nome do áudio na mesma pasta."
 }

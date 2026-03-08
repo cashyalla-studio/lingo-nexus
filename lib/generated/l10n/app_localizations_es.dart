@@ -114,4 +114,14 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get noContentFound =>
       'No se encontró contenido. Toca el icono de la carpeta.';
+
+  @override
+  String get selectFile => 'Selecciona un archivo';
+
+  @override
+  String get noScriptFile => 'No se encontró el archivo de guión.';
+
+  @override
+  String get noScriptHint =>
+      'Agrega un archivo .txt con el mismo nombre que el audio en la misma carpeta.';
 }

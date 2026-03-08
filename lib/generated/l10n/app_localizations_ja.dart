@@ -109,4 +109,13 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get noContentFound => 'コンテンツが見つかりません。フォルダアイコンをタップしてインポートしてください。';
+
+  @override
+  String get selectFile => 'ファイルを選択してください';
+
+  @override
+  String get noScriptFile => 'スクリプトファイルが見つかりません。';
+
+  @override
+  String get noScriptHint => '音声と同じ名前の .txt ファイルを同じフォルダに追加してください。';
 }

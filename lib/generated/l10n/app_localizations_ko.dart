@@ -109,4 +109,13 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get noContentFound => '콘텐츠가 없습니다. 폴더 아이콘을 눌러 추가하세요.';
+
+  @override
+  String get selectFile => '파일을 선택하세요';
+
+  @override
+  String get noScriptFile => '대본 파일이 없습니다.';
+
+  @override
+  String get noScriptHint => '오디오와 같은 이름의 .txt 파일을 같은 폴더에 넣어주세요.';
 }

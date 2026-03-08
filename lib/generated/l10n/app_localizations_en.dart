@@ -114,4 +114,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noContentFound =>
       'No content found. Tap the folder icon to import.';
+
+  @override
+  String get selectFile => 'Select a file';
+
+  @override
+  String get noScriptFile => 'No script file found.';
+
+  @override
+  String get noScriptHint =>
+      'Add a .txt file with the same name as the audio in the same folder.';
 }
