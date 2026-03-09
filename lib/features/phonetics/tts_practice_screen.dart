@@ -156,7 +156,9 @@ class _TtsPracticeScreenState extends ConsumerState<TtsPracticeScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Column(
+      body: SafeArea(
+        top: false,
+        child: Column(
         children: [
           // Language toggle
           Padding(
@@ -412,6 +414,7 @@ class _TtsPracticeScreenState extends ConsumerState<TtsPracticeScreen> {
                   ),
           ),
         ],
+        ),
       ),
     );
   }

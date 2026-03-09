@@ -47,7 +47,9 @@ class _KanaDrillScreenState extends ConsumerState<KanaDrillScreen>
           indicatorColor: theme.colorScheme.primary,
         ),
       ),
-      body: Column(
+      body: SafeArea(
+        top: false,
+        child: Column(
         children: [
           if (_lastSpoken != null)
             Padding(
@@ -73,6 +75,7 @@ class _KanaDrillScreenState extends ConsumerState<KanaDrillScreen>
             ),
           ),
         ],
+        ),
       ),
     );
   }

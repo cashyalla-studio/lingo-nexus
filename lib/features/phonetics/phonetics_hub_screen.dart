@@ -63,7 +63,9 @@ class PhoneticsHubScreen extends ConsumerWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
+      body: SafeArea(
+        top: false,
+        child: SingleChildScrollView(
         padding: const EdgeInsets.all(24),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -222,6 +224,7 @@ class PhoneticsHubScreen extends ConsumerWidget {
               ),
             )),
           ],
+        ),
         ),
       ),
     );

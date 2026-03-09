@@ -49,16 +49,19 @@ class _MinimalPairScreenState extends ConsumerState<MinimalPairScreen>
           indicatorColor: theme.colorScheme.primary,
         ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: _languages.map((language) {
-          final sets = MinimalPairData.getAllForLanguage(language);
-          return ListView.builder(
-            padding: const EdgeInsets.all(16),
-            itemCount: sets.length,
-            itemBuilder: (ctx, i) => _PhonemeSetCard(pairSet: sets[i], theme: theme),
-          );
-        }).toList(),
+      body: SafeArea(
+        top: false,
+        child: TabBarView(
+          controller: _tabController,
+          children: _languages.map((language) {
+            final sets = MinimalPairData.getAllForLanguage(language);
+            return ListView.builder(
+              padding: const EdgeInsets.all(16),
+              itemCount: sets.length,
+              itemBuilder: (ctx, i) => _PhonemeSetCard(pairSet: sets[i], theme: theme),
+            );
+          }).toList(),
+        ),
       ),
     );
   }

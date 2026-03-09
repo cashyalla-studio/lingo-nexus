@@ -50,7 +50,9 @@ class _PitchAccentScreenState extends ConsumerState<PitchAccentScreen> {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: Padding(
+      body: SafeArea(
+        top: false,
+        child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
@@ -179,6 +181,7 @@ class _PitchAccentScreenState extends ConsumerState<PitchAccentScreen> {
               ],
             ),
           ],
+        ),
         ),
       ),
     );

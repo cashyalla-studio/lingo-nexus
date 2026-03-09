@@ -106,7 +106,9 @@ class _PhoneticsQuizScreenState extends ConsumerState<PhoneticsQuizScreen> {
           ),
         ],
       ),
-      body: Padding(
+      body: SafeArea(
+        top: false,
+        child: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
@@ -265,6 +267,7 @@ class _PhoneticsQuizScreenState extends ConsumerState<PhoneticsQuizScreen> {
                     fontSize: 16)),
               ),
           ],
+        ),
         ),
       ),
     );
