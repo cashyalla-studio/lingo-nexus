@@ -82,6 +82,22 @@ class ProgressService {
     }
   }
 
+  Future<void> saveLanguage(String audioPath, String? language) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = _sanitizeKey(audioPath);
+    if (language == null) {
+      await prefs.remove('progress_lang_$key');
+    } else {
+      await prefs.setString('progress_lang_$key', language);
+    }
+  }
+
+  Future<String?> loadLanguage(String audioPath) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = _sanitizeKey(audioPath);
+    return prefs.getString('progress_lang_$key');
+  }
+
   String _sanitizeKey(String path) {
     return path.replaceAll(RegExp(r'[^a-zA-Z0-9]'), '_');
   }

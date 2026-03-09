@@ -190,6 +190,20 @@ class StudyItemsNotifier extends StateNotifier<AsyncValue<List<StudyItem>>> {
     return [...current, ...newOnly];
   }
 
+  /// 아이템에 학습 언어를 설정하고 저장합니다.
+  Future<void> setItemLanguage(String audioPath, String? language) async {
+    await _progress.saveLanguage(audioPath, language);
+    final current = state.value;
+    if (current == null) return;
+    state = AsyncValue.data([
+      for (final item in current)
+        if (item.audioPath == audioPath)
+          item.copyWith(language: language)
+        else
+          item,
+    ]);
+  }
+
   Future<void> _loadProgress(List<StudyItem> items) async {
     for (final item in items) {
       final prog = await _progress.loadProgress(item.audioPath);
@@ -200,6 +214,7 @@ class StudyItemsNotifier extends StateNotifier<AsyncValue<List<StudyItem>>> {
       if (syncItems != null) {
         item.syncItems = syncItems;
       }
+      item.language = await _progress.loadLanguage(item.audioPath);
     }
   }
 }

@@ -11,6 +11,8 @@ class StudyItem {
   DateTime? lastPlayedAt;
   Duration? totalDuration;
   List<SyncItem>? syncItems;
+  /// 학습 언어 코드 (예: 'ko', 'en', 'ja'). null이면 미설정.
+  String? language;
 
   StudyItem({
     required this.title,
@@ -21,6 +23,7 @@ class StudyItem {
     this.lastPlayedAt,
     this.totalDuration,
     this.syncItems,
+    this.language,
   });
 
   StudyItem copyWith({
@@ -32,6 +35,7 @@ class StudyItem {
     DateTime? lastPlayedAt,
     Duration? totalDuration,
     List<SyncItem>? syncItems,
+    String? language,
   }) {
     return StudyItem(
       title: title ?? this.title,
@@ -42,6 +46,7 @@ class StudyItem {
       lastPlayedAt: lastPlayedAt ?? this.lastPlayedAt,
       totalDuration: totalDuration ?? this.totalDuration,
       syncItems: syncItems ?? this.syncItems,
+      language: language ?? this.language,
     );
   }
 
