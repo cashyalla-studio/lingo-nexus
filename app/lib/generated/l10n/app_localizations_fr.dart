@@ -606,4 +606,211 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get heatmapMore => 'Plus';
+
+  @override
+  String get loginSubtitle =>
+      'Améliorez vos compétences linguistiques avec l\'IA';
+
+  @override
+  String get loginWithGoogle => 'Continuer avec Google';
+
+  @override
+  String get loginFeatureAi =>
+      'Tuteur IA en grammaire, vocabulaire et conversation (gratuit)';
+
+  @override
+  String get loginFeaturePronunciation =>
+      'Évaluation de la prononciation et des tons';
+
+  @override
+  String get loginFeatureSync =>
+      'Synchronisation automatique IA — générez des scripts depuis l\'audio';
+
+  @override
+  String get loginFeatureFree =>
+      '3 minutes de traitement audio IA gratuit par jour';
+
+  @override
+  String get loginLegalPrefix => 'En continuant, vous acceptez nos ';
+
+  @override
+  String get loginTermsLink => 'Conditions d\'utilisation';
+
+  @override
+  String get loginLegalAnd => 'et notre';
+
+  @override
+  String get loginPrivacyLink => 'Politique de confidentialité';
+
+  @override
+  String get loginLegalSuffix => '.';
+
+  @override
+  String get settingsSectionAccount => 'Compte';
+
+  @override
+  String get settingsLogin => 'Se connecter';
+
+  @override
+  String get settingsLoginSubtitle =>
+      'Connectez-vous pour utiliser les fonctions IA';
+
+  @override
+  String get settingsSectionCredits => 'Crédits et abonnement';
+
+  @override
+  String get settingsCreditsSubtitle =>
+      'Gérer les crédits audio IA et les plans';
+
+  @override
+  String get settingsLogout => 'Se déconnecter';
+
+  @override
+  String get settingsLogoutDialogTitle => 'Se déconnecter';
+
+  @override
+  String get settingsLogoutDialogContent =>
+      'Êtes-vous sûr de vouloir vous déconnecter ?';
+
+  @override
+  String get settingsSectionLegal => 'Mentions légales';
+
+  @override
+  String get settingsTermsSubtitle => 'Voir nos conditions d\'utilisation';
+
+  @override
+  String get settingsPrivacySubtitle => 'Comment nous gérons vos données';
+
+  @override
+  String get creditsTitle => 'Crédits';
+
+  @override
+  String get creditsDailyFree => 'Quota gratuit du jour';
+
+  @override
+  String get creditsMinRemaining => 'min restantes';
+
+  @override
+  String get creditsDailyResets => 'Réinitialisé à minuit';
+
+  @override
+  String get creditsPurchasedCredits => 'Crédits achetés';
+
+  @override
+  String get creditsMinutes => 'min';
+
+  @override
+  String get creditsSubscriptionActive => 'abonnement actif';
+
+  @override
+  String get creditsSubscriptionsTitle => 'Plans d\'abonnement';
+
+  @override
+  String get creditsMostPopular => 'Populaire';
+
+  @override
+  String get creditsPerMonth => '/ mois';
+
+  @override
+  String get creditPacksTitle => 'Packs de crédits';
+
+  @override
+  String get creditPacksSubtitle => 'Achat unique, sans expiration';
+
+  @override
+  String get creditsLoadError =>
+      'Échec du chargement des informations de crédit.';
+
+  @override
+  String get creditsPaymentComingSoon =>
+      'Système de paiement bientôt disponible';
+
+  @override
+  String get termsTitle => 'Conditions d\'utilisation';
+
+  @override
+  String get termsLastUpdated => 'Dernière mise à jour : mars 2025';
+
+  @override
+  String get termsSec1Title => '1. Présentation du service';
+
+  @override
+  String get termsSec1Body =>
+      'LingoNexus est une plateforme d\'apprentissage des langues propulsée par l\'IA. Ces conditions régissent votre utilisation du service.';
+
+  @override
+  String get termsSec2Title => '2. Compte et authentification';
+
+  @override
+  String get termsSec2Body =>
+      'Vous devez vous connecter avec un compte Google pour utiliser les fonctions IA. Vous êtes responsable de la sécurité de votre compte.';
+
+  @override
+  String get termsSec3Title => '3. Crédits et paiement';
+
+  @override
+  String get termsSec3Body =>
+      'Le traitement audio IA consomme des crédits. 3 minutes d\'utilisation gratuite sont fournies quotidiennement. Les crédits achetés ne sont pas remboursables.';
+
+  @override
+  String get termsSec4Title => '4. Restrictions d\'utilisation';
+
+  @override
+  String get termsSec4Body =>
+      'L\'abus du service ou l\'utilisation automatisée excessive est interdit. Limite de 10 minutes par téléchargement.';
+
+  @override
+  String get termsSec5Title => '5. Propriété intellectuelle';
+
+  @override
+  String get termsSec5Body =>
+      'Le droit d\'auteur du contenu téléchargé appartient à l\'utilisateur. Les résultats IA sont uniquement à titre de référence.';
+
+  @override
+  String get termsSec6Title => '6. Avertissement';
+
+  @override
+  String get termsSec6Body =>
+      'Nous ne garantissons pas l\'exactitude des résultats IA. Les conditions peuvent changer avec préavis.';
+
+  @override
+  String get privacyTitle => 'Politique de confidentialité';
+
+  @override
+  String get privacyLastUpdated => 'Dernière mise à jour : mars 2025';
+
+  @override
+  String get privacySec1Title => '1. Informations collectées';
+
+  @override
+  String get privacySec1Body =>
+      'Lors de la connexion avec Google, nous collectons votre e-mail, nom et photo de profil. Les données audio ne sont pas stockées sur nos serveurs.';
+
+  @override
+  String get privacySec2Title => '2. Utilisation de vos informations';
+
+  @override
+  String get privacySec2Body =>
+      'Les informations sont utilisées exclusivement pour la prestation du service et la gestion des crédits. Nous ne vendons pas d\'informations personnelles.';
+
+  @override
+  String get privacySec3Title => '3. Sécurité des données';
+
+  @override
+  String get privacySec3Body =>
+      'Les jetons d\'authentification sont stockés dans le stockage chiffré de l\'appareil. Les données du serveur sont chiffrées au repos.';
+
+  @override
+  String get privacySec4Title => '4. Services tiers';
+
+  @override
+  String get privacySec4Body =>
+      'Nous utilisons Google Sign-In, Google Gemini API et Alibaba Qwen API.';
+
+  @override
+  String get privacySec5Title => '5. Vos droits';
+
+  @override
+  String get privacySec5Body =>
+      'Vous pouvez demander la suppression de votre compte à tout moment. Contact : support@lingonexus.app';
 }

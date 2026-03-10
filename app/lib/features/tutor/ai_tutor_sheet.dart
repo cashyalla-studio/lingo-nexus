@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/models/chat_message.dart';
-import '../../core/providers/ai_provider.dart';
 import 'tutor_provider.dart';
 
 class AiTutorBottomSheet extends ConsumerStatefulWidget {
@@ -74,7 +73,6 @@ class _AiTutorBottomSheetState extends ConsumerState<AiTutorBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    final activeAi = ref.watch(activeAiProvider);
     final grammarAsync = ref.watch(grammarExplanationProvider(widget.sentence));
     final chatHistory = ref.watch(chatHistoryProvider);
 
@@ -93,11 +91,7 @@ class _AiTutorBottomSheetState extends ConsumerState<AiTutorBottomSheet> {
       }
     });
 
-    final aiIcon = switch (activeAi) {
-      AiProviderType.openai => Icons.psychology,
-      AiProviderType.google => Icons.auto_awesome,
-      AiProviderType.claude => Icons.memory,
-    };
+    const aiIcon = Icons.auto_awesome;
 
     return Container(
       decoration: BoxDecoration(

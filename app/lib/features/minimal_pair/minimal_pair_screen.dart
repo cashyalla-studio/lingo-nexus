@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/providers/ai_provider.dart';
+import '../../core/services/llm_service.dart';
 import '../tutor/tutor_provider.dart';
 import 'minimal_pair_data.dart';
 import '../phonetics/tts_service.dart';
@@ -240,19 +240,10 @@ class _PhonemeSetCardState extends ConsumerState<_PhonemeSetCard> {
 
   Future<void> _loadAiExplanation() async {
     setState(() => _loadingAi = true);
-    final activeAi = ref.read(activeAiProvider);
-    final apiKey = await ref.read(currentApiKeyProvider.future);
-    if (apiKey == null || apiKey.isEmpty) {
-      setState(() {
-        _aiExplanation = "API 키를 설정해야 AI 설명을 받을 수 있습니다.";
-        _loadingAi = false;
-      });
-      return;
-    }
     final service = ref.read(llmServiceProvider);
-    final prompt =
-        "${widget.pairSet.phonemeA} vs ${widget.pairSet.phonemeB} in ${widget.pairSet.language}: ${widget.pairSet.description}\n\nExamples: ${widget.pairSet.pairs.map((p) => '${p.wordA} / ${p.wordB}').join(', ')}\n\nPlease explain in Korean: 1) exact mouth/tongue position for each sound, 2) the key perceptual difference to listen for, 3) a memory tip.";
-    final result = await service.askGrammar(activeAi, apiKey, prompt);
+    final sentence =
+        "${widget.pairSet.phonemeA} vs ${widget.pairSet.phonemeB} in ${widget.pairSet.language}: ${widget.pairSet.description}. Examples: ${widget.pairSet.pairs.map((p) => '${p.wordA} / ${p.wordB}').join(', ')}. Explain: 1) exact mouth/tongue position for each sound, 2) the key perceptual difference, 3) a memory tip.";
+    final result = await service.askGrammar(sentence);
     if (mounted) setState(() {
       _aiExplanation = result;
       _loadingAi = false;

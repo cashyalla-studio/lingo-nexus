@@ -568,4 +568,191 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get heatmapMore => '多';
+
+  @override
+  String get loginSubtitle => '用AI快速提升语言能力';
+
+  @override
+  String get loginWithGoogle => '使用Google继续';
+
+  @override
+  String get loginFeatureAi => 'AI语法、词汇和对话辅导（免费）';
+
+  @override
+  String get loginFeaturePronunciation => '发音和声调评估';
+
+  @override
+  String get loginFeatureSync => 'AI自动同步 — 从音频自动生成文本';
+
+  @override
+  String get loginFeatureFree => '每天3分钟免费AI音频处理';
+
+  @override
+  String get loginLegalPrefix => '继续即表示您同意我们的';
+
+  @override
+  String get loginTermsLink => '服务条款';
+
+  @override
+  String get loginLegalAnd => '和';
+
+  @override
+  String get loginPrivacyLink => '隐私政策';
+
+  @override
+  String get loginLegalSuffix => '。';
+
+  @override
+  String get settingsSectionAccount => '账户';
+
+  @override
+  String get settingsLogin => '登录';
+
+  @override
+  String get settingsLoginSubtitle => '登录以使用AI功能';
+
+  @override
+  String get settingsSectionCredits => '积分与订阅';
+
+  @override
+  String get settingsCreditsSubtitle => '管理AI音频积分和方案';
+
+  @override
+  String get settingsLogout => '退出登录';
+
+  @override
+  String get settingsLogoutDialogTitle => '退出登录';
+
+  @override
+  String get settingsLogoutDialogContent => '确定要退出登录吗？';
+
+  @override
+  String get settingsSectionLegal => '法律信息';
+
+  @override
+  String get settingsTermsSubtitle => '查看服务条款';
+
+  @override
+  String get settingsPrivacySubtitle => '了解我们如何处理您的数据';
+
+  @override
+  String get creditsTitle => '积分';
+
+  @override
+  String get creditsDailyFree => '今日免费额度';
+
+  @override
+  String get creditsMinRemaining => '分钟剩余';
+
+  @override
+  String get creditsDailyResets => '每天午夜重置';
+
+  @override
+  String get creditsPurchasedCredits => '已购积分';
+
+  @override
+  String get creditsMinutes => '分钟';
+
+  @override
+  String get creditsSubscriptionActive => '订阅激活';
+
+  @override
+  String get creditsSubscriptionsTitle => '订阅方案';
+
+  @override
+  String get creditsMostPopular => '热门';
+
+  @override
+  String get creditsPerMonth => '/ 月';
+
+  @override
+  String get creditPacksTitle => '积分包';
+
+  @override
+  String get creditPacksSubtitle => '一次性购买，永不过期';
+
+  @override
+  String get creditsLoadError => '无法加载积分信息。';
+
+  @override
+  String get creditsPaymentComingSoon => '支付系统即将上线';
+
+  @override
+  String get termsTitle => '服务条款';
+
+  @override
+  String get termsLastUpdated => '最后更新：2025年3月';
+
+  @override
+  String get termsSec1Title => '1. 服务概述';
+
+  @override
+  String get termsSec1Body => 'LingoNexus是一个基于AI的语言学习平台。本条款规定了服务使用条件。';
+
+  @override
+  String get termsSec2Title => '2. 账户与认证';
+
+  @override
+  String get termsSec2Body => '使用AI功能需要使用Google账户登录。您有责任保护账户安全。';
+
+  @override
+  String get termsSec3Title => '3. 积分与付款';
+
+  @override
+  String get termsSec3Body => 'AI音频处理会消耗积分。每天提供3分钟免费额度。已购积分不予退款。';
+
+  @override
+  String get termsSec4Title => '4. 使用限制';
+
+  @override
+  String get termsSec4Body => '禁止滥用服务或自动化过度使用。单次上传最长10分钟。';
+
+  @override
+  String get termsSec5Title => '5. 知识产权';
+
+  @override
+  String get termsSec5Body => '用户上传内容的版权归用户所有。AI结果仅供参考。';
+
+  @override
+  String get termsSec6Title => '6. 免责声明';
+
+  @override
+  String get termsSec6Body => '我们不保证AI结果的准确性。条款可能在提前通知的情况下更改。';
+
+  @override
+  String get privacyTitle => '隐私政策';
+
+  @override
+  String get privacyLastUpdated => '最后更新：2025年3月';
+
+  @override
+  String get privacySec1Title => '1. 收集的信息';
+
+  @override
+  String get privacySec1Body => 'Google登录时收集邮箱、姓名和头像。音频数据不存储在服务器上。';
+
+  @override
+  String get privacySec2Title => '2. 信息使用目的';
+
+  @override
+  String get privacySec2Body => '收集的信息仅用于服务提供和积分管理。我们不出售个人信息。';
+
+  @override
+  String get privacySec3Title => '3. 数据安全';
+
+  @override
+  String get privacySec3Body => '认证令牌安全存储在设备的加密存储中。';
+
+  @override
+  String get privacySec4Title => '4. 第三方服务';
+
+  @override
+  String get privacySec4Body =>
+      '我们使用Google Sign-In、Google Gemini API和阿里巴巴Qwen API。';
+
+  @override
+  String get privacySec5Title => '5. 您的权利';
+
+  @override
+  String get privacySec5Body => '您可以随时请求删除账户。联系：support@lingonexus.app';
 }

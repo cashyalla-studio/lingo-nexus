@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
-import '../../core/providers/ai_provider.dart';
+import '../../core/providers/auth_provider.dart';
+import '../../core/services/auth_service.dart';
 import '../../core/providers/locale_provider.dart';
 import '../../core/services/cache_service.dart';
 import '../../core/services/secure_storage_service.dart';
 import '../../core/theme/app_theme.dart';
+import '../auth/login_screen.dart';
+import '../credits/credits_screen.dart';
+import '../legal/terms_screen.dart';
+import '../legal/privacy_screen.dart';
 import '../scanner/scanner_provider.dart';
-import 'api_key_settings_sheet.dart';
-import '../subscription/subscription_screen.dart';
-import '../subscription/subscription_provider.dart';
-import '../../core/services/subscription_service.dart';
 
 class SettingsScreen extends ConsumerStatefulWidget {
   const SettingsScreen({super.key});
@@ -61,7 +62,8 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
-    final activeAi = ref.watch(activeAiProvider);
+    final authAsync = ref.watch(authUserProvider);
+    final user = authAsync.valueOrNull;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -76,101 +78,68 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 24),
 
-                // Language Section
+                // ── Account Section ───────────────────────────────────────
+                _SectionTitle(title: l10n.settingsSectionAccount, theme: theme),
+                const SizedBox(height: 12),
+                authAsync.when(
+                  loading: () => const Center(child: CircularProgressIndicator()),
+                  error: (_, __) => const SizedBox.shrink(),
+                  data: (user) => user != null
+                      ? _AccountTile(user: user, theme: theme)
+                      : InkWell(
+                          onTap: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (_) => const LoginScreen())),
+                          borderRadius: BorderRadius.circular(16),
+                          child: Container(
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: theme.colorScheme.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(Icons.person_add_outlined, color: AppTheme.accentPrimary),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(l10n.settingsLogin,
+                                        style: theme.textTheme.bodyLarge),
+                                      Text(l10n.settingsLoginSubtitle,
+                                        style: theme.textTheme.bodySmall?.copyWith(
+                                          color: theme.colorScheme.onSurfaceVariant)),
+                                    ],
+                                  ),
+                                ),
+                                Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
+                              ],
+                            ),
+                          ),
+                        ),
+                ),
+                const SizedBox(height: 32),
+
+                // ── Credits / Subscription ────────────────────────────────
+                _SectionTitle(title: l10n.settingsSectionCredits, theme: theme),
+                const SizedBox(height: 12),
+                _SettingsTile(
+                  icon: Icons.bolt_outlined,
+                  title: l10n.creditsTitle,
+                  subtitle: l10n.settingsCreditsSubtitle,
+                  theme: theme,
+                  onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const CreditsScreen())),
+                ),
+                const SizedBox(height: 32),
+
+                // ── Language Section ──────────────────────────────────────
                 _SectionTitle(title: l10n.settingsSectionLanguage, theme: theme),
                 const SizedBox(height: 12),
                 _LanguageTile(theme: theme),
                 const SizedBox(height: 32),
 
-                // AI Provider Section
-                _SectionTitle(title: l10n.settingsSectionAiProvider, theme: theme),
-                const SizedBox(height: 12),
-                ...AiProviderType.values.map((type) {
-                  final name = switch (type) {
-                    AiProviderType.google => 'Google Gemini',
-                    AiProviderType.openai => 'OpenAI GPT',
-                    AiProviderType.claude => 'Claude (Anthropic)',
-                  };
-                  final icon = switch (type) {
-                    AiProviderType.google => Icons.auto_awesome,
-                    AiProviderType.openai => Icons.psychology,
-                    AiProviderType.claude => Icons.memory,
-                  };
-                  final isSelected = activeAi == type;
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: InkWell(
-                      onTap: () => ref.read(activeAiProvider.notifier).switchProvider(type),
-                      borderRadius: BorderRadius.circular(16),
-                      child: Container(
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: isSelected
-                              ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                              : theme.colorScheme.surfaceContainerHighest,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: isSelected
-                                ? theme.colorScheme.primary.withValues(alpha: 0.5)
-                                : Colors.transparent,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(icon, color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant),
-                            const SizedBox(width: 16),
-                            Expanded(child: Text(name, style: theme.textTheme.bodyLarge)),
-                            if (isSelected) Icon(Icons.check_circle, color: theme.colorScheme.primary, size: 20),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-                const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity,
-                  child: OutlinedButton.icon(
-                    onPressed: () => showModalBottomSheet(
-                      context: context,
-                      backgroundColor: Colors.transparent,
-                      isScrollControlled: true,
-                      builder: (context) => const ApiKeySettingsSheet(),
-                    ),
-                    icon: const Icon(Icons.key_outlined),
-                    label: Text(l10n.settingsApiKeyManage),
-                    style: OutlinedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 32),
-                _SectionTitle(title: l10n.settingsSectionSubscription, theme: theme),
-                const SizedBox(height: 12),
-                Consumer(
-                  builder: (ctx, ref, _) {
-                    final tierAsync = ref.watch(subscriptionTierProvider);
-                    final ctxL10n = AppLocalizations.of(ctx)!;
-                    return tierAsync.when(
-                      data: (tier) => _SettingsTile(
-                        icon: tier == SubscriptionTier.pro ? Icons.workspace_premium : Icons.person_outline,
-                        title: tier == SubscriptionTier.pro ? ctxL10n.settingsProPlanActive : ctxL10n.settingsFreePlan,
-                        subtitle: tier == SubscriptionTier.pro
-                            ? ctxL10n.settingsProPlanSubtitle
-                            : ctxL10n.settingsFreePlanSubtitle,
-                        theme: theme,
-                        onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => const SubscriptionScreen())),
-                      ),
-                      loading: () => const SizedBox.shrink(),
-                      error: (_, __) => const SizedBox.shrink(),
-                    );
-                  },
-                ),
-                const SizedBox(height: 32),
-
-                // Data Section
+                // ── Data Section ──────────────────────────────────────────
                 _SectionTitle(title: l10n.settingsSectionData, theme: theme),
                 const SizedBox(height: 12),
                 _SettingsTile(
@@ -219,7 +188,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 ),
                 const SizedBox(height: 32),
 
-                // Cache Section
+                // ── Cache Section ─────────────────────────────────────────
                 _SectionTitle(title: l10n.settingsSectionCache, theme: theme),
                 const SizedBox(height: 12),
                 Container(
@@ -274,8 +243,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                                       .clearDriveEntry(entry.folderName);
                                   await _loadCacheInfo();
                                 },
-                                child: Icon(Icons.close, size: 16,
-                                    color: AppTheme.danger),
+                                child: Icon(Icons.close, size: 16, color: AppTheme.danger),
                               ),
                             ],
                           ),
@@ -318,6 +286,28 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 const SizedBox(height: 32),
 
+                // ── Legal ─────────────────────────────────────────────────
+                _SectionTitle(title: l10n.settingsSectionLegal, theme: theme),
+                const SizedBox(height: 12),
+                _SettingsTile(
+                  icon: Icons.description_outlined,
+                  title: l10n.termsTitle,
+                  subtitle: l10n.settingsTermsSubtitle,
+                  theme: theme,
+                  onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const TermsScreen())),
+                ),
+                const SizedBox(height: 8),
+                _SettingsTile(
+                  icon: Icons.privacy_tip_outlined,
+                  title: l10n.privacyTitle,
+                  subtitle: l10n.settingsPrivacySubtitle,
+                  theme: theme,
+                  onTap: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => const PrivacyScreen())),
+                ),
+                const SizedBox(height: 32),
+
                 // App info
                 Center(
                   child: Text('Scripta Sync v1.0.0',
@@ -328,6 +318,89 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _AccountTile extends ConsumerWidget {
+  final AuthUser user;
+  final ThemeData theme;
+  const _AccountTile({required this.user, required this.theme});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          Row(
+            children: [
+              CircleAvatar(
+                radius: 24,
+                backgroundColor: AppTheme.accentPrimary.withValues(alpha: 0.2),
+                backgroundImage: user.avatarUrl.isNotEmpty
+                    ? NetworkImage(user.avatarUrl) : null,
+                child: user.avatarUrl.isEmpty
+                    ? Text(user.name.isNotEmpty ? user.name[0].toUpperCase() : '?',
+                        style: TextStyle(color: AppTheme.accentPrimary, fontWeight: FontWeight.bold))
+                    : null,
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(user.name, style: theme.textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.bold)),
+                    Text(user.email, style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: () async {
+                final confirmed = await showDialog<bool>(
+                  context: context,
+                  builder: (ctx) {
+                    final dl10n = AppLocalizations.of(ctx)!;
+                    return AlertDialog(
+                      title: Text(dl10n.settingsLogoutDialogTitle),
+                      content: Text(dl10n.settingsLogoutDialogContent),
+                      actions: [
+                        TextButton(onPressed: () => Navigator.pop(ctx, false),
+                          child: Text(dl10n.cancel)),
+                        TextButton(onPressed: () => Navigator.pop(ctx, true),
+                          child: Text(dl10n.settingsLogout,
+                            style: const TextStyle(color: Colors.red))),
+                      ],
+                    );
+                  },
+                );
+                if (confirmed == true) {
+                  await ref.read(authUserProvider.notifier).signOut();
+                }
+              },
+              icon: const Icon(Icons.logout, size: 18),
+              label: Text(l10n.settingsLogout),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: Colors.red,
+                side: const BorderSide(color: Colors.red),
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -419,9 +492,7 @@ class _LocalePickerSheet extends ConsumerWidget {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: MediaQuery.of(context).size.height * 0.85,
-      ),
+      constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.85),
       child: Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,

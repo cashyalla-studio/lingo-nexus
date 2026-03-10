@@ -1,49 +1,34 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-/// 기기 로컬 암호화 저장소(Keychain, Keystore)를 사용하여 API Key를 안전하게 보관하는 서비스입니다.
+final secureStorageProvider = Provider<SecureStorageService>((_) => SecureStorageService());
+
+/// 기기 로컬 암호화 저장소(Keychain, Keystore)를 사용하여 인증 토큰을 안전하게 보관합니다.
 class SecureStorageService {
-  final FlutterSecureStorage _storage;
+  final FlutterSecureStorage _storage = const FlutterSecureStorage(
+    aOptions: AndroidOptions(),
+  );
 
-  SecureStorageService()
-      : _storage = const FlutterSecureStorage(
-          aOptions: AndroidOptions(),
-        );
+  static const _keyAccessToken = 'auth_access_token';
+  static const _keyRefreshToken = 'auth_refresh_token';
 
-  static const String _keyGoogleAi = 'api_key_google';
-  static const String _keyOpenAi = 'api_key_openai';
-  static const String _keyClaude = 'api_key_claude';
+  Future<void> saveAccessToken(String token) =>
+      _storage.write(key: _keyAccessToken, value: token);
 
-  // --- Google AI (Gemini) ---
-  Future<void> saveGoogleApiKey(String key) async {
-    await _storage.write(key: _keyGoogleAi, value: key);
+  Future<String?> getAccessToken() =>
+      _storage.read(key: _keyAccessToken);
+
+  Future<void> saveRefreshToken(String token) =>
+      _storage.write(key: _keyRefreshToken, value: token);
+
+  Future<String?> getRefreshToken() =>
+      _storage.read(key: _keyRefreshToken);
+
+  Future<void> clearAuthTokens() async {
+    await _storage.delete(key: _keyAccessToken);
+    await _storage.delete(key: _keyRefreshToken);
   }
 
-  Future<String?> getGoogleApiKey() async {
-    return await _storage.read(key: _keyGoogleAi);
-  }
-
-  // --- OpenAI ---
-  Future<void> saveOpenAiKey(String key) async {
-    await _storage.write(key: _keyOpenAi, value: key);
-  }
-
-  Future<String?> getOpenAiKey() async {
-    return await _storage.read(key: _keyOpenAi);
-  }
-
-  // --- Claude (Anthropic) ---
-  Future<void> saveClaudeKey(String key) async {
-    await _storage.write(key: _keyClaude, value: key);
-  }
-
-  Future<String?> getClaudeKey() async {
-    return await _storage.read(key: _keyClaude);
-  }
-
-  // 전체 키 초기화 (로그아웃 또는 초기화 시)
-  Future<void> clearAllKeys() async {
-    await _storage.delete(key: _keyGoogleAi);
-    await _storage.delete(key: _keyOpenAi);
-    await _storage.delete(key: _keyClaude);
-  }
+  // Legacy API key methods (unused after migration, kept for graceful migration)
+  Future<void> clearAllKeys() => clearAuthTokens();
 }

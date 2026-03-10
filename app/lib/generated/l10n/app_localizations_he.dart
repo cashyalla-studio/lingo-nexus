@@ -588,4 +588,201 @@ class AppLocalizationsHe extends AppLocalizations {
 
   @override
   String get heatmapMore => 'יותר';
+
+  @override
+  String get loginSubtitle => 'שפר את כישורי השפה שלך עם AI';
+
+  @override
+  String get loginWithGoogle => 'המשך עם Google';
+
+  @override
+  String get loginFeatureAi => 'מורה AI לדקדוק, אוצר מילים ושיחה (חינם)';
+
+  @override
+  String get loginFeaturePronunciation => 'הערכת הגייה וטון';
+
+  @override
+  String get loginFeatureSync => 'סנכרון אוטומטי עם AI — יצירת תסריטים מאודיו';
+
+  @override
+  String get loginFeatureFree => '3 דקות עיבוד אודיו AI חינמי ביום';
+
+  @override
+  String get loginLegalPrefix => 'בהמשך, אתה מסכים ל';
+
+  @override
+  String get loginTermsLink => 'תנאי השירות';
+
+  @override
+  String get loginLegalAnd => 'ול';
+
+  @override
+  String get loginPrivacyLink => 'מדיניות הפרטיות';
+
+  @override
+  String get loginLegalSuffix => ' שלנו.';
+
+  @override
+  String get settingsSectionAccount => 'חשבון';
+
+  @override
+  String get settingsLogin => 'התחברות';
+
+  @override
+  String get settingsLoginSubtitle => 'התחבר כדי להשתמש בתכונות AI';
+
+  @override
+  String get settingsSectionCredits => 'קרדיטים ומנוי';
+
+  @override
+  String get settingsCreditsSubtitle => 'ניהול קרדיטי אודיו AI ותוכניות';
+
+  @override
+  String get settingsLogout => 'התנתקות';
+
+  @override
+  String get settingsLogoutDialogTitle => 'התנתקות';
+
+  @override
+  String get settingsLogoutDialogContent => 'האם אתה בטוח שברצונך להתנתק?';
+
+  @override
+  String get settingsSectionLegal => 'משפטי';
+
+  @override
+  String get settingsTermsSubtitle => 'הצג את תנאי השירות שלנו';
+
+  @override
+  String get settingsPrivacySubtitle => 'כיצד אנו מטפלים בנתונים שלך';
+
+  @override
+  String get creditsTitle => 'קרדיטים';
+
+  @override
+  String get creditsDailyFree => 'המכסה החינמית של היום';
+
+  @override
+  String get creditsMinRemaining => 'דקות נותרו';
+
+  @override
+  String get creditsDailyResets => 'מתאפס בחצות';
+
+  @override
+  String get creditsPurchasedCredits => 'קרדיטים שנרכשו';
+
+  @override
+  String get creditsMinutes => 'דק\'';
+
+  @override
+  String get creditsSubscriptionActive => 'מנוי פעיל';
+
+  @override
+  String get creditsSubscriptionsTitle => 'תוכניות מנוי';
+
+  @override
+  String get creditsMostPopular => 'פופולרי';
+
+  @override
+  String get creditsPerMonth => '/ חודש';
+
+  @override
+  String get creditPacksTitle => 'חבילות קרדיטים';
+
+  @override
+  String get creditPacksSubtitle => 'רכישה חד פעמית, ללא תפוגה';
+
+  @override
+  String get creditsLoadError => 'טעינת מידע הקרדיטים נכשלה.';
+
+  @override
+  String get creditsPaymentComingSoon => 'מערכת תשלום בקרוב';
+
+  @override
+  String get termsTitle => 'תנאי השירות';
+
+  @override
+  String get termsLastUpdated => 'עודכן לאחרונה: מרץ 2025';
+
+  @override
+  String get termsSec1Title => '1. סקירת השירות';
+
+  @override
+  String get termsSec1Body =>
+      'LingoNexus היא פלטפורמת לימוד שפות מבוססת AI. תנאים אלה מסדירים את השימוש שלך בשירות.';
+
+  @override
+  String get termsSec2Title => '2. חשבון ואימות';
+
+  @override
+  String get termsSec2Body =>
+      'עליך להתחבר עם חשבון Google כדי להשתמש בתכונות AI. אתה אחראי על אבטחת חשבונך.';
+
+  @override
+  String get termsSec3Title => '3. קרדיטים ותשלום';
+
+  @override
+  String get termsSec3Body =>
+      'עיבוד אודיו AI צורך קרדיטים. 3 דקות שימוש חינמי מסופקות מדי יום. קרדיטים שנרכשו אינם ניתנים להחזר.';
+
+  @override
+  String get termsSec4Title => '4. הגבלות שימוש';
+
+  @override
+  String get termsSec4Body =>
+      'שימוש לרעה בשירות או שימוש אוטומטי מוגזם אסור. הגבלה של 10 דקות לכל העלאה.';
+
+  @override
+  String get termsSec5Title => '5. קניין רוחני';
+
+  @override
+  String get termsSec5Body =>
+      'זכויות היוצרים של התוכן שהועלה שייכות למשתמש. תוצאות AI הן לצורכי עיון בלבד.';
+
+  @override
+  String get termsSec6Title => '6. הגבלת אחריות';
+
+  @override
+  String get termsSec6Body =>
+      'איננו מבטיחים את דיוק תוצאות ה-AI. התנאים עשויים להשתנות עם הודעה מוקדמת.';
+
+  @override
+  String get privacyTitle => 'מדיניות הפרטיות';
+
+  @override
+  String get privacyLastUpdated => 'עודכן לאחרונה: מרץ 2025';
+
+  @override
+  String get privacySec1Title => '1. מידע שאנו אוספים';
+
+  @override
+  String get privacySec1Body =>
+      'בהתחברות עם Google, אנו אוספים את האימייל, השם ותמונת הפרופיל שלך. נתוני אודיו אינם מאוחסנים בשרתינו.';
+
+  @override
+  String get privacySec2Title => '2. כיצד אנו משתמשים במידע שלך';
+
+  @override
+  String get privacySec2Body =>
+      'המידע משמש אך ורק למתן השירות וניהול קרדיטים. איננו מוכרים מידע אישי.';
+
+  @override
+  String get privacySec3Title => '3. אבטחת נתונים';
+
+  @override
+  String get privacySec3Body =>
+      'אסימוני אימות מאוחסנים באחסון המוצפן של המכשיר. נתוני השרת מוצפנים במנוחה.';
+
+  @override
+  String get privacySec4Title => '4. שירותי צד שלישי';
+
+  @override
+  String get privacySec4Body =>
+      'אנו משתמשים ב-Google Sign-In, Google Gemini API ו-Alibaba Qwen API.';
+
+  @override
+  String get privacySec5Title => '5. הזכויות שלך';
+
+  @override
+  String get privacySec5Body =>
+      'תוכל לבקש מחיקת חשבון בכל עת. צור קשר: support@lingonexus.app';
 }

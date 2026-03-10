@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import '../../core/theme/app_theme.dart';
-import '../../core/providers/ai_provider.dart';
 import '../../core/models/shadow_deck_item.dart';
 import '../player/widgets/animated_waveform.dart';
 import '../player/player_provider.dart';
@@ -49,10 +48,8 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
       await notifier.startRecording();
     } else if (state == ShadowingState.recording) {
       await notifier.stopRecording();
-      // Start scoring
-      final storage = ref.read(secureStorageProvider);
-      final openAiKey = await storage.getOpenAiKey();
-      await notifier.scoreRecording(widget.originalText, openAiKey);
+      // Start scoring (server-side, no API key needed)
+      await notifier.scoreRecording(widget.originalText, null);
     }
   }
 

@@ -601,4 +601,205 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get heatmapMore => 'Mais';
+
+  @override
+  String get loginSubtitle => 'Melhore suas habilidades linguísticas com IA';
+
+  @override
+  String get loginWithGoogle => 'Continuar com Google';
+
+  @override
+  String get loginFeatureAi =>
+      'Tutor de gramática, vocabulário e conversação com IA (grátis)';
+
+  @override
+  String get loginFeaturePronunciation => 'Avaliação de pronúncia e tons';
+
+  @override
+  String get loginFeatureSync =>
+      'Sincronização automática com IA — gere roteiros a partir de áudio';
+
+  @override
+  String get loginFeatureFree =>
+      '3 minutos diários de processamento de áudio com IA gratuitamente';
+
+  @override
+  String get loginLegalPrefix => 'Ao continuar, você concorda com nossos ';
+
+  @override
+  String get loginTermsLink => 'Termos de Serviço';
+
+  @override
+  String get loginLegalAnd => 'e a';
+
+  @override
+  String get loginPrivacyLink => 'Política de Privacidade';
+
+  @override
+  String get loginLegalSuffix => '.';
+
+  @override
+  String get settingsSectionAccount => 'Conta';
+
+  @override
+  String get settingsLogin => 'Entrar';
+
+  @override
+  String get settingsLoginSubtitle => 'Faça login para usar os recursos de IA';
+
+  @override
+  String get settingsSectionCredits => 'Créditos e Assinatura';
+
+  @override
+  String get settingsCreditsSubtitle =>
+      'Gerenciar créditos de áudio IA e planos';
+
+  @override
+  String get settingsLogout => 'Sair';
+
+  @override
+  String get settingsLogoutDialogTitle => 'Sair';
+
+  @override
+  String get settingsLogoutDialogContent => 'Tem certeza que deseja sair?';
+
+  @override
+  String get settingsSectionLegal => 'Legal';
+
+  @override
+  String get settingsTermsSubtitle => 'Ver nossos termos de serviço';
+
+  @override
+  String get settingsPrivacySubtitle => 'Como tratamos seus dados';
+
+  @override
+  String get creditsTitle => 'Créditos';
+
+  @override
+  String get creditsDailyFree => 'Cota gratuita de hoje';
+
+  @override
+  String get creditsMinRemaining => 'min restantes';
+
+  @override
+  String get creditsDailyResets => 'Redefine à meia-noite';
+
+  @override
+  String get creditsPurchasedCredits => 'Créditos comprados';
+
+  @override
+  String get creditsMinutes => 'min';
+
+  @override
+  String get creditsSubscriptionActive => 'assinatura ativa';
+
+  @override
+  String get creditsSubscriptionsTitle => 'Planos de Assinatura';
+
+  @override
+  String get creditsMostPopular => 'Popular';
+
+  @override
+  String get creditsPerMonth => '/ mês';
+
+  @override
+  String get creditPacksTitle => 'Pacotes de Créditos';
+
+  @override
+  String get creditPacksSubtitle => 'Compra única, sem expiração';
+
+  @override
+  String get creditsLoadError => 'Falha ao carregar informações de crédito.';
+
+  @override
+  String get creditsPaymentComingSoon => 'Sistema de pagamento em breve';
+
+  @override
+  String get termsTitle => 'Termos de Serviço';
+
+  @override
+  String get termsLastUpdated => 'Última atualização: março de 2025';
+
+  @override
+  String get termsSec1Title => '1. Visão geral do serviço';
+
+  @override
+  String get termsSec1Body =>
+      'LingoNexus é uma plataforma de aprendizado de idiomas com IA. Estes termos regem o uso do serviço.';
+
+  @override
+  String get termsSec2Title => '2. Conta e autenticação';
+
+  @override
+  String get termsSec2Body =>
+      'Você deve fazer login com uma conta Google para usar os recursos de IA. Você é responsável pela segurança da sua conta.';
+
+  @override
+  String get termsSec3Title => '3. Créditos e pagamento';
+
+  @override
+  String get termsSec3Body =>
+      'O processamento de áudio com IA consome créditos. 3 minutos de uso gratuito são fornecidos diariamente. Créditos comprados não são reembolsáveis.';
+
+  @override
+  String get termsSec4Title => '4. Restrições de uso';
+
+  @override
+  String get termsSec4Body =>
+      'O abuso do serviço ou uso automatizado excessivo é proibido. Limite de 10 minutos por upload.';
+
+  @override
+  String get termsSec5Title => '5. Propriedade intelectual';
+
+  @override
+  String get termsSec5Body =>
+      'Os direitos autorais do conteúdo enviado pertencem ao usuário. Os resultados de IA são apenas para referência.';
+
+  @override
+  String get termsSec6Title => '6. Isenção de responsabilidade';
+
+  @override
+  String get termsSec6Body =>
+      'Não garantimos a precisão dos resultados de IA. Os termos podem mudar com aviso prévio.';
+
+  @override
+  String get privacyTitle => 'Política de Privacidade';
+
+  @override
+  String get privacyLastUpdated => 'Última atualização: março de 2025';
+
+  @override
+  String get privacySec1Title => '1. Informações que coletamos';
+
+  @override
+  String get privacySec1Body =>
+      'Ao fazer login com Google, coletamos seu e-mail, nome e foto de perfil. Dados de áudio não são armazenados em nossos servidores.';
+
+  @override
+  String get privacySec2Title => '2. Como usamos suas informações';
+
+  @override
+  String get privacySec2Body =>
+      'As informações são usadas exclusivamente para a prestação do serviço e gerenciamento de créditos. Não vendemos informações pessoais.';
+
+  @override
+  String get privacySec3Title => '3. Segurança de dados';
+
+  @override
+  String get privacySec3Body =>
+      'Os tokens de autenticação são armazenados no armazenamento criptografado do dispositivo. Os dados do servidor são criptografados em repouso.';
+
+  @override
+  String get privacySec4Title => '4. Serviços de terceiros';
+
+  @override
+  String get privacySec4Body =>
+      'Usamos Google Sign-In, Google Gemini API e Alibaba Qwen API.';
+
+  @override
+  String get privacySec5Title => '5. Seus direitos';
+
+  @override
+  String get privacySec5Body =>
+      'Você pode solicitar a exclusão da conta a qualquer momento. Contato: support@lingonexus.app';
 }

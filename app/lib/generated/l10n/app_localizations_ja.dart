@@ -570,4 +570,197 @@ class AppLocalizationsJa extends AppLocalizations {
 
   @override
   String get heatmapMore => '多い';
+
+  @override
+  String get loginSubtitle => 'AIで語学力をレベルアップ';
+
+  @override
+  String get loginWithGoogle => 'Googleで続ける';
+
+  @override
+  String get loginFeatureAi => 'AI文法・語彙・会話チューター（無料）';
+
+  @override
+  String get loginFeaturePronunciation => '発音・声調評価';
+
+  @override
+  String get loginFeatureSync => 'AIオートシンク — 音声からスクリプト自動生成';
+
+  @override
+  String get loginFeatureFree => '毎日3分間の無料AIオーディオ処理';
+
+  @override
+  String get loginLegalPrefix => '続けることで、';
+
+  @override
+  String get loginTermsLink => '利用規約';
+
+  @override
+  String get loginLegalAnd => 'および';
+
+  @override
+  String get loginPrivacyLink => 'プライバシーポリシー';
+
+  @override
+  String get loginLegalSuffix => 'に同意したことになります。';
+
+  @override
+  String get settingsSectionAccount => 'アカウント';
+
+  @override
+  String get settingsLogin => 'ログイン';
+
+  @override
+  String get settingsLoginSubtitle => 'AI機能を使用するにはログインが必要です';
+
+  @override
+  String get settingsSectionCredits => 'クレジット・サブスクリプション';
+
+  @override
+  String get settingsCreditsSubtitle => 'AIオーディオクレジットとプランを管理';
+
+  @override
+  String get settingsLogout => 'ログアウト';
+
+  @override
+  String get settingsLogoutDialogTitle => 'ログアウト';
+
+  @override
+  String get settingsLogoutDialogContent => 'ログアウトしますか？';
+
+  @override
+  String get settingsSectionLegal => '法的情報';
+
+  @override
+  String get settingsTermsSubtitle => '利用規約を確認する';
+
+  @override
+  String get settingsPrivacySubtitle => 'データの取り扱いについて';
+
+  @override
+  String get creditsTitle => 'クレジット';
+
+  @override
+  String get creditsDailyFree => '本日の無料枠';
+
+  @override
+  String get creditsMinRemaining => '分残り';
+
+  @override
+  String get creditsDailyResets => '毎日深夜にリセット';
+
+  @override
+  String get creditsPurchasedCredits => '購入済みクレジット';
+
+  @override
+  String get creditsMinutes => '分';
+
+  @override
+  String get creditsSubscriptionActive => 'サブスク有効';
+
+  @override
+  String get creditsSubscriptionsTitle => 'サブスクリプションプラン';
+
+  @override
+  String get creditsMostPopular => '人気';
+
+  @override
+  String get creditsPerMonth => '/ 月';
+
+  @override
+  String get creditPacksTitle => 'クレジットパック';
+
+  @override
+  String get creditPacksSubtitle => '一回払い、有効期限なし';
+
+  @override
+  String get creditsLoadError => 'クレジット情報の読み込みに失敗しました。';
+
+  @override
+  String get creditsPaymentComingSoon => '決済システム準備中';
+
+  @override
+  String get termsTitle => '利用規約';
+
+  @override
+  String get termsLastUpdated => '最終更新: 2025年3月';
+
+  @override
+  String get termsSec1Title => '1. サービス概要';
+
+  @override
+  String get termsSec1Body =>
+      'LingoNexusはAIベースの語学学習プラットフォームです。本規約はサービス利用に関する条件を定めます。';
+
+  @override
+  String get termsSec2Title => '2. アカウントと認証';
+
+  @override
+  String get termsSec2Body =>
+      'AI機能を利用するにはGoogleアカウントでログインが必要です。アカウントのセキュリティはご自身の責任となります。';
+
+  @override
+  String get termsSec3Title => '3. クレジットと支払い';
+
+  @override
+  String get termsSec3Body =>
+      'AIオーディオ処理はクレジットを消費します。毎日3分間の無料枠が提供されます。購入済みクレジットは返金不可です。';
+
+  @override
+  String get termsSec4Title => '4. 利用制限';
+
+  @override
+  String get termsSec4Body => 'サービスの悪用や自動化による過度な使用は禁止されています。1回のアップロードは最大10分です。';
+
+  @override
+  String get termsSec5Title => '5. 知的財産権';
+
+  @override
+  String get termsSec5Body => 'ユーザーがアップロードしたコンテンツの著作権はユーザーに帰属します。AI結果物は参照用です。';
+
+  @override
+  String get termsSec6Title => '6. 免責事項';
+
+  @override
+  String get termsSec6Body => 'AI結果物の正確性は保証しません。規約は事前通知なく変更される場合があります。';
+
+  @override
+  String get privacyTitle => 'プライバシーポリシー';
+
+  @override
+  String get privacyLastUpdated => '最終更新: 2025年3月';
+
+  @override
+  String get privacySec1Title => '1. 収集する情報';
+
+  @override
+  String get privacySec1Body =>
+      'Googleログイン時にメール、名前、プロフィール写真を収集します。音声データはサーバーに保存しません。';
+
+  @override
+  String get privacySec2Title => '2. 情報の利用目的';
+
+  @override
+  String get privacySec2Body =>
+      '収集した情報はサービス提供とクレジット管理のみに使用します。第三者への個人情報の販売はしません。';
+
+  @override
+  String get privacySec3Title => '3. データセキュリティ';
+
+  @override
+  String get privacySec3Body => '認証トークンはデバイスの暗号化ストレージに安全に保存されます。';
+
+  @override
+  String get privacySec4Title => '4. 第三者サービス';
+
+  @override
+  String get privacySec4Body =>
+      'Google Sign-In、Google Gemini API、Alibaba Qwen APIを使用します。';
+
+  @override
+  String get privacySec5Title => '5. ユーザーの権利';
+
+  @override
+  String get privacySec5Body =>
+      'いつでもアカウント削除を要求できます。お問い合わせ: support@lingonexus.app';
 }

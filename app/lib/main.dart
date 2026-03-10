@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import 'core/theme/app_theme.dart';
+import 'core/providers/auth_provider.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/services/file_open_service.dart';
 import 'core/services/temp_cleanup_service.dart';
@@ -65,6 +66,8 @@ class _AppInitState extends ConsumerState<_AppInit> with WidgetsBindingObserver 
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
+      // 세션 복원 (백그라운드)
+      ref.read(authUserProvider);
       await ref.read(studyItemsProvider.notifier).initLibrary();
       await _checkPendingFile();
       // 임시 파일 정리 (백그라운드)

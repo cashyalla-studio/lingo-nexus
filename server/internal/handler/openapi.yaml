@@ -1,0 +1,656 @@
+openapi: "3.1.0"
+info:
+  title: Scripta Sync API
+  description: |
+    AI 언어 학습 플랫폼 — Scripta Sync 서버 API
+
+    ## 인증
+    대부분의 엔드포인트는 `Authorization: Bearer <access_token>` 헤더가 필요합니다.
+
+    1. `POST /api/v1/auth/login` 으로 Google ID 토큰 교환
+    2. 반환된 `access_token` 을 이후 요청 헤더에 포함
+
+    > **DEV 모드**: 인증 및 크레딧 체크가 비활성화되어 있습니다.
+  version: "1.0.0"
+  contact:
+    email: dev@scryptasync.app
+
+servers:
+  - url: http://localhost:8080
+    description: Local Dev
+
+tags:
+  - name: health
+    description: 서버 상태 확인
+  - name: auth
+    description: 인증 (Google OAuth → JWT)
+  - name: user
+    description: 사용자 정보
+  - name: credits
+    description: 크레딧 & 구독 관리
+  - name: ai-text
+    description: 텍스트 AI (문법/어휘/대화) — 무료
+  - name: ai-audio
+    description: 오디오 AI (전사/성조 평가) — 크레딧 소모
+
+paths:
+  /health:
+    get:
+      tags: [health]
+      summary: 서버 헬스체크
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: ok
+
+  /api/v1/ping:
+    get:
+      tags: [health]
+      summary: Ping
+      responses:
+        "200":
+          description: pong
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: pong
+
+  /api/v1/auth/login:
+    post:
+      tags: [auth]
+      summary: Google 로그인 → JWT 발급
+      description: Google ID 토큰을 서버 JWT로 교환합니다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequest"
+            examples:
+              google:
+                summary: Google 로그인
+                value:
+                  provider: google
+                  id_token: "eyJhbGciOiJSUzI1NiJ9..."
+      responses:
+        "200":
+          description: 로그인 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/auth/refresh:
+    post:
+      tags: [auth]
+      summary: Access Token 갱신
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [refresh_token]
+              properties:
+                refresh_token:
+                  type: string
+      responses:
+        "200":
+          description: 갱신 성공
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/user/me:
+    get:
+      tags: [user]
+      summary: 내 프로필 조회
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: 사용자 정보
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /api/v1/credits:
+    get:
+      tags: [credits]
+      summary: 크레딧 현황 조회
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: 크레딧 상태
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreditStatus"
+
+  /api/v1/credits/products:
+    get:
+      tags: [credits]
+      summary: 인앱 상품 목록
+      responses:
+        "200":
+          description: 상품 목록
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/InAppProduct"
+
+  /api/v1/credits/purchase:
+    post:
+      tags: [credits]
+      summary: 인앱 결제 후 크레딧 적립
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/PurchaseRequest"
+            examples:
+              credit_pack:
+                summary: 크레딧 10분 구매
+                value:
+                  product_id: "xyz.cashyalla.scrypta.sync.credits.c10"
+                  platform: ios
+                  transaction_id: "1000000123456789"
+                  receipt_data: "base64receipt..."
+      responses:
+        "200":
+          description: 적립 후 현재 크레딧 상태
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreditStatus"
+
+  /api/v1/ai/grammar:
+    post:
+      tags: [ai-text]
+      summary: 문법 설명
+      description: 문장의 문법을 AI가 설명합니다. 로그인 사용자 무료.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GrammarRequest"
+            examples:
+              english:
+                summary: 영어 문장
+                value:
+                  sentence: "She has been studying English for three years."
+                  ui_language: ko
+              japanese:
+                summary: 일본어 문장
+                value:
+                  sentence: "毎日日本語を勉強しています。"
+                  ui_language: ko
+      responses:
+        "200":
+          $ref: "#/components/responses/TextAIResponse"
+
+  /api/v1/ai/vocabulary:
+    post:
+      tags: [ai-text]
+      summary: 단어/어구 설명
+      description: 문맥 안의 단어나 어구를 AI가 설명합니다.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/VocabularyRequest"
+            examples:
+              example:
+                value:
+                  word: "ephemeral"
+                  context: "The beauty of cherry blossoms is ephemeral."
+                  ui_language: ko
+      responses:
+        "200":
+          $ref: "#/components/responses/TextAIResponse"
+
+  /api/v1/ai/chat:
+    post:
+      tags: [ai-text]
+      summary: 멀티턴 대화
+      description: AI와 자유 대화 (언어 연습, 질문 등).
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChatRequest"
+            examples:
+              conversation:
+                summary: 영어 대화 연습
+                value:
+                  system_prompt: "You are a friendly English conversation partner."
+                  messages:
+                    - role: user
+                      content: "Tell me about your favorite season."
+              grammar_tutor:
+                summary: 문법 튜터 대화
+                value:
+                  system_prompt: "You are a Korean-speaking language tutor."
+                  messages:
+                    - role: user
+                      content: "can you tell me about present perfect tense?"
+      responses:
+        "200":
+          $ref: "#/components/responses/TextAIResponse"
+
+  /api/v1/tone/evaluate:
+    post:
+      tags: [ai-audio]
+      summary: 성조/발음 평가 (음성 → 점수)
+      description: |
+        WAV 오디오를 base64로 인코딩하여 전송하면 AI가 발음/성조를 평가합니다.
+
+        - 중국어(`zh`): Qwen 모델 사용
+        - 그 외: Gemini 모델 사용
+
+        **크레딧 소모**: 오디오 길이 기준 (6초 단위 올림)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ToneEvalRequest"
+            examples:
+              chinese_tone:
+                summary: 중국어 성조 평가 (妈 1성)
+                value:
+                  audio_base64: "<base64_wav_data>"
+                  word: "妈"
+                  pinyin: "mā"
+                  tone: 1
+                  language: zh
+                  duration_ms: 2000
+              japanese_pitch:
+                summary: 일본어 발음 평가
+                value:
+                  audio_base64: "<base64_wav_data>"
+                  word: "橋"
+                  pinyin: "hashi"
+                  tone: 0
+                  language: ja
+                  duration_ms: 1500
+      responses:
+        "200":
+          description: 발음 평가 결과
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ToneEvalResponse"
+        "402":
+          $ref: "#/components/responses/InsufficientCredits"
+
+  /api/v1/sync/transcribe:
+    post:
+      tags: [ai-audio]
+      summary: 음성 전사 (오디오 → 문장 + 타임스탬프)
+      description: |
+        음성 파일을 텍스트로 전사하고 문장별 타임스탬프를 반환합니다.
+
+        - 중국어(`zh`): Qwen 모델
+        - 그 외: Gemini 모델
+
+        **크레딧 소모**: 오디오 길이 기준 (6초 단위 올림)
+        **최대 길이**: 10분 (600,000ms)
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TranscribeRequest"
+            examples:
+              english:
+                summary: 영어 음성 전사
+                value:
+                  audio_base64: "<base64_wav_data>"
+                  language: en
+                  duration_ms: 30000
+              chinese:
+                summary: 중국어 음성 전사
+                value:
+                  audio_base64: "<base64_wav_data>"
+                  language: zh
+                  duration_ms: 45000
+      responses:
+        "200":
+          description: 전사 결과
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TranscribeResponse"
+        "402":
+          $ref: "#/components/responses/InsufficientCredits"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    Unauthorized:
+      description: 인증 실패
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: "invalid or expired token"
+
+    InsufficientCredits:
+      description: 크레딧 부족
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            error: "insufficient credits: need 60 seconds, have 30 seconds"
+
+    TextAIResponse:
+      description: AI 텍스트 응답
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              reply:
+                type: string
+                example: "이 문장에서 'has been studying'은 현재완료 진행형으로..."
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+
+    AuthRequest:
+      type: object
+      required: [provider, id_token]
+      properties:
+        provider:
+          type: string
+          enum: [google, apple]
+          example: google
+        id_token:
+          type: string
+          description: Google ID Token (from Google Sign-In SDK)
+
+    AuthResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+        refresh_token:
+          type: string
+        expires_in:
+          type: integer
+          description: Access token TTL in seconds
+          example: 86400
+        user:
+          $ref: "#/components/schemas/User"
+
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        email:
+          type: string
+          example: user@gmail.com
+        name:
+          type: string
+          example: "홍길동"
+        avatar_url:
+          type: string
+          example: "https://lh3.googleusercontent.com/..."
+        provider:
+          type: string
+          enum: [google, apple]
+
+    CreditStatus:
+      type: object
+      properties:
+        balance:
+          type: integer
+          description: 잔여 크레딧 (초 단위)
+          example: 3600
+        balance_minutes:
+          type: integer
+          description: 잔여 크레딧 (분 단위, 표시용)
+          example: 60
+        daily_free_used:
+          type: integer
+          description: 오늘 사용한 무료 초
+          example: 60
+        daily_free_total:
+          type: integer
+          description: 하루 무료 한도 (초)
+          example: 180
+        has_subscription:
+          type: boolean
+          example: false
+        subscription_plan:
+          type: string
+          enum: [basic, pro, premium]
+          example: pro
+        expires_at:
+          type: string
+          format: date-time
+
+    InAppProduct:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "xyz.cashyalla.scrypta.sync.credits.c10"
+        type:
+          type: string
+          enum: [credit, subscription]
+        credits:
+          type: integer
+          description: 크레딧 팩의 총 초 (credit 타입만)
+          example: 600
+        credits_per_month:
+          type: integer
+          description: 구독의 월 크레딧 (subscription 타입만)
+          example: 18000
+        plan:
+          type: string
+          description: 구독 플랜 이름 (subscription 타입만)
+          enum: [basic, pro, premium]
+
+    PurchaseRequest:
+      type: object
+      required: [product_id, platform]
+      properties:
+        product_id:
+          type: string
+          example: "xyz.cashyalla.scrypta.sync.credits.c10"
+        platform:
+          type: string
+          enum: [ios, android]
+        transaction_id:
+          type: string
+          example: "1000000123456789"
+        receipt_data:
+          type: string
+          description: iOS receipt 또는 Android purchase token (base64)
+
+    GrammarRequest:
+      type: object
+      required: [sentence]
+      properties:
+        sentence:
+          type: string
+          example: "She has been studying English for three years."
+        ui_language:
+          type: string
+          description: 설명 언어 코드
+          example: ko
+          default: ko
+
+    VocabularyRequest:
+      type: object
+      required: [word]
+      properties:
+        word:
+          type: string
+          example: ephemeral
+        context:
+          type: string
+          example: "The beauty of cherry blossoms is ephemeral."
+        ui_language:
+          type: string
+          example: ko
+          default: ko
+
+    ChatRequest:
+      type: object
+      required: [messages]
+      properties:
+        messages:
+          type: array
+          items:
+            type: object
+            required: [role, content]
+            properties:
+              role:
+                type: string
+                enum: [user, assistant]
+              content:
+                type: string
+        system_prompt:
+          type: string
+          example: "You are a friendly English conversation partner."
+
+    ToneEvalRequest:
+      type: object
+      required: [audio_base64, word, pinyin]
+      properties:
+        audio_base64:
+          type: string
+          description: VAD 트리밍된 WAV (16kHz mono) base64 인코딩
+        word:
+          type: string
+          example: "妈"
+        pinyin:
+          type: string
+          example: "mā"
+        tone:
+          type: integer
+          description: "목표 성조 (1~4, 0=경성)"
+          enum: [0, 1, 2, 3, 4]
+          example: 1
+        language:
+          type: string
+          example: zh
+          default: zh
+        duration_ms:
+          type: integer
+          description: 오디오 길이 (ms) — 크레딧 차감에 사용
+          example: 2000
+          default: 3000
+
+    ToneEvalResponse:
+      type: object
+      properties:
+        correct:
+          type: boolean
+          example: true
+        detected_pattern:
+          type: string
+          example: "high-level flat pitch"
+        score:
+          type: number
+          format: float
+          example: 0.85
+        feedback:
+          type: string
+          example: "발음이 자연스럽습니다. 1성의 높은 평탄음을 잘 유지했습니다."
+
+    TranscribeRequest:
+      type: object
+      required: [audio_base64, duration_ms]
+      properties:
+        audio_base64:
+          type: string
+          description: WAV 또는 MP3 base64 인코딩
+        language:
+          type: string
+          description: 언어 코드
+          example: en
+          default: en
+        duration_ms:
+          type: integer
+          description: 오디오 길이 (ms) — 최대 600,000 (10분)
+          example: 30000
+
+    TranscribeResponse:
+      type: object
+      properties:
+        script:
+          type: string
+          description: 전체 전사 텍스트
+          example: "Hello world. This is a test sentence."
+        sync_items:
+          type: array
+          items:
+            type: object
+            properties:
+              start_ms:
+                type: integer
+                example: 0
+              end_ms:
+                type: integer
+                example: 2000
+              sentence:
+                type: string
+                example: "Hello world."

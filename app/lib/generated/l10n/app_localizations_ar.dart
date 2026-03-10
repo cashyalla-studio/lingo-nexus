@@ -593,4 +593,206 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get heatmapMore => 'أكثر';
+
+  @override
+  String get loginSubtitle => 'طوّر مهاراتك اللغوية بالذكاء الاصطناعي';
+
+  @override
+  String get loginWithGoogle => 'المتابعة مع Google';
+
+  @override
+  String get loginFeatureAi =>
+      'مدرّس ذكاء اصطناعي للقواعد والمفردات والمحادثة (مجاني)';
+
+  @override
+  String get loginFeaturePronunciation => 'تقييم النطق والنبرة';
+
+  @override
+  String get loginFeatureSync =>
+      'مزامنة تلقائية بالذكاء الاصطناعي — إنشاء نصوص من الصوت';
+
+  @override
+  String get loginFeatureFree =>
+      '3 دقائق مجانية يومياً لمعالجة الصوت بالذكاء الاصطناعي';
+
+  @override
+  String get loginLegalPrefix => 'بالمتابعة، توافق على ';
+
+  @override
+  String get loginTermsLink => 'شروط الخدمة';
+
+  @override
+  String get loginLegalAnd => 'و';
+
+  @override
+  String get loginPrivacyLink => 'سياسة الخصوصية';
+
+  @override
+  String get loginLegalSuffix => '.';
+
+  @override
+  String get settingsSectionAccount => 'الحساب';
+
+  @override
+  String get settingsLogin => 'تسجيل الدخول';
+
+  @override
+  String get settingsLoginSubtitle =>
+      'سجّل الدخول لاستخدام ميزات الذكاء الاصطناعي';
+
+  @override
+  String get settingsSectionCredits => 'الرصيد والاشتراك';
+
+  @override
+  String get settingsCreditsSubtitle => 'إدارة أرصدة الصوت والخطط';
+
+  @override
+  String get settingsLogout => 'تسجيل الخروج';
+
+  @override
+  String get settingsLogoutDialogTitle => 'تسجيل الخروج';
+
+  @override
+  String get settingsLogoutDialogContent =>
+      'هل أنت متأكد أنك تريد تسجيل الخروج؟';
+
+  @override
+  String get settingsSectionLegal => 'القانونية';
+
+  @override
+  String get settingsTermsSubtitle => 'عرض شروط الخدمة';
+
+  @override
+  String get settingsPrivacySubtitle => 'كيف نتعامل مع بياناتك';
+
+  @override
+  String get creditsTitle => 'الرصيد';
+
+  @override
+  String get creditsDailyFree => 'الحصة المجانية اليوم';
+
+  @override
+  String get creditsMinRemaining => 'دقيقة متبقية';
+
+  @override
+  String get creditsDailyResets => 'يُعاد ضبطه منتصف الليل';
+
+  @override
+  String get creditsPurchasedCredits => 'الرصيد المشترى';
+
+  @override
+  String get creditsMinutes => 'دقيقة';
+
+  @override
+  String get creditsSubscriptionActive => 'الاشتراك نشط';
+
+  @override
+  String get creditsSubscriptionsTitle => 'خطط الاشتراك';
+
+  @override
+  String get creditsMostPopular => 'الأكثر شيوعاً';
+
+  @override
+  String get creditsPerMonth => '/ شهر';
+
+  @override
+  String get creditPacksTitle => 'حزم الرصيد';
+
+  @override
+  String get creditPacksSubtitle => 'شراء لمرة واحدة، بدون انتهاء صلاحية';
+
+  @override
+  String get creditsLoadError => 'فشل تحميل معلومات الرصيد.';
+
+  @override
+  String get creditsPaymentComingSoon => 'نظام الدفع قادم قريباً';
+
+  @override
+  String get termsTitle => 'شروط الخدمة';
+
+  @override
+  String get termsLastUpdated => 'آخر تحديث: مارس 2025';
+
+  @override
+  String get termsSec1Title => '1. نظرة عامة على الخدمة';
+
+  @override
+  String get termsSec1Body =>
+      'LingoNexus منصة تعلّم اللغات بالذكاء الاصطناعي. تحكم هذه الشروط استخدامك للخدمة.';
+
+  @override
+  String get termsSec2Title => '2. الحساب والمصادقة';
+
+  @override
+  String get termsSec2Body =>
+      'يجب تسجيل الدخول بحساب Google لاستخدام ميزات الذكاء الاصطناعي. أنت مسؤول عن أمان حسابك.';
+
+  @override
+  String get termsSec3Title => '3. الرصيد والدفع';
+
+  @override
+  String get termsSec3Body =>
+      'معالجة الصوت بالذكاء الاصطناعي تستهلك رصيداً. يُمنح 3 دقائق مجانية يومياً. الرصيد المشترى غير قابل للاسترداد.';
+
+  @override
+  String get termsSec4Title => '4. قيود الاستخدام';
+
+  @override
+  String get termsSec4Body =>
+      'يُحظر إساءة استخدام الخدمة أو الاستخدام الآلي المفرط. الحد الأقصى 10 دقائق لكل رفع.';
+
+  @override
+  String get termsSec5Title => '5. الملكية الفكرية';
+
+  @override
+  String get termsSec5Body =>
+      'حقوق النشر للمحتوى المرفوع تعود للمستخدم. نتائج الذكاء الاصطناعي للإشارة فقط.';
+
+  @override
+  String get termsSec6Title => '6. إخلاء المسؤولية';
+
+  @override
+  String get termsSec6Body =>
+      'لا نضمن دقة نتائج الذكاء الاصطناعي. قد تتغير الشروط مع إشعار مسبق.';
+
+  @override
+  String get privacyTitle => 'سياسة الخصوصية';
+
+  @override
+  String get privacyLastUpdated => 'آخر تحديث: مارس 2025';
+
+  @override
+  String get privacySec1Title => '1. المعلومات التي نجمعها';
+
+  @override
+  String get privacySec1Body =>
+      'عند تسجيل الدخول بـ Google، نجمع بريدك الإلكتروني واسمك وصورة ملفك الشخصي. لا يتم تخزين بيانات الصوت على خوادمنا.';
+
+  @override
+  String get privacySec2Title => '2. كيف نستخدم معلوماتك';
+
+  @override
+  String get privacySec2Body =>
+      'تُستخدم المعلومات فقط لتقديم الخدمة وإدارة الرصيد. لا نبيع المعلومات الشخصية.';
+
+  @override
+  String get privacySec3Title => '3. أمان البيانات';
+
+  @override
+  String get privacySec3Body =>
+      'تُخزّن رموز المصادقة في التخزين المشفّر للجهاز. بيانات الخادم مشفّرة في حالة السكون.';
+
+  @override
+  String get privacySec4Title => '4. خدمات الطرف الثالث';
+
+  @override
+  String get privacySec4Body =>
+      'نستخدم Google Sign-In وGoogle Gemini API وAlibaba Qwen API.';
+
+  @override
+  String get privacySec5Title => '5. حقوقك';
+
+  @override
+  String get privacySec5Body =>
+      'يمكنك طلب حذف حسابك في أي وقت. التواصل: support@lingonexus.app';
 }

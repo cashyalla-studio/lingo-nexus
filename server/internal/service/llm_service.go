@@ -305,6 +305,138 @@ func buildTranscribeResponse(sentences []string, durationMs int64) model.Transcr
 	}
 }
 
+// ── 텍스트 AI (Grammar / Vocabulary / Chat) ───────────────────────────────────
+
+// AskGrammar uses Gemini to explain the grammar of a sentence.
+func (s *LLMService) AskGrammar(ctx context.Context, sentence, uiLang string) (string, error) {
+	langInstructions := map[string]string{
+		"ko": "Use Korean for the explanation.",
+		"ja": "Use Japanese for the explanation.",
+		"zh": "Use Simplified Chinese for the explanation.",
+		"en": "Use English for the explanation.",
+		"de": "Use German for the explanation.",
+		"es": "Use Spanish for the explanation.",
+		"pt": "Use Portuguese for the explanation.",
+		"fr": "Use French for the explanation.",
+		"ar": "Use Arabic for the explanation.",
+		"he": "Use Hebrew for the explanation.",
+	}
+	langInstr, ok := langInstructions[uiLang]
+	if !ok {
+		langInstr = "Use Korean for the explanation."
+	}
+
+	prompt := fmt.Sprintf(`You are a professional language tutor. Explain the grammar of the following sentence and provide 2 examples. %s
+
+Sentence: "%s"`, langInstr, sentence)
+
+	return s.askGeminiText(ctx, prompt)
+}
+
+// AskVocabulary uses Gemini to explain a word in context.
+func (s *LLMService) AskVocabulary(ctx context.Context, word, contextSentence, uiLang string) (string, error) {
+	langInstructions := map[string]string{
+		"ko": "Use Korean for the explanation.", "ja": "Use Japanese.", "zh": "Use Simplified Chinese.",
+		"en": "Use English.", "de": "Use German.", "es": "Use Spanish.",
+		"pt": "Use Portuguese.", "fr": "Use French.", "ar": "Use Arabic.", "he": "Use Hebrew.",
+	}
+	langInstr := langInstructions[uiLang]
+	if langInstr == "" {
+		langInstr = "Use Korean for the explanation."
+	}
+
+	prompt := fmt.Sprintf(`You are a professional language tutor. For the word or phrase "%s" used in the sentence: "%s"
+
+Provide:
+1. **Meaning**: Primary meaning in this context
+2. **Part of speech**
+3. **Examples**: 2 example sentences
+4. **Usage notes**: Nuance or common mistakes
+
+%s Keep the response concise and practical.`, word, contextSentence, langInstr)
+
+	return s.askGeminiText(ctx, prompt)
+}
+
+// Chat uses Gemini for multi-turn conversation.
+func (s *LLMService) Chat(ctx context.Context, messages []model.AIChatMessage, systemPrompt string) (string, error) {
+	contents := make([]map[string]any, 0, len(messages)+1)
+
+	if systemPrompt != "" {
+		contents = append(contents,
+			map[string]any{"role": "user", "parts": []map[string]any{{"text": systemPrompt}}},
+			map[string]any{"role": "model", "parts": []map[string]any{{"text": "Understood! I'm ready to help."}}},
+		)
+	}
+
+	for _, m := range messages {
+		role := m.Role
+		if role == "assistant" {
+			role = "model"
+		}
+		contents = append(contents, map[string]any{
+			"role":  role,
+			"parts": []map[string]any{{"text": m.Content}},
+		})
+	}
+
+	url := geminiEndpoint + "?key=" + s.GeminiAPIKey
+	body := map[string]any{"contents": contents}
+
+	respBody, err := s.doPost(ctx, url, "", body)
+	if err != nil {
+		return "", fmt.Errorf("gemini chat: %w", err)
+	}
+
+	var raw struct {
+		Candidates []struct {
+			Content struct {
+				Parts []struct {
+					Text string `json:"text"`
+				} `json:"parts"`
+			} `json:"content"`
+		} `json:"candidates"`
+	}
+	if err := json.Unmarshal(respBody, &raw); err != nil {
+		return "", fmt.Errorf("parse chat response: %w", err)
+	}
+	if len(raw.Candidates) == 0 || len(raw.Candidates[0].Content.Parts) == 0 {
+		return "", fmt.Errorf("empty chat response")
+	}
+	return raw.Candidates[0].Content.Parts[0].Text, nil
+}
+
+func (s *LLMService) askGeminiText(ctx context.Context, prompt string) (string, error) {
+	url := geminiEndpoint + "?key=" + s.GeminiAPIKey
+	body := map[string]any{
+		"contents": []map[string]any{
+			{"parts": []map[string]any{{"text": prompt}}},
+		},
+	}
+
+	respBody, err := s.doPost(ctx, url, "", body)
+	if err != nil {
+		return "", fmt.Errorf("gemini text: %w", err)
+	}
+
+	var raw struct {
+		Candidates []struct {
+			Content struct {
+				Parts []struct {
+					Text string `json:"text"`
+				} `json:"parts"`
+			} `json:"content"`
+		} `json:"candidates"`
+	}
+	if err := json.Unmarshal(respBody, &raw); err != nil {
+		return "", fmt.Errorf("parse gemini text: %w", err)
+	}
+	if len(raw.Candidates) == 0 || len(raw.Candidates[0].Content.Parts) == 0 {
+		return "", fmt.Errorf("empty gemini response")
+	}
+	return raw.Candidates[0].Content.Parts[0].Text, nil
+}
+
 // ── 공통 유틸 ─────────────────────────────────────────────────────────────────
 
 func buildTonePrompt(req model.ToneEvalRequest) string {

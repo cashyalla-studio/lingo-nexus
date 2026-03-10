@@ -603,4 +603,205 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get heatmapMore => 'Viel';
+
+  @override
+  String get loginSubtitle => 'Verbessere deine Sprachkenntnisse mit KI';
+
+  @override
+  String get loginWithGoogle => 'Mit Google fortfahren';
+
+  @override
+  String get loginFeatureAi =>
+      'KI-Grammatik, Vokabeln & Gesprächstutor (kostenlos)';
+
+  @override
+  String get loginFeaturePronunciation => 'Aussprache- und Tonbewertung';
+
+  @override
+  String get loginFeatureSync => 'KI-Auto-Sync — Skripte aus Audio generieren';
+
+  @override
+  String get loginFeatureFree =>
+      '3 Minuten kostenlose KI-Audioverarbeitung täglich';
+
+  @override
+  String get loginLegalPrefix => 'Durch Fortfahren stimmst du unseren ';
+
+  @override
+  String get loginTermsLink => 'Nutzungsbedingungen';
+
+  @override
+  String get loginLegalAnd => 'und der';
+
+  @override
+  String get loginPrivacyLink => 'Datenschutzerklärung';
+
+  @override
+  String get loginLegalSuffix => ' zu.';
+
+  @override
+  String get settingsSectionAccount => 'Konto';
+
+  @override
+  String get settingsLogin => 'Anmelden';
+
+  @override
+  String get settingsLoginSubtitle => 'Anmelden, um KI-Funktionen zu nutzen';
+
+  @override
+  String get settingsSectionCredits => 'Credits & Abonnement';
+
+  @override
+  String get settingsCreditsSubtitle => 'KI-Audio-Credits und Pläne verwalten';
+
+  @override
+  String get settingsLogout => 'Abmelden';
+
+  @override
+  String get settingsLogoutDialogTitle => 'Abmelden';
+
+  @override
+  String get settingsLogoutDialogContent =>
+      'Möchtest du dich wirklich abmelden?';
+
+  @override
+  String get settingsSectionLegal => 'Rechtliches';
+
+  @override
+  String get settingsTermsSubtitle => 'Nutzungsbedingungen anzeigen';
+
+  @override
+  String get settingsPrivacySubtitle => 'Wie wir mit deinen Daten umgehen';
+
+  @override
+  String get creditsTitle => 'Credits';
+
+  @override
+  String get creditsDailyFree => 'Heutiges Freikontingent';
+
+  @override
+  String get creditsMinRemaining => 'Min. verbleibend';
+
+  @override
+  String get creditsDailyResets => 'Wird um Mitternacht zurückgesetzt';
+
+  @override
+  String get creditsPurchasedCredits => 'Gekaufte Credits';
+
+  @override
+  String get creditsMinutes => 'Min.';
+
+  @override
+  String get creditsSubscriptionActive => 'Abonnement aktiv';
+
+  @override
+  String get creditsSubscriptionsTitle => 'Abonnementpläne';
+
+  @override
+  String get creditsMostPopular => 'Beliebt';
+
+  @override
+  String get creditsPerMonth => '/ Monat';
+
+  @override
+  String get creditPacksTitle => 'Credit-Pakete';
+
+  @override
+  String get creditPacksSubtitle => 'Einmaliger Kauf, kein Ablaufdatum';
+
+  @override
+  String get creditsLoadError =>
+      'Credit-Informationen konnten nicht geladen werden.';
+
+  @override
+  String get creditsPaymentComingSoon => 'Zahlungssystem demnächst verfügbar';
+
+  @override
+  String get termsTitle => 'Nutzungsbedingungen';
+
+  @override
+  String get termsLastUpdated => 'Zuletzt aktualisiert: März 2025';
+
+  @override
+  String get termsSec1Title => '1. Dienstübersicht';
+
+  @override
+  String get termsSec1Body =>
+      'LingoNexus ist eine KI-gestützte Sprachlernplattform. Diese Bedingungen regeln die Nutzung des Dienstes.';
+
+  @override
+  String get termsSec2Title => '2. Konto & Authentifizierung';
+
+  @override
+  String get termsSec2Body =>
+      'Du musst dich mit einem Google-Konto anmelden, um KI-Funktionen zu nutzen. Du bist für die Sicherheit deines Kontos verantwortlich.';
+
+  @override
+  String get termsSec3Title => '3. Credits & Zahlung';
+
+  @override
+  String get termsSec3Body =>
+      'Die KI-Audioverarbeitung verbraucht Credits. Täglich werden 3 Minuten kostenlos zur Verfügung gestellt. Gekaufte Credits sind nicht erstattungsfähig.';
+
+  @override
+  String get termsSec4Title => '4. Nutzungsbeschränkungen';
+
+  @override
+  String get termsSec4Body =>
+      'Missbrauch des Dienstes oder übermäßige automatisierte Nutzung ist verboten. Limit von 10 Minuten pro Upload.';
+
+  @override
+  String get termsSec5Title => '5. Geistiges Eigentum';
+
+  @override
+  String get termsSec5Body =>
+      'Das Urheberrecht an hochgeladenen Inhalten liegt beim Nutzer. KI-Ergebnisse dienen nur als Referenz.';
+
+  @override
+  String get termsSec6Title => '6. Haftungsausschluss';
+
+  @override
+  String get termsSec6Body =>
+      'Wir garantieren nicht die Genauigkeit der KI-Ergebnisse. Bedingungen können sich mit vorheriger Ankündigung ändern.';
+
+  @override
+  String get privacyTitle => 'Datenschutzerklärung';
+
+  @override
+  String get privacyLastUpdated => 'Zuletzt aktualisiert: März 2025';
+
+  @override
+  String get privacySec1Title => '1. Gesammelte Informationen';
+
+  @override
+  String get privacySec1Body =>
+      'Bei der Google-Anmeldung erfassen wir E-Mail, Name und Profilfoto. Audiodaten werden nicht auf unseren Servern gespeichert.';
+
+  @override
+  String get privacySec2Title => '2. Verwendung deiner Informationen';
+
+  @override
+  String get privacySec2Body =>
+      'Informationen werden ausschließlich für die Diensterbringung und das Credit-Management verwendet. Wir verkaufen keine persönlichen Daten.';
+
+  @override
+  String get privacySec3Title => '3. Datensicherheit';
+
+  @override
+  String get privacySec3Body =>
+      'Authentifizierungstoken werden im verschlüsselten Gerätespeicher gespeichert. Serverdaten werden verschlüsselt gespeichert.';
+
+  @override
+  String get privacySec4Title => '4. Drittanbieterdienste';
+
+  @override
+  String get privacySec4Body =>
+      'Wir nutzen Google Sign-In, Google Gemini API und Alibaba Qwen API.';
+
+  @override
+  String get privacySec5Title => '5. Deine Rechte';
+
+  @override
+  String get privacySec5Body =>
+      'Du kannst jederzeit die Löschung deines Kontos beantragen. Kontakt: support@lingonexus.app';
 }

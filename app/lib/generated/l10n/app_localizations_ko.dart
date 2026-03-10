@@ -573,4 +573,201 @@ class AppLocalizationsKo extends AppLocalizations {
 
   @override
   String get heatmapMore => '많음';
+
+  @override
+  String get loginSubtitle => 'AI 언어 튜터로 더 빠르게 실력을 키우세요';
+
+  @override
+  String get loginWithGoogle => 'Google로 계속하기';
+
+  @override
+  String get loginFeatureAi => 'AI 문법·어휘·대화 튜터 (무료)';
+
+  @override
+  String get loginFeaturePronunciation => '발음 평가 및 성조 훈련';
+
+  @override
+  String get loginFeatureSync => 'AI 오토싱크 — 오디오에서 대본 자동 생성';
+
+  @override
+  String get loginFeatureFree => '매일 3분 무료 AI 오디오 처리';
+
+  @override
+  String get loginLegalPrefix => '계속하면 ';
+
+  @override
+  String get loginTermsLink => '서비스 이용약관';
+
+  @override
+  String get loginLegalAnd => '및';
+
+  @override
+  String get loginPrivacyLink => '개인정보처리방침';
+
+  @override
+  String get loginLegalSuffix => '에 동의하는 것으로 간주됩니다.';
+
+  @override
+  String get settingsSectionAccount => '계정';
+
+  @override
+  String get settingsLogin => '로그인';
+
+  @override
+  String get settingsLoginSubtitle => 'AI 기능을 사용하려면 로그인이 필요합니다';
+
+  @override
+  String get settingsSectionCredits => '크레딧 & 구독';
+
+  @override
+  String get settingsCreditsSubtitle => 'AI 오디오 크레딧 및 구독 관리';
+
+  @override
+  String get settingsLogout => '로그아웃';
+
+  @override
+  String get settingsLogoutDialogTitle => '로그아웃';
+
+  @override
+  String get settingsLogoutDialogContent => '로그아웃 하시겠습니까?';
+
+  @override
+  String get settingsSectionLegal => '법적 고지';
+
+  @override
+  String get settingsTermsSubtitle => '서비스 이용 조건을 확인하세요';
+
+  @override
+  String get settingsPrivacySubtitle => '개인정보 수집 및 처리 방침';
+
+  @override
+  String get creditsTitle => '크레딧';
+
+  @override
+  String get creditsDailyFree => '오늘의 무료 사용량';
+
+  @override
+  String get creditsMinRemaining => '분 남음';
+
+  @override
+  String get creditsDailyResets => '매일 자정에 초기화';
+
+  @override
+  String get creditsPurchasedCredits => '구매한 크레딧';
+
+  @override
+  String get creditsMinutes => '분';
+
+  @override
+  String get creditsSubscriptionActive => '구독 활성';
+
+  @override
+  String get creditsSubscriptionsTitle => '구독 플랜';
+
+  @override
+  String get creditsMostPopular => '인기';
+
+  @override
+  String get creditsPerMonth => '/ 월';
+
+  @override
+  String get creditPacksTitle => '크레딧 패키지';
+
+  @override
+  String get creditPacksSubtitle => '한 번 결제, 기간 없이 사용';
+
+  @override
+  String get creditsLoadError => '크레딧 정보를 불러올 수 없습니다.';
+
+  @override
+  String get creditsPaymentComingSoon => '결제 시스템 준비 중입니다';
+
+  @override
+  String get termsTitle => '서비스 이용약관';
+
+  @override
+  String get termsLastUpdated => '최종 수정: 2025년 3월';
+
+  @override
+  String get termsSec1Title => '1. 서비스 개요';
+
+  @override
+  String get termsSec1Body =>
+      'LingoNexus(이하 \'서비스\')는 AI 기반 언어 학습 플랫폼입니다. 본 약관은 서비스 이용에 관한 조건을 규정합니다.';
+
+  @override
+  String get termsSec2Title => '2. 계정 및 인증';
+
+  @override
+  String get termsSec2Body =>
+      'AI 기능을 이용하려면 Google 계정으로 로그인해야 합니다. 계정 정보의 보안은 본인이 책임집니다. 타인의 계정을 무단으로 사용하는 것은 금지됩니다.';
+
+  @override
+  String get termsSec3Title => '3. 크레딧 및 결제';
+
+  @override
+  String get termsSec3Body =>
+      'AI 오디오 처리(음성 전사, 발음 평가 등)는 크레딧을 소모합니다. 매일 3분(180초)의 무료 사용량이 제공됩니다. 구매한 크레딧은 환불되지 않습니다. 결제는 앱 내 구매를 통해 이루어집니다.';
+
+  @override
+  String get termsSec4Title => '4. 이용 제한';
+
+  @override
+  String get termsSec4Body =>
+      '서비스를 악용하거나 자동화된 방법으로 과도하게 사용하는 행위는 금지됩니다. 1회 업로드 최대 10분 제한이 있습니다. 위반 시 계정이 제한될 수 있습니다.';
+
+  @override
+  String get termsSec5Title => '5. 지적 재산권';
+
+  @override
+  String get termsSec5Body =>
+      '사용자가 업로드한 콘텐츠의 저작권은 사용자에게 있습니다. 서비스의 AI 결과물은 참고용이며, 상업적 용도로 무단 사용할 수 없습니다.';
+
+  @override
+  String get termsSec6Title => '6. 면책 조항';
+
+  @override
+  String get termsSec6Body =>
+      '서비스는 AI 결과물의 정확성을 보장하지 않습니다. 서비스 장애, 데이터 손실 등에 대한 책임은 제한됩니다. 이용약관은 사전 고지 없이 변경될 수 있습니다.';
+
+  @override
+  String get privacyTitle => '개인정보처리방침';
+
+  @override
+  String get privacyLastUpdated => '최종 수정: 2025년 3월';
+
+  @override
+  String get privacySec1Title => '1. 수집하는 정보';
+
+  @override
+  String get privacySec1Body =>
+      'Google 로그인 시 이메일, 이름, 프로필 사진을 수집합니다. AI 기능 이용 시 오디오 데이터를 처리하며 서버에 저장하지 않습니다. 크레딧 사용 내역 및 구독 정보를 저장합니다.';
+
+  @override
+  String get privacySec2Title => '2. 정보 이용 목적';
+
+  @override
+  String get privacySec2Body =>
+      '수집된 정보는 서비스 제공, 크레딧 관리, 고객 지원에만 사용됩니다. 제3자에게 개인정보를 판매하거나 공유하지 않습니다.';
+
+  @override
+  String get privacySec3Title => '3. 정보 보관 및 보안';
+
+  @override
+  String get privacySec3Body =>
+      '인증 토큰은 기기의 암호화된 저장소(Keychain/Keystore)에 안전하게 보관됩니다. 서버의 민감 정보는 암호화하여 저장합니다.';
+
+  @override
+  String get privacySec4Title => '4. 제3자 서비스';
+
+  @override
+  String get privacySec4Body =>
+      'Google Sign-In, Google Gemini API, Alibaba Qwen API를 사용합니다. 각 서비스의 개인정보처리방침이 적용됩니다.';
+
+  @override
+  String get privacySec5Title => '5. 사용자 권리';
+
+  @override
+  String get privacySec5Body =>
+      '언제든지 계정 삭제 및 개인정보 삭제를 요청할 수 있습니다. 문의: support@lingonexus.app';
 }

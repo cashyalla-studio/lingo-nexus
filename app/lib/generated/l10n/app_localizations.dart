@@ -1163,6 +1163,378 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More'**
   String get heatmapMore;
+
+  /// No description provided for @loginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Level up your language skills with AI'**
+  String get loginSubtitle;
+
+  /// No description provided for @loginWithGoogle.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue with Google'**
+  String get loginWithGoogle;
+
+  /// No description provided for @loginFeatureAi.
+  ///
+  /// In en, this message translates to:
+  /// **'AI grammar, vocabulary & conversation tutor (free)'**
+  String get loginFeatureAi;
+
+  /// No description provided for @loginFeaturePronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation & tone evaluation'**
+  String get loginFeaturePronunciation;
+
+  /// No description provided for @loginFeatureSync.
+  ///
+  /// In en, this message translates to:
+  /// **'AI auto-sync — generate scripts from audio'**
+  String get loginFeatureSync;
+
+  /// No description provided for @loginFeatureFree.
+  ///
+  /// In en, this message translates to:
+  /// **'3 minutes of free AI audio processing daily'**
+  String get loginFeatureFree;
+
+  /// No description provided for @loginLegalPrefix.
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, you agree to our '**
+  String get loginLegalPrefix;
+
+  /// No description provided for @loginTermsLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get loginTermsLink;
+
+  /// No description provided for @loginLegalAnd.
+  ///
+  /// In en, this message translates to:
+  /// **'and'**
+  String get loginLegalAnd;
+
+  /// No description provided for @loginPrivacyLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get loginPrivacyLink;
+
+  /// No description provided for @loginLegalSuffix.
+  ///
+  /// In en, this message translates to:
+  /// **'.'**
+  String get loginLegalSuffix;
+
+  /// No description provided for @settingsSectionAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get settingsSectionAccount;
+
+  /// No description provided for @settingsLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Log In'**
+  String get settingsLogin;
+
+  /// No description provided for @settingsLoginSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log in to use AI features'**
+  String get settingsLoginSubtitle;
+
+  /// No description provided for @settingsSectionCredits.
+  ///
+  /// In en, this message translates to:
+  /// **'Credits & Subscription'**
+  String get settingsSectionCredits;
+
+  /// No description provided for @settingsCreditsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Manage AI audio credits and plans'**
+  String get settingsCreditsSubtitle;
+
+  /// No description provided for @settingsLogout.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get settingsLogout;
+
+  /// No description provided for @settingsLogoutDialogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Log Out'**
+  String get settingsLogoutDialogTitle;
+
+  /// No description provided for @settingsLogoutDialogContent.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to log out?'**
+  String get settingsLogoutDialogContent;
+
+  /// No description provided for @settingsSectionLegal.
+  ///
+  /// In en, this message translates to:
+  /// **'Legal'**
+  String get settingsSectionLegal;
+
+  /// No description provided for @settingsTermsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'View our terms of service'**
+  String get settingsTermsSubtitle;
+
+  /// No description provided for @settingsPrivacySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How we handle your data'**
+  String get settingsPrivacySubtitle;
+
+  /// No description provided for @creditsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Credits'**
+  String get creditsTitle;
+
+  /// No description provided for @creditsDailyFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s free quota'**
+  String get creditsDailyFree;
+
+  /// No description provided for @creditsMinRemaining.
+  ///
+  /// In en, this message translates to:
+  /// **'min remaining'**
+  String get creditsMinRemaining;
+
+  /// No description provided for @creditsDailyResets.
+  ///
+  /// In en, this message translates to:
+  /// **'Resets at midnight'**
+  String get creditsDailyResets;
+
+  /// No description provided for @creditsPurchasedCredits.
+  ///
+  /// In en, this message translates to:
+  /// **'Purchased credits'**
+  String get creditsPurchasedCredits;
+
+  /// No description provided for @creditsMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'min'**
+  String get creditsMinutes;
+
+  /// No description provided for @creditsSubscriptionActive.
+  ///
+  /// In en, this message translates to:
+  /// **'subscription active'**
+  String get creditsSubscriptionActive;
+
+  /// No description provided for @creditsSubscriptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscription Plans'**
+  String get creditsSubscriptionsTitle;
+
+  /// No description provided for @creditsMostPopular.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular'**
+  String get creditsMostPopular;
+
+  /// No description provided for @creditsPerMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'/ month'**
+  String get creditsPerMonth;
+
+  /// No description provided for @creditPacksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Credit Packs'**
+  String get creditPacksTitle;
+
+  /// No description provided for @creditPacksSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'One-time purchase, no expiry'**
+  String get creditPacksSubtitle;
+
+  /// No description provided for @creditsLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to load credit info.'**
+  String get creditsLoadError;
+
+  /// No description provided for @creditsPaymentComingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment system coming soon'**
+  String get creditsPaymentComingSoon;
+
+  /// No description provided for @termsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Service'**
+  String get termsTitle;
+
+  /// No description provided for @termsLastUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: March 2025'**
+  String get termsLastUpdated;
+
+  /// No description provided for @termsSec1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Service Overview'**
+  String get termsSec1Title;
+
+  /// No description provided for @termsSec1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'LingoNexus is an AI-powered language learning platform. These terms govern your use of the service.'**
+  String get termsSec1Body;
+
+  /// No description provided for @termsSec2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'2. Account & Authentication'**
+  String get termsSec2Title;
+
+  /// No description provided for @termsSec2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'You must log in with a Google account to use AI features. You are responsible for the security of your account.'**
+  String get termsSec2Body;
+
+  /// No description provided for @termsSec3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Credits & Payment'**
+  String get termsSec3Title;
+
+  /// No description provided for @termsSec3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'AI audio processing consumes credits. 3 minutes of free usage is provided daily. Purchased credits are non-refundable.'**
+  String get termsSec3Body;
+
+  /// No description provided for @termsSec4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Usage Restrictions'**
+  String get termsSec4Title;
+
+  /// No description provided for @termsSec4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Abusing the service or excessive automated usage is prohibited. 10-minute limit per upload.'**
+  String get termsSec4Body;
+
+  /// No description provided for @termsSec5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'5. Intellectual Property'**
+  String get termsSec5Title;
+
+  /// No description provided for @termsSec5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Copyright of uploaded content belongs to the user. AI results are for reference only.'**
+  String get termsSec5Body;
+
+  /// No description provided for @termsSec6Title.
+  ///
+  /// In en, this message translates to:
+  /// **'6. Disclaimer'**
+  String get termsSec6Title;
+
+  /// No description provided for @termsSec6Body.
+  ///
+  /// In en, this message translates to:
+  /// **'We do not guarantee the accuracy of AI results. Terms may change with prior notice.'**
+  String get termsSec6Body;
+
+  /// No description provided for @privacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
+  String get privacyTitle;
+
+  /// No description provided for @privacyLastUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Last updated: March 2025'**
+  String get privacyLastUpdated;
+
+  /// No description provided for @privacySec1Title.
+  ///
+  /// In en, this message translates to:
+  /// **'1. Information We Collect'**
+  String get privacySec1Title;
+
+  /// No description provided for @privacySec1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'When you sign in with Google, we collect your email, name, and profile photo. Audio data is not stored on our servers.'**
+  String get privacySec1Body;
+
+  /// No description provided for @privacySec2Title.
+  ///
+  /// In en, this message translates to:
+  /// **'2. How We Use Your Information'**
+  String get privacySec2Title;
+
+  /// No description provided for @privacySec2Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Information is used solely for service delivery and credit management. We do not sell personal information.'**
+  String get privacySec2Body;
+
+  /// No description provided for @privacySec3Title.
+  ///
+  /// In en, this message translates to:
+  /// **'3. Data Security'**
+  String get privacySec3Title;
+
+  /// No description provided for @privacySec3Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Authentication tokens are stored in your device\'s encrypted storage. Server data is encrypted at rest.'**
+  String get privacySec3Body;
+
+  /// No description provided for @privacySec4Title.
+  ///
+  /// In en, this message translates to:
+  /// **'4. Third-Party Services'**
+  String get privacySec4Title;
+
+  /// No description provided for @privacySec4Body.
+  ///
+  /// In en, this message translates to:
+  /// **'We use Google Sign-In, Google Gemini API, and Alibaba Qwen API.'**
+  String get privacySec4Body;
+
+  /// No description provided for @privacySec5Title.
+  ///
+  /// In en, this message translates to:
+  /// **'5. Your Rights'**
+  String get privacySec5Title;
+
+  /// No description provided for @privacySec5Body.
+  ///
+  /// In en, this message translates to:
+  /// **'You may request account deletion at any time. Contact: support@lingonexus.app'**
+  String get privacySec5Body;
 }
 
 class _AppLocalizationsDelegate

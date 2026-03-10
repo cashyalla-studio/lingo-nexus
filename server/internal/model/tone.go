@@ -8,6 +8,7 @@ type ToneEvalRequest struct {
 	Pinyin      string `json:"pinyin"`       // 병음 (예: mā)
 	Tone        int    `json:"tone"`         // 목표 성조 (1~4, 0=경성)
 	Language    string `json:"language"`     // 학습 언어 코드 (예: zh, ja, en)
+	DurationMs  int64  `json:"duration_ms"`  // 오디오 길이 (ms), 크레딧 차감용 (기본 3000)
 }
 
 // ToneEvalResponse는 서버가 클라이언트에게 반환하는 평가 결과입니다.

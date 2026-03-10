@@ -1,12 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../core/models/chat_message.dart';
-import '../../core/providers/ai_provider.dart';
 import '../../core/services/llm_service.dart';
 
-// Selected language for conversation practice
 final conversationLanguageProvider = StateProvider<String>((ref) => 'English');
 
-// Conversation history (separate from grammar tutor history)
 class ConversationHistoryNotifier extends StateNotifier<List<ChatMessage>> {
   ConversationHistoryNotifier() : super([]);
 
@@ -24,7 +21,6 @@ final conversationHistoryProvider =
   return ConversationHistoryNotifier();
 });
 
-// Topic suggestions per language
 const Map<String, List<String>> conversationTopics = {
   'English': [
     'Tell me about your weekend plans',
@@ -71,33 +67,17 @@ String getSystemPrompt(String language) {
 
 Rules:
 1. Always respond in $language (keep responses 2-4 sentences — natural conversation length)
-2. If the user makes a grammar or vocabulary mistake, gently correct it by using the correct form naturally in your response (don't explicitly say "you made an error")
+2. If the user makes a grammar or vocabulary mistake, gently correct it by using the correct form naturally in your response
 3. Ask follow-up questions to keep the conversation flowing
 4. If the user writes in Korean or asks for help, briefly respond in Korean to clarify, then continue in $language
 5. Be encouraging and warm — this person is learning!
 6. If this is the first message, introduce yourself briefly and ask an opening question""";
 }
 
-// Provider that sends a message and gets AI response
 final sendConversationMessageProvider = FutureProvider.family<String, String>((ref, message) async {
   final language = ref.read(conversationLanguageProvider);
-  final activeAi = ref.read(activeAiProvider);
-  final apiKey = await ref.read(currentApiKeyProvider.future);
   final history = ref.read(conversationHistoryProvider);
-
-  if (apiKey == null || apiKey.isEmpty) {
-    return "API 키가 설정되지 않았습니다. 설정에서 API 키를 입력해주세요.";
-  }
-
   final service = ref.read(llmServiceProvider);
 
-  // Use a conversation-specific system prompt via the chat method
-  // We pass the system prompt as the first "assistant" message context
-  final contextualHistory = <ChatMessage>[
-    ChatMessage(role: 'user', content: getSystemPrompt(language)),
-    ChatMessage(role: 'assistant', content: 'Understood! I\'ll be your $language conversation partner.'),
-    ...history,
-  ];
-
-  return await service.chat(activeAi, apiKey, contextualHistory, message);
+  return await service.chat(history, message, systemPrompt: getSystemPrompt(language));
 });

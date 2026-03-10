@@ -1,0 +1,66 @@
+version: '3.8'
+
+# ──────────────────────────────────────────────────────────────────────────────
+# 로컬 개발용 Docker Compose
+#
+# 실행 전 환경변수 설정:
+#   export SCRYPTA_SYNC_QWEN_API_KEY=sk-...
+#   export SCRYPTA_SYNC_GOOGLE_API_KEY=AIza...
+#
+# 또는 server/.env 파일 생성 후:
+#   SCRYPTA_SYNC_QWEN_API_KEY=sk-...
+#   SCRYPTA_SYNC_GOOGLE_API_KEY=AIza...
+#
+# 실행:
+#   docker compose up --build
+#
+# Swagger UI: http://localhost:8080/docs
+# ──────────────────────────────────────────────────────────────────────────────
+
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: scrypta_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: scrypta_sync
+      MYSQL_USER: scrypta
+      MYSQL_PASSWORD: scryptapass
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./internal/db/migrations:/docker-entrypoint-initdb.d
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  api:
+    build: .
+    container_name: scrypta_api
+    environment:
+      PORT: 8080
+      APP_ENV: development
+      # MySQL
+      DATABASE_URL: scrypta:scryptapass@tcp(mysql:3306)/scrypta_sync?parseTime=true&charset=utf8mb4&loc=UTC
+      # JWT
+      JWT_SECRET: local-dev-secret-change-in-production
+      # LLM API Keys — 호스트 환경변수에서 주입
+      QWEN_API_KEY: ${SCRYPTA_SYNC_QWEN_API_KEY}
+      GEMINI_API_KEY: ${SCRYPTA_SYNC_GOOGLE_API_KEY}
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  mysql_data:

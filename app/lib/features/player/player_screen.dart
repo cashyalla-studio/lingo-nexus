@@ -7,7 +7,7 @@ import '../../core/models/bookmark.dart';
 import '../bookmarks/bookmarks_provider.dart';
 import '../bookmarks/bookmarks_screen.dart';
 import '../scanner/scanner_provider.dart';
-import '../settings/api_key_settings_sheet.dart';
+import '../credits/credits_screen.dart';
 import '../tutor/ai_tutor_sheet.dart';
 import '../scribe/scribe_mode_screen.dart';
 import '../shadowing/shadowing_studio_screen.dart';
@@ -108,16 +108,9 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
               MaterialPageRoute(builder: (_) => const BookmarksScreen())),
           ),
           IconButton(
-            icon: const Icon(Icons.settings_outlined),
-            onPressed: () {
-               showModalBottomSheet(
-                 context: context,
-                 backgroundColor: Colors.transparent,
-                 isScrollControlled: true,
-                 useSafeArea: true,
-                 builder: (context) => const ApiKeySettingsSheet(),
-               );
-            },
+            icon: const Icon(Icons.bolt_outlined),
+            onPressed: () => Navigator.push(context,
+              MaterialPageRoute(builder: (_) => const CreditsScreen())),
           ),
           const SizedBox(width: 8),
         ],
