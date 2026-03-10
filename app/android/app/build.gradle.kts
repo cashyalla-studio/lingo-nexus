@@ -15,7 +15,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.lingo_nexus"
+    namespace = "xyz.cashyalla.scrypta.sync"
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -39,7 +39,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.lingo_nexus"
+        applicationId = "xyz.cashyalla.scrypta.sync"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion

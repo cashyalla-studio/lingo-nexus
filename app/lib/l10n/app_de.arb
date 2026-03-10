@@ -36,5 +36,275 @@
   "noContentFound": "Kein Inhalt gefunden. Tippen Sie auf das Ordnersymbol.",
   "selectFile": "Datei auswählen",
   "noScriptFile": "Keine Skriptdatei gefunden.",
-  "noScriptHint": "Fügen Sie eine .txt-Datei mit demselben Namen wie die Audiodatei im gleichen Ordner hinzu."
+  "noScriptHint": "Fügen Sie eine .txt-Datei mit demselben Namen wie die Audiodatei im gleichen Ordner hinzu.",
+  "settingsSectionLanguage": "Sprache",
+  "settingsSectionAiProvider": "KI-Anbieter",
+  "settingsApiKeyManage": "API-Schlüssel verwalten",
+  "settingsSectionSubscription": "Abonnement",
+  "settingsProPlanActive": "Pro-Plan aktiv",
+  "settingsFreePlan": "Kostenloser Plan",
+  "settingsProPlanSubtitle": "Alle Funktionen unbegrenzt",
+  "settingsFreePlanSubtitle": "20 KI-Nutzungen/Monat, 10 Ausspracheübungen/Monat",
+  "settingsSectionData": "Daten",
+  "settingsRescanLibrary": "Bibliothek neu scannen",
+  "settingsRescanSubtitle": "Sucht nach neuen Dateien im Verzeichnis",
+  "settingsResetData": "Lerndaten zurücksetzen",
+  "settingsResetSubtitle": "Löscht alle Fortschritte und Aufzeichnungen",
+  "settingsResetDialogTitle": "Aufzeichnungen zurücksetzen",
+  "settingsResetDialogContent": "Alle Lernaufzeichnungen und Fortschritte werden gelöscht. Fortfahren?",
+  "cancel": "Abbrechen",
+  "delete": "Löschen",
+  "settingsResetSuccess": "Alle Aufzeichnungen wurden zurückgesetzt.",
+  "settingsSectionCache": "Cache-Verwaltung",
+  "settingsCacheDriveDownload": "Google Drive-Downloads",
+  "settingsClearAllCache": "Gesamten Cache löschen",
+  "settingsClearCacheSubtitle": "Heruntergeladene Google Drive-Dateien und temporäre Dateien löschen",
+  "settingsCacheDeleteDialogTitle": "Cache löschen",
+  "settingsCacheDeleteDialogContent": "{size} Cache wird gelöscht.",
+  "settingsCacheDeleteSuccess": "Cache wurde gelöscht.",
+  "settingsAppLanguage": "App-Sprache",
+  "settingsAppLanguageTitle": "App-Sprache auswählen",
+  "settingsSystemDefault": "Systemstandard",
+  "settingsSystemDefaultSubtitle": "Folgt der Gerätesprache",
+  "@settingsCacheDeleteDialogContent": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStreakActive": "{days} Tage am Stück!",
+  "@homeStreakActive": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeStreakStats": "Bestleistung: {longest} T. · Gesamt: {total} T.",
+  "@homeStreakStats": {
+    "placeholders": {
+      "longest": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeEmptyLibrary": "Füge Dateien aus der Bibliothek hinzu, um zu beginnen.",
+  "homeNoHistory": "Noch keine Lernhistorie.",
+  "homeStatusDone": "Fertig",
+  "homeStatusStudying": "In Bearbeitung",
+  "homeDueReview": "{count} Sätze zur Wiederholung heute",
+  "@homeDueReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoDueReview": "Keine Sätze zur Wiederholung",
+  "homeAiConversation": "KI-Konversationsübung",
+  "homeAiConversationSubtitle": "Frei mit einer muttersprachlichen KI chatten",
+  "homePhoneticsHub": "Aussprache-Trainingszentrum",
+  "homePhoneticsHubSubtitle": "TTS + geräteseitige Bewertung · Kein API nötig",
+  "tutorialSkip": "Überspringen",
+  "tutorialStart": "Loslegen 🚀",
+  "tutorialNext": "Weiter",
+  "playerClipEdit": "Clip bearbeiten",
+  "playerSpeedSuggestion": "70%+ gehört! Geschwindigkeit erhöhen? 🚀",
+  "playerSpeedIncrease": "Erhöhen",
+  "playerMenuDictation": "Diktatübung",
+  "playerSelectFileFirst": "Bitte zuerst eine Audiodatei auswählen.",
+  "playerMenuActiveRecall": "Aktives Abruftraining",
+  "playerMenuBookmark": "Lesezeichen speichern",
+  "playerBookmarkSaved": "Lesezeichen gespeichert!",
+  "playerBookmarkDuplicate": "Dieser Satz ist bereits mit einem Lesezeichen versehen.",
+  "playerBeginnerMode": "Anfängermodus (0.75x)",
+  "playerLoopOff": "Kein Wiederholen",
+  "playerLoopOne": "Eins wiederholen",
+  "playerLoopAll": "Alle wiederholen",
+  "playerScriptReady": "Skript bereit",
+  "playerNoScript": "Kein Skript",
+  "playerAbLoopASet": "A: {time} — B nicht gesetzt",
+  "@playerAbLoopASet": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "playerError": "Fehler: {error}",
+  "@playerError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationTopicSuggest": "Thema vorschlagen",
+  "conversationInputHint": "Sprechen Sie auf {language}...",
+  "@conversationInputHint": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationPracticeTitle": "{language}-Konversationsübung",
+  "@conversationPracticeTitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationWelcomeMsg": "Unterhalten Sie sich frei mit einer Muttersprachler-KI.\nHaben Sie keine Angst vor Fehlern!",
+  "conversationStartBtn": "Gespräch starten",
+  "conversationTopicExamples": "Themenbeispiele",
+  "statsStudiedContent": "Gelernte Inhalte",
+  "statsItemCount": "{count} Elemente",
+  "@statsItemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalTime": "Gesamtlernzeit",
+  "statsMinutes": "{minutes} Min.",
+  "@statsMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "statsNoHistory": "Noch keine Lernhistorie.\nFüge Inhalte aus der Bibliothek hinzu.",
+  "statsProgressByItem": "Fortschritt nach Element",
+  "statsPronunciationProgress": "Aussprache-Verbesserung",
+  "statsPronunciationEmpty": "Nach dem Shadowing-Training wird dein Aussprache-Fortschritt hier angezeigt.",
+  "statsPracticeCount": "{count} Sitzungen",
+  "@statsPracticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsStreakSection": "Lernsträhne",
+  "statsStreakCurrentLabel": "Aktuelle Strähne",
+  "statsStreakLongestLabel": "Längste Strähne",
+  "statsStreakTotalLabel": "Gesamttage",
+  "statsDays": "{days} Tage",
+  "@statsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statsJournal": "Lerntagebuch",
+  "statsJournalEmpty": "Dein Tagebuch wird automatisch aufgezeichnet, sobald du anfängst zu lernen.",
+  "statsShareCard": "Lernkarte teilen",
+  "statsShareSubtitle": "Teile deine Lernerfolge in sozialen Medien",
+  "statsMinimalPair": "Minimalpaartraining",
+  "statsMinimalPairSubtitle": "Ähnliche Laute unterscheiden (EN/JA/ES)",
+  "statsError": "Fehler: {error}",
+  "@statsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "phoneticsHubFreeTitle": "Aussprachetraining ohne KI",
+  "phoneticsHubFreeSubtitle": "Geräte-TTS + On-Device-Spracherkennung\nKostenlos ohne API-Schlüssel",
+  "phoneticsHubTrainingTools": "Trainingstools",
+  "phoneticsComingSoon": "Demnächst",
+  "phoneticsSpanishIpa": "Spanisches IPA",
+  "phoneticsSpanishIpaSubtitle": "Spanische Lautzeichen + Übungen (demnächst)",
+  "apiKeyRequired": "Bitte gib mindestens einen API-Schlüssel ein.",
+  "apiKeyInvalidFormat": "Ungültiges OpenAI-API-Schlüsselformat. (muss mit sk- beginnen)",
+  "apiKeySaved": "API-Schlüssel sicher gespeichert.",
+  "libraryNewPlaylist": "Neue Wiedergabeliste",
+  "libraryImport": "Importieren",
+  "libraryAllTab": "Alle",
+  "libraryLocalSource": "Lokal",
+  "libraryNoScript": "Kein Skript",
+  "libraryUnsetLanguage": "Nicht gesetzt",
+  "libraryEmptyPlaylist": "Noch keine Wiedergabelisten.",
+  "libraryCreatePlaylist": "Neue Wiedergabeliste erstellen",
+  "libraryTrackCount": "{count} Tracks",
+  "@libraryTrackCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryMoreTracks": "+ {count} weitere",
+  "@libraryMoreTracks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryEditNameEmoji": "Name/Emoji bearbeiten",
+  "libraryDeletePlaylist": "Löschen",
+  "libraryEditPlaylist": "Wiedergabeliste bearbeiten",
+  "librarySetLanguage": "Sprache festlegen",
+  "libraryChangeLanguage": "Sprache ändern (aktuell: {lang})",
+  "@libraryChangeLanguage": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryAddToPlaylist": "Zur Wiedergabeliste hinzufügen",
+  "libraryLanguageBadge": "Sprach-Badge",
+  "phoneticsQuizTitle": "Aussprache-Quiz",
+  "phoneticsQuizDesc": "IPA-Symbol ↔ Wort-Matching-Quiz\nSträhnenbonus + Genauigkeitsstatistik",
+  "phoneticsTtsPracticeTitle": "TTS-Aussprache-Übung",
+  "phoneticsTtsPracticeDesc": "Wörter hören und mit IPA-Symbolen wiederholen\nKein API-Schlüssel nötig · Völlig kostenlos",
+  "phoneticsMinimalPairDesc": "Ähnliche Laute unterscheiden (ship vs sheep usw.)\nTTS-Hören + Aussprache-Bewertung",
+  "phoneticsPitchAccentTitle": "Japanischer Tonhöhenakzent",
+  "phoneticsPitchAccentDesc": "Visualisierung von Tonhöhenmustern bei Homophonen\nz.B. はし (Essstäbchen/Brücke/Kante)",
+  "phoneticsKanaDrillTitle": "Hiragana · Katakana-Drill",
+  "phoneticsKanaDrillDesc": "Tippe auf ein Kana-Zeichen, um die TTS-Aussprache zu hören\nVollständige 50-Laute-Tabelle enthalten",
+  "libraryPlaylistTab": "Wiedergabelisten",
+  "importTitle": "Importieren",
+  "importFromDevice": "Von diesem Gerät importieren",
+  "importFromDeviceSubtitle": "Audio + Skripte aus einem lokalen Ordner laden",
+  "importFromICloud": "Von iCloud Drive importieren",
+  "importFromICloudSubtitle": "iCloud Drive-Ordner mit der Bibliothek verknüpfen",
+  "importFromGoogleDrive": "Von Google Drive importieren",
+  "importFromGoogleDriveSubtitle": "Google Drive-Ordner durchsuchen und herunterladen",
+  "importAutoSync": "Scripta Sync iCloud-Ordner automatisch synchronisieren",
+  "importAutoSyncSubtitle": "iCloud Drive/Scripta Sync/-Ordner automatisch scannen",
+  "heatmapTitle": "Lernverlauf (letzte {weeks} Wochen)",
+  "@heatmapTitle": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapTooltip": "{date}: {minutes} Min.",
+  "@heatmapTooltip": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapNoActivity": "Keine Aktivität",
+  "heatmapLess": "Wenig",
+  "heatmapMore": "Viel"
 }

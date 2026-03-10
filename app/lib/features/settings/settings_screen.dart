@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import '../../core/providers/ai_provider.dart';
+import '../../core/providers/locale_provider.dart';
 import '../../core/services/cache_service.dart';
 import '../../core/services/secure_storage_service.dart';
 import '../../core/theme/app_theme.dart';
@@ -51,7 +52,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
     await _loadCacheInfo();
     if (mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('캐시가 삭제되었습니다.')),
+        SnackBar(content: Text(AppLocalizations.of(context)!.settingsCacheDeleteSuccess)),
       );
     }
   }
@@ -75,8 +76,14 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   style: theme.textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 24),
 
+                // Language Section
+                _SectionTitle(title: l10n.settingsSectionLanguage, theme: theme),
+                const SizedBox(height: 12),
+                _LanguageTile(theme: theme),
+                const SizedBox(height: 32),
+
                 // AI Provider Section
-                _SectionTitle(title: 'AI 프로바이더', theme: theme),
+                _SectionTitle(title: l10n.settingsSectionAiProvider, theme: theme),
                 const SizedBox(height: 12),
                 ...AiProviderType.values.map((type) {
                   final name = switch (type) {
@@ -131,7 +138,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       builder: (context) => const ApiKeySettingsSheet(),
                     ),
                     icon: const Icon(Icons.key_outlined),
-                    label: const Text('API 키 관리'),
+                    label: Text(l10n.settingsApiKeyManage),
                     style: OutlinedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 14),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
@@ -139,18 +146,19 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                   ),
                 ),
                 const SizedBox(height: 32),
-                _SectionTitle(title: '구독', theme: theme),
+                _SectionTitle(title: l10n.settingsSectionSubscription, theme: theme),
                 const SizedBox(height: 12),
                 Consumer(
                   builder: (ctx, ref, _) {
                     final tierAsync = ref.watch(subscriptionTierProvider);
+                    final ctxL10n = AppLocalizations.of(ctx)!;
                     return tierAsync.when(
                       data: (tier) => _SettingsTile(
                         icon: tier == SubscriptionTier.pro ? Icons.workspace_premium : Icons.person_outline,
-                        title: tier == SubscriptionTier.pro ? 'Pro 플랜 구독 중' : 'Free 플랜 사용 중',
+                        title: tier == SubscriptionTier.pro ? ctxL10n.settingsProPlanActive : ctxL10n.settingsFreePlan,
                         subtitle: tier == SubscriptionTier.pro
-                            ? '모든 기능 무제한 사용 가능'
-                            : 'AI 월 20회, 발음 연습 월 10회',
+                            ? ctxL10n.settingsProPlanSubtitle
+                            : ctxL10n.settingsFreePlanSubtitle,
                         theme: theme,
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(builder: (_) => const SubscriptionScreen())),
@@ -163,47 +171,48 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 const SizedBox(height: 32),
 
                 // Data Section
-                _SectionTitle(title: '데이터', theme: theme),
+                _SectionTitle(title: l10n.settingsSectionData, theme: theme),
                 const SizedBox(height: 12),
                 _SettingsTile(
                   icon: Icons.folder_open_outlined,
-                  title: '라이브러리 다시 스캔',
-                  subtitle: '디렉터리에서 새 파일을 검색합니다',
+                  title: l10n.settingsRescanLibrary,
+                  subtitle: l10n.settingsRescanSubtitle,
                   theme: theme,
                   onTap: () => ref.read(studyItemsProvider.notifier).pickAndScanDirectory(),
                 ),
                 const SizedBox(height: 8),
                 _SettingsTile(
                   icon: Icons.delete_outline,
-                  title: '학습 기록 초기화',
-                  subtitle: '모든 진도 및 기록을 삭제합니다',
+                  title: l10n.settingsResetData,
+                  subtitle: l10n.settingsResetSubtitle,
                   theme: theme,
                   isDestructive: true,
                   onTap: () async {
                     final confirmed = await showDialog<bool>(
                       context: context,
-                      builder: (ctx) => AlertDialog(
-                        title: const Text('기록 초기화'),
-                        content: const Text('모든 학습 기록 및 진도가 삭제됩니다. 계속하시겠습니까?'),
-                        actions: [
-                          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('취소')),
-                          TextButton(
-                            onPressed: () => Navigator.pop(ctx, true),
-                            child: const Text('삭제', style: TextStyle(color: Colors.red)),
-                          ),
-                        ],
-                      ),
+                      builder: (ctx) {
+                        final dl10n = AppLocalizations.of(ctx)!;
+                        return AlertDialog(
+                          title: Text(dl10n.settingsResetDialogTitle),
+                          content: Text(dl10n.settingsResetDialogContent),
+                          actions: [
+                            TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(dl10n.cancel)),
+                            TextButton(
+                              onPressed: () => Navigator.pop(ctx, true),
+                              child: Text(dl10n.delete, style: const TextStyle(color: Colors.red)),
+                            ),
+                          ],
+                        );
+                      },
                     );
                     if (confirmed == true) {
-                      // Clear API keys
                       final storage = ref.read(secureStorageProvider);
                       await storage.clearAllKeys();
-                      // Clear all SharedPreferences data (progress, speed, shadow deck, pronunciation history)
                       final prefs = await SharedPreferences.getInstance();
                       await prefs.clear();
                       if (context.mounted) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('모든 기록이 초기화되었습니다.')));
+                          SnackBar(content: Text(AppLocalizations.of(context)!.settingsResetSuccess)));
                       }
                     }
                   },
@@ -211,7 +220,7 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 const SizedBox(height: 32),
 
                 // Cache Section
-                _SectionTitle(title: '캐시 관리', theme: theme),
+                _SectionTitle(title: l10n.settingsSectionCache, theme: theme),
                 const SizedBox(height: 12),
                 Container(
                   padding: const EdgeInsets.all(16),
@@ -225,12 +234,12 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Row(children: [
+                          Flexible(child: Row(children: [
                             Icon(Icons.folder_zip_outlined, color: theme.colorScheme.onSurfaceVariant),
                             const SizedBox(width: 12),
-                            Text('Google Drive 다운로드',
-                                style: theme.textTheme.bodyLarge),
-                          ]),
+                            Flexible(child: Text(l10n.settingsCacheDriveDownload,
+                                style: theme.textTheme.bodyLarge)),
+                          ])),
                           _loadingCache
                               ? const SizedBox(width: 16, height: 16,
                                   child: CircularProgressIndicator(strokeWidth: 2))
@@ -279,27 +288,30 @@ class _SettingsScreenState extends ConsumerState<SettingsScreen> {
                 if (_cacheSizeBytes != null && _cacheSizeBytes! > 0)
                   _SettingsTile(
                     icon: Icons.cleaning_services_outlined,
-                    title: '캐시 전체 삭제',
-                    subtitle: '다운로드된 Google Drive 파일 및 임시 파일 삭제',
+                    title: l10n.settingsClearAllCache,
+                    subtitle: l10n.settingsClearCacheSubtitle,
                     theme: theme,
                     isDestructive: true,
                     onTap: () async {
                       final confirmed = await showDialog<bool>(
                         context: context,
-                        builder: (ctx) => AlertDialog(
-                          title: const Text('캐시 삭제'),
-                          content: Text(
-                              '${CacheService.formatBytes(_cacheSizeBytes!)}의 캐시가 삭제됩니다.'),
-                          actions: [
-                            TextButton(
-                                onPressed: () => Navigator.pop(ctx, false),
-                                child: const Text('취소')),
-                            TextButton(
-                                onPressed: () => Navigator.pop(ctx, true),
-                                child: const Text('삭제',
-                                    style: TextStyle(color: Colors.red))),
-                          ],
-                        ),
+                        builder: (ctx) {
+                          final dl10n = AppLocalizations.of(ctx)!;
+                          return AlertDialog(
+                            title: Text(dl10n.settingsCacheDeleteDialogTitle),
+                            content: Text(dl10n.settingsCacheDeleteDialogContent(
+                                CacheService.formatBytes(_cacheSizeBytes!))),
+                            actions: [
+                              TextButton(
+                                  onPressed: () => Navigator.pop(ctx, false),
+                                  child: Text(dl10n.cancel)),
+                              TextButton(
+                                  onPressed: () => Navigator.pop(ctx, true),
+                                  child: Text(dl10n.delete,
+                                      style: const TextStyle(color: Colors.red))),
+                            ],
+                          );
+                        },
                       );
                       if (confirmed == true) await _clearAllCache();
                     },
@@ -334,6 +346,183 @@ class _SectionTitle extends StatelessWidget {
         fontWeight: FontWeight.w600,
         letterSpacing: 0.5,
       ));
+  }
+}
+
+class _LanguageTile extends ConsumerWidget {
+  final ThemeData theme;
+  const _LanguageTile({required this.theme});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selectedLocale = ref.watch(localeProvider);
+    final selectedInfo = selectedLocale == null
+        ? null
+        : supportedAppLocales.where((e) =>
+            e.locale.languageCode == selectedLocale.languageCode &&
+            (e.locale.countryCode == selectedLocale.countryCode ||
+             (e.locale.countryCode == null && selectedLocale.countryCode == null))).firstOrNull;
+    final l10n = AppLocalizations.of(context)!;
+    final displayName = selectedInfo?.nativeName ?? l10n.settingsSystemDefault;
+
+    return InkWell(
+      onTap: () => _showPicker(context, ref, selectedLocale),
+      borderRadius: BorderRadius.circular(16),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          children: [
+            Icon(Icons.language, color: theme.colorScheme.primary, size: 24),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l10n.settingsAppLanguage, style: theme.textTheme.bodyLarge),
+                  Text(displayName,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.primary)),
+                ],
+              ),
+            ),
+            Icon(Icons.chevron_right, color: theme.colorScheme.onSurfaceVariant),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showPicker(BuildContext context, WidgetRef ref, Locale? current) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      backgroundColor: Colors.transparent,
+      builder: (ctx) => _LocalePickerSheet(current: current),
+    );
+  }
+}
+
+class _LocalePickerSheet extends ConsumerWidget {
+  final Locale? current;
+  const _LocalePickerSheet({required this.current});
+
+  bool _isSelected(Locale a, Locale b) =>
+      a.languageCode == b.languageCode && a.countryCode == b.countryCode;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxHeight: MediaQuery.of(context).size.height * 0.85,
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: theme.colorScheme.surface,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const SizedBox(height: 12),
+            Container(
+              width: 40, height: 4,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.outline.withValues(alpha: 0.4),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Text(l10n.settingsAppLanguageTitle,
+                style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+            ),
+            const SizedBox(height: 8),
+            _LocaleOption(
+              locale: null,
+              name: l10n.settingsSystemDefault,
+              nativeName: l10n.settingsSystemDefaultSubtitle,
+              isSelected: current == null,
+              onTap: () {
+                ref.read(localeProvider.notifier).setLocale(null);
+                Navigator.pop(context);
+              },
+              theme: theme,
+            ),
+            const Divider(height: 1, indent: 16, endIndent: 16),
+            Flexible(
+              child: ListView(
+                shrinkWrap: true,
+                children: supportedAppLocales.map((info) => _LocaleOption(
+                  locale: info.locale,
+                  name: info.name,
+                  nativeName: info.nativeName,
+                  isSelected: current != null && _isSelected(current!, info.locale),
+                  onTap: () {
+                    ref.read(localeProvider.notifier).setLocale(info.locale);
+                    Navigator.pop(context);
+                  },
+                  theme: theme,
+                )).toList(),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _LocaleOption extends StatelessWidget {
+  final Locale? locale;
+  final String name;
+  final String nativeName;
+  final bool isSelected;
+  final VoidCallback onTap;
+  final ThemeData theme;
+
+  const _LocaleOption({
+    required this.locale, required this.name, required this.nativeName,
+    required this.isSelected, required this.onTap, required this.theme,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(nativeName,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      color: isSelected ? theme.colorScheme.primary : null,
+                    )),
+                  Text(name,
+                    style: theme.textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant)),
+                ],
+              ),
+            ),
+            if (isSelected)
+              Icon(Icons.check_circle, color: theme.colorScheme.primary, size: 22),
+          ],
+        ),
+      ),
+    );
   }
 }
 

@@ -36,5 +36,275 @@
   "noContentFound": "未找到内容。点击文件夹图标进行导入。",
   "selectFile": "请选择文件",
   "noScriptFile": "未找到脚本文件。",
-  "noScriptHint": "请在同一文件夹中添加与音频同名的 .txt 文件。"
+  "noScriptHint": "请在同一文件夹中添加与音频同名的 .txt 文件。",
+  "settingsSectionLanguage": "语言",
+  "settingsSectionAiProvider": "AI 提供商",
+  "settingsApiKeyManage": "管理 API 密钥",
+  "settingsSectionSubscription": "订阅",
+  "settingsProPlanActive": "Pro 计划订阅中",
+  "settingsFreePlan": "免费计划使用中",
+  "settingsProPlanSubtitle": "所有功能无限使用",
+  "settingsFreePlanSubtitle": "AI 每月 20 次，发音练习每月 10 次",
+  "settingsSectionData": "数据",
+  "settingsRescanLibrary": "重新扫描媒体库",
+  "settingsRescanSubtitle": "在目录中搜索新文件",
+  "settingsResetData": "重置学习记录",
+  "settingsResetSubtitle": "删除所有进度和记录",
+  "settingsResetDialogTitle": "重置记录",
+  "settingsResetDialogContent": "所有学习记录和进度将被删除。是否继续？",
+  "cancel": "取消",
+  "delete": "删除",
+  "settingsResetSuccess": "所有记录已重置。",
+  "settingsSectionCache": "缓存管理",
+  "settingsCacheDriveDownload": "Google Drive 下载",
+  "settingsClearAllCache": "清除所有缓存",
+  "settingsClearCacheSubtitle": "删除已下载的 Google Drive 文件和临时文件",
+  "settingsCacheDeleteDialogTitle": "删除缓存",
+  "settingsCacheDeleteDialogContent": "将删除 {size} 的缓存。",
+  "settingsCacheDeleteSuccess": "缓存已删除。",
+  "settingsAppLanguage": "应用语言",
+  "settingsAppLanguageTitle": "选择应用语言",
+  "settingsSystemDefault": "系统默认",
+  "settingsSystemDefaultSubtitle": "跟随设备语言",
+  "@settingsCacheDeleteDialogContent": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStreakActive": "连续学习{days}天！",
+  "@homeStreakActive": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeStreakStats": "最长{longest}天 · 共{total}天",
+  "@homeStreakStats": {
+    "placeholders": {
+      "longest": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeEmptyLibrary": "从媒体库添加文件以开始学习。",
+  "homeNoHistory": "还没有学习记录。",
+  "homeStatusDone": "已完成",
+  "homeStatusStudying": "学习中",
+  "homeDueReview": "今日待复习{count}句",
+  "@homeDueReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoDueReview": "暂无待复习句子",
+  "homeAiConversation": "AI对话练习",
+  "homeAiConversationSubtitle": "与母语级AI自由对话",
+  "homePhoneticsHub": "发音训练中心",
+  "homePhoneticsHubSubtitle": "TTS + 设备本地评分 · 无需API",
+  "tutorialSkip": "跳过",
+  "tutorialStart": "开始 🚀",
+  "tutorialNext": "下一步",
+  "playerClipEdit": "编辑片段",
+  "playerSpeedSuggestion": "您已听完70%以上！尝试提高播放速度？ 🚀",
+  "playerSpeedIncrease": "提高",
+  "playerMenuDictation": "听写练习",
+  "playerSelectFileFirst": "请先选择音频文件。",
+  "playerMenuActiveRecall": "主动回忆训练",
+  "playerMenuBookmark": "保存书签",
+  "playerBookmarkSaved": "已保存书签！",
+  "playerBookmarkDuplicate": "该句已收藏。",
+  "playerBeginnerMode": "入门模式 (0.75x)",
+  "playerLoopOff": "不重复",
+  "playerLoopOne": "单曲循环",
+  "playerLoopAll": "全部循环",
+  "playerScriptReady": "字幕已就绪",
+  "playerNoScript": "无字幕",
+  "playerAbLoopASet": "A: {time} — B 未设置",
+  "@playerAbLoopASet": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "playerError": "错误: {error}",
+  "@playerError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationTopicSuggest": "话题建议",
+  "conversationInputHint": "请用{language}说话...",
+  "@conversationInputHint": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationPracticeTitle": "{language}对话练习",
+  "@conversationPracticeTitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationWelcomeMsg": "与母语级AI自由对话。\n不要害怕犯错！",
+  "conversationStartBtn": "开始对话",
+  "conversationTopicExamples": "话题示例",
+  "statsStudiedContent": "已学习内容",
+  "statsItemCount": "{count}个",
+  "@statsItemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalTime": "总学习时间",
+  "statsMinutes": "{minutes}分钟",
+  "@statsMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "statsNoHistory": "还没有学习记录。\n请从媒体库添加内容开始学习。",
+  "statsProgressByItem": "按项目查看进度",
+  "statsPronunciationProgress": "发音提升情况",
+  "statsPronunciationEmpty": "完成跟读练习后，发音提升记录将在此显示。",
+  "statsPracticeCount": "练习{count}次",
+  "@statsPracticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsStreakSection": "学习连续天数",
+  "statsStreakCurrentLabel": "当前连续",
+  "statsStreakLongestLabel": "最长连续",
+  "statsStreakTotalLabel": "总学习天数",
+  "statsDays": "{days}天",
+  "@statsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statsJournal": "学习日记",
+  "statsJournalEmpty": "开始学习后，日记将自动记录。",
+  "statsShareCard": "分享学习卡片",
+  "statsShareSubtitle": "在社交媒体上分享您的学习成就",
+  "statsMinimalPair": "最小对训练",
+  "statsMinimalPairSubtitle": "区分相似音（英语/日语/西班牙语）",
+  "statsError": "错误: {error}",
+  "@statsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "phoneticsHubFreeTitle": "无需AI的发音训练",
+  "phoneticsHubFreeSubtitle": "设备TTS + 本地语音识别\n无需API密钥，免费使用",
+  "phoneticsHubTrainingTools": "训练工具",
+  "phoneticsComingSoon": "即将推出",
+  "phoneticsSpanishIpa": "西班牙语IPA",
+  "phoneticsSpanishIpaSubtitle": "西班牙语音标 + 练习（即将推出）",
+  "apiKeyRequired": "请至少输入一个API密钥。",
+  "apiKeyInvalidFormat": "OpenAI API密钥格式不正确。(必须以sk-开头)",
+  "apiKeySaved": "API密钥已安全保存。",
+  "libraryNewPlaylist": "新建播放列表",
+  "libraryImport": "导入",
+  "libraryAllTab": "全部",
+  "libraryLocalSource": "本地",
+  "libraryNoScript": "无脚本",
+  "libraryUnsetLanguage": "未设置",
+  "libraryEmptyPlaylist": "暂无播放列表。",
+  "libraryCreatePlaylist": "创建新播放列表",
+  "libraryTrackCount": "{count}首",
+  "@libraryTrackCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryMoreTracks": "+{count}首更多",
+  "@libraryMoreTracks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryEditNameEmoji": "编辑名称/表情",
+  "libraryDeletePlaylist": "删除",
+  "libraryEditPlaylist": "编辑播放列表",
+  "librarySetLanguage": "设置语言",
+  "libraryChangeLanguage": "更改语言（当前: {lang}）",
+  "@libraryChangeLanguage": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryAddToPlaylist": "添加到播放列表",
+  "libraryLanguageBadge": "语言标签",
+  "phoneticsQuizTitle": "发音测验",
+  "phoneticsQuizDesc": "IPA符号 ↔ 单词匹配测验\n连续奖励 + 准确率统计",
+  "phoneticsTtsPracticeTitle": "TTS发音练习",
+  "phoneticsTtsPracticeDesc": "听单词并配合IPA符号跟读\n无需API密钥 · 完全免费",
+  "phoneticsMinimalPairDesc": "区分相似音（ship vs sheep等）\nTTS听力 + 发音评分",
+  "phoneticsPitchAccentTitle": "日语音调重音",
+  "phoneticsPitchAccentDesc": "同音异义词音调模式可视化训练\n例：はし(箸/橋/端)的区分",
+  "phoneticsKanaDrillTitle": "平假名·片假名练习",
+  "phoneticsKanaDrillDesc": "点击任何假名字符听TTS发音\n收录完整五十音图",
+  "libraryPlaylistTab": "播放列表",
+  "importTitle": "导入",
+  "importFromDevice": "从本设备导入",
+  "importFromDeviceSubtitle": "从本地文件夹加载音频和脚本",
+  "importFromICloud": "从iCloud Drive导入",
+  "importFromICloudSubtitle": "将iCloud Drive文件夹链接到媒体库",
+  "importFromGoogleDrive": "从Google Drive导入",
+  "importFromGoogleDriveSubtitle": "浏览并下载Google Drive文件夹",
+  "importAutoSync": "自动同步Scripta Sync iCloud文件夹",
+  "importAutoSyncSubtitle": "自动扫描iCloud Drive/Scripta Sync/文件夹",
+  "heatmapTitle": "学习记录（最近{weeks}周）",
+  "@heatmapTitle": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapTooltip": "{date}: {minutes}分钟",
+  "@heatmapTooltip": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapNoActivity": "无学习",
+  "heatmapLess": "少",
+  "heatmapMore": "多"
 }

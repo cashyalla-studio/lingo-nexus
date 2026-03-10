@@ -36,5 +36,275 @@
   "noContentFound": "לא נמצא תוכן. הקש על סמל התיקייה לייבוא.",
   "selectFile": "בחר קובץ",
   "noScriptFile": "קובץ תמליל לא נמצא.",
-  "noScriptHint": "הוסף קובץ .txt עם אותו שם כמו האודיו באותה תיקייה."
+  "noScriptHint": "הוסף קובץ .txt עם אותו שם כמו האודיו באותה תיקייה.",
+  "settingsSectionLanguage": "שפה",
+  "settingsSectionAiProvider": "ספק בינה מלאכותית",
+  "settingsApiKeyManage": "נהל מפתחות API",
+  "settingsSectionSubscription": "מנוי",
+  "settingsProPlanActive": "תוכנית Pro פעילה",
+  "settingsFreePlan": "תוכנית חינמית",
+  "settingsProPlanSubtitle": "כל התכונות ללא הגבלה",
+  "settingsFreePlanSubtitle": "20 שימושי AI לחודש, 10 שיעורי הגייה לחודש",
+  "settingsSectionData": "נתונים",
+  "settingsRescanLibrary": "סרוק מחדש את הספרייה",
+  "settingsRescanSubtitle": "מחפש קבצים חדשים בספרייה",
+  "settingsResetData": "אפס נתוני למידה",
+  "settingsResetSubtitle": "מוחק את כל ההתקדמות והרשומות",
+  "settingsResetDialogTitle": "אפס רשומות",
+  "settingsResetDialogContent": "כל רשומות הלמידה וההתקדמות יימחקו. האם להמשיך?",
+  "cancel": "ביטול",
+  "delete": "מחק",
+  "settingsResetSuccess": "כל הרשומות אופסו.",
+  "settingsSectionCache": "ניהול מטמון",
+  "settingsCacheDriveDownload": "הורדות Google Drive",
+  "settingsClearAllCache": "נקה את כל המטמון",
+  "settingsClearCacheSubtitle": "מחק קבצי Google Drive שהורדו וקבצים זמניים",
+  "settingsCacheDeleteDialogTitle": "מחק מטמון",
+  "settingsCacheDeleteDialogContent": "{size} של מטמון יימחק.",
+  "settingsCacheDeleteSuccess": "המטמון נמחק.",
+  "settingsAppLanguage": "שפת האפליקציה",
+  "settingsAppLanguageTitle": "בחר שפת אפליקציה",
+  "settingsSystemDefault": "ברירת מחדל של המערכת",
+  "settingsSystemDefaultSubtitle": "עוקב אחר שפת המכשיר",
+  "@settingsCacheDeleteDialogContent": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStreakActive": "{days} ימים רצופים!",
+  "@homeStreakActive": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeStreakStats": "הכי טוב: {longest} ימים · סה\"כ: {total} ימים",
+  "@homeStreakStats": {
+    "placeholders": {
+      "longest": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeEmptyLibrary": "הוסף קבצים מהספרייה כדי להתחיל ללמוד.",
+  "homeNoHistory": "אין עדיין היסטוריית לימוד.",
+  "homeStatusDone": "הושלם",
+  "homeStatusStudying": "לומד",
+  "homeDueReview": "{count} משפטים לחזרה היום",
+  "@homeDueReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoDueReview": "אין משפטים לחזרה",
+  "homeAiConversation": "תרגול שיחה עם AI",
+  "homeAiConversationSubtitle": "שוחח בחופשיות עם AI ברמת שפת אם",
+  "homePhoneticsHub": "מרכז אימון הגייה",
+  "homePhoneticsHubSubtitle": "TTS + ניקוד במכשיר · ללא API",
+  "tutorialSkip": "דלג",
+  "tutorialStart": "התחל 🚀",
+  "tutorialNext": "הבא",
+  "playerClipEdit": "ערוך קליפ",
+  "playerSpeedSuggestion": "האזנת ל-70%+! לנסות להאיץ? 🚀",
+  "playerSpeedIncrease": "הגדל",
+  "playerMenuDictation": "תרגול כתיב",
+  "playerSelectFileFirst": "אנא בחר קובץ שמע תחילה.",
+  "playerMenuActiveRecall": "אימון היזכרות פעילה",
+  "playerMenuBookmark": "שמור סימניה",
+  "playerBookmarkSaved": "הסימניה נשמרה!",
+  "playerBookmarkDuplicate": "משפט זה כבר מסומן.",
+  "playerBeginnerMode": "מצב מתחיל (0.75x)",
+  "playerLoopOff": "ללא חזרה",
+  "playerLoopOne": "חזור על אחת",
+  "playerLoopAll": "חזור על הכל",
+  "playerScriptReady": "תסריט מוכן",
+  "playerNoScript": "אין תסריט",
+  "playerAbLoopASet": "A: {time} — B לא הוגדר",
+  "@playerAbLoopASet": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "playerError": "שגיאה: {error}",
+  "@playerError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationTopicSuggest": "הצע נושא",
+  "conversationInputHint": "דבר ב{language}...",
+  "@conversationInputHint": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationPracticeTitle": "תרגול שיחה ב{language}",
+  "@conversationPracticeTitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationWelcomeMsg": "שוחח בחופשיות עם AI ברמת שפת אם.\nאל תפחד לטעות!",
+  "conversationStartBtn": "התחל שיחה",
+  "conversationTopicExamples": "דוגמאות לנושאים",
+  "statsStudiedContent": "תוכן שנלמד",
+  "statsItemCount": "{count} פריטים",
+  "@statsItemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalTime": "זמן לימוד כולל",
+  "statsMinutes": "{minutes} דק'",
+  "@statsMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "statsNoHistory": "אין עדיין היסטוריית לימוד.\nהוסף תוכן מהספרייה כדי להתחיל.",
+  "statsProgressByItem": "התקדמות לפי פריט",
+  "statsPronunciationProgress": "שיפור הגייה",
+  "statsPronunciationEmpty": "השלם סשנים של צַלְלוּת כדי לראות את שיפור ההגייה שלך כאן.",
+  "statsPracticeCount": "{count} סשנים",
+  "@statsPracticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsStreakSection": "רצף לימוד",
+  "statsStreakCurrentLabel": "רצף נוכחי",
+  "statsStreakLongestLabel": "רצף ארוך ביותר",
+  "statsStreakTotalLabel": "ימים כולל",
+  "statsDays": "{days} ימים",
+  "@statsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statsJournal": "יומן לימוד",
+  "statsJournalEmpty": "היומן יירשם אוטומטית כשתתחיל ללמוד.",
+  "statsShareCard": "שתף כרטיס לימוד",
+  "statsShareSubtitle": "שתף את הישגי הלמידה שלך ברשתות החברתיות",
+  "statsMinimalPair": "אימון זוגות מינימליים",
+  "statsMinimalPairSubtitle": "הבחנה בין צלילים דומים (EN/JA/ES)",
+  "statsError": "שגיאה: {error}",
+  "@statsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "phoneticsHubFreeTitle": "אימון הגייה ללא AI",
+  "phoneticsHubFreeSubtitle": "TTS של המכשיר + זיהוי דיבור\nבחינם ללא מפתח API",
+  "phoneticsHubTrainingTools": "כלי אימון",
+  "phoneticsComingSoon": "בקרוב",
+  "phoneticsSpanishIpa": "IPA ספרדית",
+  "phoneticsSpanishIpaSubtitle": "סמלים פונטיים ספרדיים + תרגול (בקרוב)",
+  "apiKeyRequired": "אנא הזן לפחות מפתח API אחד.",
+  "apiKeyInvalidFormat": "פורמט מפתח API של OpenAI שגוי. (חייב להתחיל ב-sk-)",
+  "apiKeySaved": "מפתח ה-API נשמר בבטחה.",
+  "libraryNewPlaylist": "רשימת השמעה חדשה",
+  "libraryImport": "ייבוא",
+  "libraryAllTab": "הכל",
+  "libraryLocalSource": "מקומי",
+  "libraryNoScript": "ללא תסריט",
+  "libraryUnsetLanguage": "לא מוגדר",
+  "libraryEmptyPlaylist": "אין רשימות השמעה עדיין.",
+  "libraryCreatePlaylist": "צור רשימת השמעה חדשה",
+  "libraryTrackCount": "{count} רצועות",
+  "@libraryTrackCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryMoreTracks": "+ {count} עוד",
+  "@libraryMoreTracks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryEditNameEmoji": "ערוך שם/אמוג'י",
+  "libraryDeletePlaylist": "מחק",
+  "libraryEditPlaylist": "ערוך רשימת השמעה",
+  "librarySetLanguage": "הגדר שפה",
+  "libraryChangeLanguage": "שנה שפה (נוכחי: {lang})",
+  "@libraryChangeLanguage": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryAddToPlaylist": "הוסף לרשימת השמעה",
+  "libraryLanguageBadge": "תג שפה",
+  "phoneticsQuizTitle": "חידון הגייה",
+  "phoneticsQuizDesc": "חידון IPA ↔ התאמת מילים\nבונוס רצף + סטטיסטיקת דיוק",
+  "phoneticsTtsPracticeTitle": "תרגול הגייה TTS",
+  "phoneticsTtsPracticeDesc": "האזן למילים וחזור עם סמלי IPA\nללא מפתח API · חינם לחלוטין",
+  "phoneticsMinimalPairDesc": "הבחנה בין צלילים דומים (ship vs sheep וכו')\nהאזנה TTS + ניקוד הגייה",
+  "phoneticsPitchAccentTitle": "מבטא גובה יפני",
+  "phoneticsPitchAccentDesc": "הצג תבניות גובה לבעלי הגייה זהה\nלמשל はし (מקלות אכילה/גשר/קצה)",
+  "phoneticsKanaDrillTitle": "תרגיל הירגנה · קטקנה",
+  "phoneticsKanaDrillDesc": "הקש על כל תו קנה כדי לשמוע הגייה TTS\nכולל טבלת 50 הצלילים המלאה",
+  "libraryPlaylistTab": "רשימות השמעה",
+  "importTitle": "ייבוא",
+  "importFromDevice": "ייבוא מהמכשיר הזה",
+  "importFromDeviceSubtitle": "טען שמע + תסריטים מתיקייה מקומית",
+  "importFromICloud": "ייבוא מ-iCloud Drive",
+  "importFromICloudSubtitle": "קשר תיקיית iCloud Drive לספרייה",
+  "importFromGoogleDrive": "ייבוא מ-Google Drive",
+  "importFromGoogleDriveSubtitle": "עיין והורד תיקיית Google Drive",
+  "importAutoSync": "סנכרון אוטומטי של תיקיית Scripta Sync iCloud",
+  "importAutoSyncSubtitle": "סריקה אוטומטית של תיקיית iCloud Drive/Scripta Sync/",
+  "heatmapTitle": "רשומת לימוד ({weeks} שבועות אחרונים)",
+  "@heatmapTitle": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapTooltip": "{date}: {minutes} דק'",
+  "@heatmapTooltip": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapNoActivity": "ללא פעילות",
+  "heatmapLess": "פחות",
+  "heatmapMore": "יותר"
 }

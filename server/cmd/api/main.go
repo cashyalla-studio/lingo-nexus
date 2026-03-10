@@ -11,6 +11,7 @@ import (
 	"github.com/go-chi/cors"
 
 	"github.com/liel/lingo-nexus-server/internal/handler"
+	"github.com/liel/lingo-nexus-server/internal/service"
 )
 
 func main() {
@@ -18,6 +19,17 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+
+	// API 키는 환경변수로 주입 (QWEN_API_KEY, GEMINI_API_KEY)
+	qwenKey := os.Getenv("QWEN_API_KEY")
+	geminiKey := os.Getenv("GEMINI_API_KEY")
+	if qwenKey == "" || geminiKey == "" {
+		log.Println("Warning: QWEN_API_KEY or GEMINI_API_KEY not set — tone evaluation will fail")
+	}
+
+	llmSvc := service.NewLLMService(qwenKey, geminiKey)
+	toneHandler := handler.NewToneHandler(llmSvc)
+	transcribeHandler := handler.NewTranscribeHandler(llmSvc)
 
 	r := chi.NewRouter()
 
@@ -38,6 +50,8 @@ func main() {
 
 	r.Route("/api/v1", func(r chi.Router) {
 		r.Get("/ping", handler.Ping)
+		r.Post("/tone/evaluate", toneHandler.EvaluateTone)
+		r.Post("/sync/transcribe", transcribeHandler.Transcribe)
 	})
 
 	addr := fmt.Sprintf(":%s", port)

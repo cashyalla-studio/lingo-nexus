@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import '../../core/services/journal_service.dart';
 
 /// GitHub 스타일의 연간 학습 열지도 위젯
@@ -10,6 +11,7 @@ class LearningHeatmap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final activityMap = {for (final e in entries) e.dateKey: e.minutesStudied};
 
     final now = DateTime.now();
@@ -20,7 +22,7 @@ class LearningHeatmap extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '학습 기록 (최근 ${weeks}주)',
+          l10n.heatmapTitle(weeks),
           style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 12),
@@ -43,7 +45,9 @@ class LearningHeatmap extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 3),
                       child: Tooltip(
-                        message: '${date.month}/${date.day}: ${minutes > 0 ? "$minutes분" : "학습 없음"}',
+                        message: minutes > 0
+                            ? l10n.heatmapTooltip('${date.month}/${date.day}', minutes)
+                            : '${date.month}/${date.day}: ${l10n.heatmapNoActivity}',
                         child: Container(
                           width: 14,
                           height: 14,
@@ -64,7 +68,7 @@ class LearningHeatmap extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Text('적음', style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            Text(l10n.heatmapLess, style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
             const SizedBox(width: 4),
             ...List.generate(5, (i) => Padding(
               padding: const EdgeInsets.only(left: 3),
@@ -77,7 +81,7 @@ class LearningHeatmap extends StatelessWidget {
               ),
             )),
             const SizedBox(width: 4),
-            Text('많음', style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
+            Text(l10n.heatmapMore, style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
           ],
         ),
       ],

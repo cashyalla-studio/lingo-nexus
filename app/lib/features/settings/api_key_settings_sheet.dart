@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import '../../core/providers/ai_provider.dart';
 
 class ApiKeySettingsSheet extends ConsumerStatefulWidget {
@@ -35,9 +36,10 @@ class _ApiKeySettingsSheetState extends ConsumerState<ApiKeySettingsSheet> {
 
     if (googleKey.isEmpty && openAiKey.isEmpty && claudeKey.isEmpty) {
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('최소 하나의 API 키를 입력해 주세요.', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+          SnackBar(
+            content: Text(l10n.apiKeyRequired, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             backgroundColor: Colors.orange,
           ),
         );
@@ -48,9 +50,10 @@ class _ApiKeySettingsSheetState extends ConsumerState<ApiKeySettingsSheet> {
     // Validate key formats (basic length check)
     if (openAiKey.isNotEmpty && (!openAiKey.startsWith('sk-') || openAiKey.length < 20)) {
       if (mounted) {
+        final l10n = AppLocalizations.of(context)!;
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('OpenAI API 키 형식이 올바르지 않습니다. (sk- 로 시작해야 합니다)', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+          SnackBar(
+            content: Text(l10n.apiKeyInvalidFormat, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
             backgroundColor: Colors.orange,
           ),
         );
@@ -64,10 +67,11 @@ class _ApiKeySettingsSheetState extends ConsumerState<ApiKeySettingsSheet> {
     await storage.saveClaudeKey(claudeKey);
 
     if (mounted) {
+      final l10n = AppLocalizations.of(context)!;
       ref.invalidate(currentApiKeyProvider);
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('API 키가 안전하게 저장되었습니다.', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), backgroundColor: Color(0xFF00FFD1)),
+        SnackBar(content: Text(l10n.apiKeySaved, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold)), backgroundColor: const Color(0xFF00FFD1)),
       );
     }
   }

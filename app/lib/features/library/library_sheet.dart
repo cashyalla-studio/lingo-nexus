@@ -77,12 +77,12 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                         IconButton(
                           icon: Icon(Icons.playlist_add, color: theme.colorScheme.primary),
                           onPressed: () => _showCreatePlaylistDialog(context),
-                          tooltip: '새 플레이리스트',
+                          tooltip: l10n.libraryNewPlaylist,
                         ),
                       IconButton(
                         icon: Icon(Icons.add_circle_outline, color: theme.colorScheme.primary),
                         onPressed: () => _showImportOptions(context),
-                        tooltip: '가져오기',
+                        tooltip: l10n.libraryImport,
                       ),
                     ],
                   ),
@@ -97,9 +97,9 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                 scrollDirection: Axis.horizontal,
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 children: [
-                  _langChip('📚', '플레이리스트', 'playlist', theme),
+                  _langChip('📚', l10n.libraryPlaylistTab, 'playlist', theme),
                   const SizedBox(width: 8),
-                  _langChip('🌐', '전체', 'all', theme),
+                  _langChip('🌐', l10n.libraryAllTab, 'all', theme),
                   const SizedBox(width: 8),
                   // 실제 사용 중인 언어만 표시
                   ...kStudyLanguages
@@ -110,7 +110,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                           )),
                   // 미설정 항목이 있으면 표시
                   if (usedLangCodes.contains(null))
-                    _langChip('❓', '미설정', 'unset', theme),
+                    _langChip('❓', l10n.libraryUnsetLanguage, 'unset', theme),
                 ],
               ),
             ),
@@ -124,15 +124,15 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                   scrollDirection: Axis.horizontal,
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   children: [
-                    _sourceChip('전체', 0, theme),
+                    _sourceChip(l10n.libraryAllTab, 0, theme),
                     const SizedBox(width: 6),
                     _sourceChip('iCloud', 1, theme, icon: Icons.cloud_outlined),
                     const SizedBox(width: 6),
                     _sourceChip('Drive', 2, theme, icon: Icons.add_to_drive_outlined),
                     const SizedBox(width: 6),
-                    _sourceChip('로컬', 3, theme, icon: Icons.folder_outlined),
+                    _sourceChip(l10n.libraryLocalSource, 3, theme, icon: Icons.folder_outlined),
                     const SizedBox(width: 6),
-                    _sourceChip('스크립트없음', 4, theme, icon: Icons.pending_outlined),
+                    _sourceChip(l10n.libraryNoScript, 4, theme, icon: Icons.pending_outlined),
                   ],
                 ),
               ),
@@ -258,7 +258,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
             TextButton.icon(
               onPressed: () => _showImportOptions(context),
               icon: const Icon(Icons.add),
-              label: const Text('가져오기'),
+              label: Text(l10n.libraryImport),
             ),
           ],
         ),
@@ -377,14 +377,14 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
           children: [
             Text('🎵', style: const TextStyle(fontSize: 48)),
             const SizedBox(height: 16),
-            Text('플레이리스트가 없습니다.',
+            Text(AppLocalizations.of(context)!.libraryEmptyPlaylist,
               style: theme.textTheme.bodyLarge?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant)),
             const SizedBox(height: 8),
             FilledButton.icon(
               onPressed: () => _showCreatePlaylistDialog(context),
               icon: const Icon(Icons.add),
-              label: const Text('새 플레이리스트 만들기'),
+              label: Text(AppLocalizations.of(context)!.libraryCreatePlaylist),
             ),
           ],
         ),
@@ -440,7 +440,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('${pl.audioPaths.length}곡',
+                Text(AppLocalizations.of(context)!.libraryTrackCount(pl.audioPaths.length),
                   style: theme.textTheme.labelMedium?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant)),
                 if (pl.description != null && pl.description!.isNotEmpty) ...[
@@ -511,7 +511,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                   if (pl.audioPaths.length > 3)
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
-                      child: Text('+ ${pl.audioPaths.length - 3}곡 더',
+                      child: Text(AppLocalizations.of(context)!.libraryMoreTracks(pl.audioPaths.length - 3),
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: theme.colorScheme.primary)),
                     ),
@@ -543,12 +543,12 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
       context: context,
       backgroundColor: Colors.transparent,
       useSafeArea: true,
-      builder: (_) => Container(
+      builder: (ctx) => Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+        padding: EdgeInsets.fromLTRB(24, 16, 24, 16 + MediaQuery.of(ctx).viewPadding.bottom),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -571,7 +571,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
             const SizedBox(height: 16),
             ListTile(
               leading: _optionIcon(Icons.edit_outlined, theme.colorScheme.primary, theme),
-              title: const Text('이름/이모지 수정'),
+              title: Text(AppLocalizations.of(context)!.libraryEditNameEmoji),
               onTap: () {
                 Navigator.pop(context);
                 _showEditPlaylistDialog(context, pl);
@@ -579,7 +579,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
             ),
             ListTile(
               leading: _optionIcon(Icons.delete_outline, AppTheme.danger, theme),
-              title: const Text('삭제', style: TextStyle(color: AppTheme.danger)),
+              title: Text(AppLocalizations.of(context)!.libraryDeletePlaylist, style: const TextStyle(color: AppTheme.danger)),
               onTap: () {
                 Navigator.pop(context);
                 ref.read(playlistProvider.notifier).deletePlaylist(pl.id);
@@ -614,7 +614,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
       useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => _PlaylistFormSheet(
-        title: '새 플레이리스트',
+        title: AppLocalizations.of(context)!.libraryNewPlaylist,
         nameController: nameCtrl,
         descController: descCtrl,
         initialEmoji: selectedEmoji,
@@ -640,7 +640,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
       useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (ctx) => _PlaylistFormSheet(
-        title: '플레이리스트 수정',
+        title: AppLocalizations.of(context)!.libraryEditPlaylist,
         nameController: nameCtrl,
         descController: descCtrl,
         initialEmoji: pl.emoji,
@@ -701,8 +701,8 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
             ListTile(
               leading: _optionIcon(Icons.language, theme.colorScheme.tertiary, theme),
               title: Text(item.language == null
-                  ? '언어 설정'
-                  : '언어 변경 (현재: ${langName(item.language)})'),
+                  ? AppLocalizations.of(context)!.librarySetLanguage
+                  : AppLocalizations.of(context)!.libraryChangeLanguage(langName(item.language))),
               onTap: () {
                 Navigator.pop(context);
                 _showLanguagePicker(item);
@@ -711,7 +711,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
 
             ListTile(
               leading: _optionIcon(Icons.playlist_add, theme.colorScheme.primary, theme),
-              title: const Text('플레이리스트에 추가'),
+              title: Text(AppLocalizations.of(context)!.libraryAddToPlaylist),
               onTap: () {
                 Navigator.pop(context);
                 _showAddToPlaylistSheet(context, item);
@@ -823,7 +823,7 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
           color: theme.colorScheme.surface,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
-        padding: const EdgeInsets.fromLTRB(24, 24, 24, 16),
+        padding: EdgeInsets.fromLTRB(24, 24, 24, 16 + MediaQuery.of(ctx).viewPadding.bottom),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -876,17 +876,18 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
 
   void _showImportOptions(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
       isScrollControlled: true,
       useSafeArea: true,
-      builder: (_) => Container(
+      builder: (ctx) => Container(
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 16),
+        padding: EdgeInsets.fromLTRB(24, 16, 24, 16 + MediaQuery.of(ctx).viewPadding.bottom),
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -902,15 +903,15 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                 ),
               ),
               const SizedBox(height: 20),
-              Text('가져오기',
+              Text(l10n.importTitle,
                 style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
               const SizedBox(height: 16),
               _importOption(
                 context: context,
                 icon: Icons.folder_open_outlined,
                 iconColor: theme.colorScheme.primary,
-                title: '이 기기에서 가져오기',
-                subtitle: '로컬 폴더에서 오디오+스크립트 불러오기',
+                title: l10n.importFromDevice,
+                subtitle: l10n.importFromDeviceSubtitle,
                 onTap: () {
                   Navigator.pop(context);
                   ref.read(studyItemsProvider.notifier).pickAndScanDirectory();
@@ -921,8 +922,8 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                 context: context,
                 icon: Icons.cloud_outlined,
                 iconColor: AppTheme.accentPrimary,
-                title: 'iCloud Drive에서 가져오기',
-                subtitle: 'iCloud Drive 폴더를 라이브러리에 연결',
+                title: l10n.importFromICloud,
+                subtitle: l10n.importFromICloudSubtitle,
                 onTap: () {
                   Navigator.pop(context);
                   ref.read(studyItemsProvider.notifier).pickAndScanDirectory();
@@ -933,8 +934,8 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                 context: context,
                 icon: Icons.add_to_drive_outlined,
                 iconColor: const Color(0xFF4285F4),
-                title: 'Google Drive에서 가져오기',
-                subtitle: 'Google Drive 폴더를 탐색하고 다운로드',
+                title: l10n.importFromGoogleDrive,
+                subtitle: l10n.importFromGoogleDriveSubtitle,
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(context,
@@ -946,8 +947,8 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                 context: context,
                 icon: Icons.sync_outlined,
                 iconColor: AppTheme.accentDim,
-                title: 'Scripta Sync iCloud 폴더 자동 동기화',
-                subtitle: 'iCloud Drive/Scripta Sync/ 폴더를 자동 스캔',
+                title: l10n.importAutoSync,
+                subtitle: l10n.importAutoSyncSubtitle,
                 onTap: () {
                   Navigator.pop(context);
                   ref.read(studyItemsProvider.notifier).syncFromICloud();
@@ -1050,8 +1051,9 @@ class _PlaylistFormSheetState extends State<_PlaylistFormSheet> {
           color: theme.colorScheme.surface,
           borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         ),
-        padding: const EdgeInsets.fromLTRB(24, 16, 24, 24),
-        child: Column(
+        padding: EdgeInsets.fromLTRB(24, 16, 24, 24 + MediaQuery.of(context).viewPadding.bottom),
+        child: SingleChildScrollView(
+          child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -1157,6 +1159,7 @@ class _PlaylistFormSheetState extends State<_PlaylistFormSheet> {
             ),
           ],
         ),
+        ), // SingleChildScrollView
       ),
     );
   }

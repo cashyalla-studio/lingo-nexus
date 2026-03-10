@@ -36,5 +36,275 @@
   "noContentFound": "콘텐츠가 없습니다. 폴더 아이콘을 눌러 추가하세요.",
   "selectFile": "파일을 선택하세요",
   "noScriptFile": "대본 파일이 없습니다.",
-  "noScriptHint": "오디오와 같은 이름의 .txt 파일을 같은 폴더에 넣어주세요."
+  "noScriptHint": "오디오와 같은 이름의 .txt 파일을 같은 폴더에 넣어주세요.",
+  "settingsSectionLanguage": "언어",
+  "settingsSectionAiProvider": "AI 프로바이더",
+  "settingsApiKeyManage": "API 키 관리",
+  "settingsSectionSubscription": "구독",
+  "settingsProPlanActive": "Pro 플랜 구독 중",
+  "settingsFreePlan": "Free 플랜 사용 중",
+  "settingsProPlanSubtitle": "모든 기능 무제한 사용 가능",
+  "settingsFreePlanSubtitle": "AI 월 20회, 발음 연습 월 10회",
+  "settingsSectionData": "데이터",
+  "settingsRescanLibrary": "라이브러리 다시 스캔",
+  "settingsRescanSubtitle": "디렉터리에서 새 파일을 검색합니다",
+  "settingsResetData": "학습 기록 초기화",
+  "settingsResetSubtitle": "모든 진도 및 기록을 삭제합니다",
+  "settingsResetDialogTitle": "기록 초기화",
+  "settingsResetDialogContent": "모든 학습 기록 및 진도가 삭제됩니다. 계속하시겠습니까?",
+  "cancel": "취소",
+  "delete": "삭제",
+  "settingsResetSuccess": "모든 기록이 초기화되었습니다.",
+  "settingsSectionCache": "캐시 관리",
+  "settingsCacheDriveDownload": "Google Drive 다운로드",
+  "settingsClearAllCache": "캐시 전체 삭제",
+  "settingsClearCacheSubtitle": "다운로드된 Google Drive 파일 및 임시 파일 삭제",
+  "settingsCacheDeleteDialogTitle": "캐시 삭제",
+  "settingsCacheDeleteDialogContent": "{size}의 캐시가 삭제됩니다.",
+  "settingsCacheDeleteSuccess": "캐시가 삭제되었습니다.",
+  "settingsAppLanguage": "앱 언어",
+  "settingsAppLanguageTitle": "앱 언어 선택",
+  "settingsSystemDefault": "시스템 기본값",
+  "settingsSystemDefaultSubtitle": "기기 언어를 따릅니다",
+  "@settingsCacheDeleteDialogContent": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStreakActive": "{days}일 연속 학습 중!",
+  "@homeStreakActive": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeStreakStats": "최장 {longest}일 · 총 {total}일 학습",
+  "@homeStreakStats": {
+    "placeholders": {
+      "longest": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeEmptyLibrary": "라이브러리에서 파일을 추가하여 학습을 시작하세요.",
+  "homeNoHistory": "아직 학습 기록이 없습니다.",
+  "homeStatusDone": "완료",
+  "homeStatusStudying": "학습 중",
+  "homeDueReview": "오늘 복습할 문장 {count}개",
+  "@homeDueReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoDueReview": "복습할 문장 없음",
+  "homeAiConversation": "AI 대화 연습",
+  "homeAiConversationSubtitle": "원어민 AI와 자유롭게 대화하기",
+  "homePhoneticsHub": "발음 훈련 센터",
+  "homePhoneticsHubSubtitle": "TTS + 온디바이스 채점 · API 불필요",
+  "tutorialSkip": "건너뛰기",
+  "tutorialStart": "시작하기 🚀",
+  "tutorialNext": "다음",
+  "playerClipEdit": "클립 편집",
+  "playerSpeedSuggestion": "70% 이상 들었습니다! 배속을 높여볼까요? 🚀",
+  "playerSpeedIncrease": "높이기",
+  "playerMenuDictation": "받아쓰기 연습",
+  "playerSelectFileFirst": "먼저 오디오 파일을 선택해주세요.",
+  "playerMenuActiveRecall": "능동 회상 훈련",
+  "playerMenuBookmark": "북마크 저장",
+  "playerBookmarkSaved": "북마크에 저장되었습니다!",
+  "playerBookmarkDuplicate": "이미 북마크된 문장입니다.",
+  "playerBeginnerMode": "입문자 모드 (0.75x)",
+  "playerLoopOff": "반복 끔",
+  "playerLoopOne": "1곡 반복",
+  "playerLoopAll": "전체 반복",
+  "playerScriptReady": "대본 준비됨",
+  "playerNoScript": "대본 없음",
+  "playerAbLoopASet": "A: {time} — B 미설정",
+  "@playerAbLoopASet": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "playerError": "오류 발생: {error}",
+  "@playerError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationTopicSuggest": "주제 제안",
+  "conversationInputHint": "{language}로 말해보세요...",
+  "@conversationInputHint": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationPracticeTitle": "{language} 대화 연습",
+  "@conversationPracticeTitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationWelcomeMsg": "AI 원어민과 자유롭게 대화하세요.\n실수를 두려워하지 마세요!",
+  "conversationStartBtn": "대화 시작",
+  "conversationTopicExamples": "주제 예시",
+  "statsStudiedContent": "학습한 콘텐츠",
+  "statsItemCount": "{count}개",
+  "@statsItemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalTime": "총 학습시간",
+  "statsMinutes": "{minutes}분",
+  "@statsMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "statsNoHistory": "아직 학습 기록이 없습니다.\n라이브러리에서 콘텐츠를 추가해보세요.",
+  "statsProgressByItem": "학습 항목별 진도",
+  "statsPronunciationProgress": "발음 향상 현황",
+  "statsPronunciationEmpty": "쉐도잉 연습을 완료하면 발음 향상 기록이 여기에 표시됩니다.",
+  "statsPracticeCount": "{count}회 연습",
+  "@statsPracticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsStreakSection": "학습 스트릭",
+  "statsStreakCurrentLabel": "연속 학습",
+  "statsStreakLongestLabel": "최장 스트릭",
+  "statsStreakTotalLabel": "총 학습일",
+  "statsDays": "{days}일",
+  "@statsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statsJournal": "학습 일지",
+  "statsJournalEmpty": "학습을 시작하면 자동으로 일지가 기록됩니다.",
+  "statsShareCard": "학습 카드 공유",
+  "statsShareSubtitle": "내 학습 성과를 SNS에 공유해보세요",
+  "statsMinimalPair": "최소쌍 훈련",
+  "statsMinimalPairSubtitle": "비슷한 소리 구별하기 (영어/일본어/스페인어)",
+  "statsError": "오류: {error}",
+  "@statsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "phoneticsHubFreeTitle": "AI 없이 발음 훈련",
+  "phoneticsHubFreeSubtitle": "기기 TTS + 온디바이스 음성인식\nAPI 키 없이 무료로 사용 가능",
+  "phoneticsHubTrainingTools": "훈련 도구",
+  "phoneticsComingSoon": "준비 중",
+  "phoneticsSpanishIpa": "스페인어 IPA",
+  "phoneticsSpanishIpaSubtitle": "스페인어 발음기호 + 연습 (준비 중)",
+  "apiKeyRequired": "최소 하나의 API 키를 입력해 주세요.",
+  "apiKeyInvalidFormat": "OpenAI API 키 형식이 올바르지 않습니다. (sk- 로 시작해야 합니다)",
+  "apiKeySaved": "API 키가 안전하게 저장되었습니다.",
+  "libraryNewPlaylist": "새 플레이리스트",
+  "libraryImport": "가져오기",
+  "libraryAllTab": "전체",
+  "libraryLocalSource": "로컬",
+  "libraryNoScript": "스크립트없음",
+  "libraryUnsetLanguage": "미설정",
+  "libraryEmptyPlaylist": "플레이리스트가 없습니다.",
+  "libraryCreatePlaylist": "새 플레이리스트 만들기",
+  "libraryTrackCount": "{count}곡",
+  "@libraryTrackCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryMoreTracks": "+ {count}곡 더",
+  "@libraryMoreTracks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryEditNameEmoji": "이름/이모지 수정",
+  "libraryDeletePlaylist": "삭제",
+  "libraryEditPlaylist": "플레이리스트 수정",
+  "librarySetLanguage": "언어 설정",
+  "libraryChangeLanguage": "언어 변경 (현재: {lang})",
+  "@libraryChangeLanguage": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryAddToPlaylist": "플레이리스트에 추가",
+  "libraryLanguageBadge": "언어 배지",
+  "phoneticsQuizTitle": "발음 퀴즈",
+  "phoneticsQuizDesc": "IPA 발음기호 ↔ 단어 매칭 퀴즈\n스트릭 보너스 + 정확도 통계",
+  "phoneticsTtsPracticeTitle": "TTS 발음 연습",
+  "phoneticsTtsPracticeDesc": "단어를 듣고 IPA 발음기호와 함께 따라 말하기\nAPI 키 불필요 · 완전 무료",
+  "phoneticsMinimalPairDesc": "비슷한 소리 구별하기 (ship vs sheep 등)\nTTS 듣기 + 발음 채점 포함",
+  "phoneticsPitchAccentTitle": "일본어 피치 악센트",
+  "phoneticsPitchAccentDesc": "同音異義語의 높낮이 패턴 시각화 훈련\n예: はし(箸/橋/端) 구별하기",
+  "phoneticsKanaDrillTitle": "히라가나 · 가타카나 드릴",
+  "phoneticsKanaDrillDesc": "모든 가나 문자를 탭하여 TTS 발음 청취\n50음도 전체 수록",
+  "libraryPlaylistTab": "플레이리스트",
+  "importTitle": "가져오기",
+  "importFromDevice": "이 기기에서 가져오기",
+  "importFromDeviceSubtitle": "로컬 폴더에서 오디오+스크립트 불러오기",
+  "importFromICloud": "iCloud Drive에서 가져오기",
+  "importFromICloudSubtitle": "iCloud Drive 폴더를 라이브러리에 연결",
+  "importFromGoogleDrive": "Google Drive에서 가져오기",
+  "importFromGoogleDriveSubtitle": "Google Drive 폴더를 탐색하고 다운로드",
+  "importAutoSync": "Scripta Sync iCloud 폴더 자동 동기화",
+  "importAutoSyncSubtitle": "iCloud Drive/Scripta Sync/ 폴더를 자동 스캔",
+  "heatmapTitle": "학습 기록 (최근 {weeks}주)",
+  "@heatmapTitle": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapTooltip": "{date}: {minutes}분",
+  "@heatmapTooltip": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapNoActivity": "학습 없음",
+  "heatmapLess": "적음",
+  "heatmapMore": "많음"
 }

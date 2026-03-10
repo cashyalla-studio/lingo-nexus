@@ -18,6 +18,6 @@
 	<true/>
 	<!-- iCloud 컨테이너: Apple Developer 계정에서 iCloud capability 활성화 후 추가 -->
 	<!-- <key>com.apple.developer.ubiquity-container-identifiers</key> -->
-	<!-- <array><string>iCloud.com.example.lingoNexus</string></array> -->
+	<!-- <array><string>iCloud.xyz.cashyalla.scrypta.sync</string></array> -->
 </dict>
 </plist>

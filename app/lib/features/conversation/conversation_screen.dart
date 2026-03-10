@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import '../../core/models/chat_message.dart';
 import '../../core/theme/app_theme.dart';
 import 'conversation_provider.dart';
@@ -91,13 +92,14 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final history = ref.watch(conversationHistoryProvider);
     final selectedLanguage = ref.watch(conversationLanguageProvider);
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        title: Text('AI 대화 연습', style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
+        title: Text(l10n.homeAiConversation, style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
@@ -129,7 +131,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
           // Chat area
           Expanded(
             child: !_sessionStarted
-                ? _buildStartScreen(theme, selectedLanguage)
+                ? _buildStartScreen(context, theme, selectedLanguage)
                 : ListView.builder(
                     controller: _scrollController,
                     padding: const EdgeInsets.all(16),
@@ -158,7 +160,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                   IconButton(
                     onPressed: _suggestTopic,
                     icon: Icon(Icons.lightbulb_outline, color: theme.colorScheme.primary),
-                    tooltip: '주제 제안',
+                    tooltip: l10n.conversationTopicSuggest,
                   ),
                   Expanded(
                     child: TextField(
@@ -168,7 +170,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
                       textInputAction: TextInputAction.send,
                       onSubmitted: (_) => _sendMessage(),
                       decoration: InputDecoration(
-                        hintText: '$selectedLanguage로 말해보세요...',
+                        hintText: l10n.conversationInputHint(selectedLanguage),
                         hintStyle: TextStyle(color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5)),
                         filled: true,
                         fillColor: theme.colorScheme.surfaceContainerHighest,
@@ -211,7 +213,8 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
     );
   }
 
-  Widget _buildStartScreen(ThemeData theme, String language) {
+  Widget _buildStartScreen(BuildContext context, ThemeData theme, String language) {
+    final l10n = AppLocalizations.of(context)!;
     final topics = conversationTopics[language] ?? conversationTopics['English']!;
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
@@ -233,16 +236,16 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
               children: [
                 Icon(Icons.chat_bubble_outline, size: 48, color: theme.colorScheme.primary),
                 const SizedBox(height: 16),
-                Text('$language 대화 연습', style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+                Text(l10n.conversationPracticeTitle(language), style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
                 const SizedBox(height: 8),
-                Text('AI 원어민과 자유롭게 대화하세요.\n실수를 두려워하지 마세요!',
+                Text(l10n.conversationWelcomeMsg,
                   style: theme.textTheme.bodyLarge?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   textAlign: TextAlign.center),
                 const SizedBox(height: 24),
                 ElevatedButton.icon(
                   onPressed: _startSession,
                   icon: const Icon(Icons.play_arrow_rounded),
-                  label: const Text('대화 시작'),
+                  label: Text(l10n.conversationStartBtn),
                   style: ElevatedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -252,7 +255,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen> {
             ),
           ),
           const SizedBox(height: 24),
-          Text('주제 예시', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+          Text(l10n.conversationTopicExamples, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
           const SizedBox(height: 12),
           ...topics.take(4).map((topic) => Padding(
             padding: const EdgeInsets.only(bottom: 8),

@@ -125,4 +125,485 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get noScriptHint =>
       'Ajoutez un fichier .txt portant le même nom que l\'audio dans le même dossier.';
+
+  @override
+  String get settingsSectionLanguage => 'Langue';
+
+  @override
+  String get settingsSectionAiProvider => 'Fournisseur IA';
+
+  @override
+  String get settingsApiKeyManage => 'Gérer les clés API';
+
+  @override
+  String get settingsSectionSubscription => 'Abonnement';
+
+  @override
+  String get settingsProPlanActive => 'Plan Pro actif';
+
+  @override
+  String get settingsFreePlan => 'Plan gratuit';
+
+  @override
+  String get settingsProPlanSubtitle => 'Toutes les fonctionnalités illimitées';
+
+  @override
+  String get settingsFreePlanSubtitle =>
+      '20 utilisations IA/mois, 10 sessions de prononciation/mois';
+
+  @override
+  String get settingsSectionData => 'Données';
+
+  @override
+  String get settingsRescanLibrary => 'Rescanner la bibliothèque';
+
+  @override
+  String get settingsRescanSubtitle =>
+      'Recherche de nouveaux fichiers dans le répertoire';
+
+  @override
+  String get settingsResetData => 'Réinitialiser les données d\'apprentissage';
+
+  @override
+  String get settingsResetSubtitle =>
+      'Supprime tous les progrès et enregistrements';
+
+  @override
+  String get settingsResetDialogTitle => 'Réinitialiser les enregistrements';
+
+  @override
+  String get settingsResetDialogContent =>
+      'Tous les enregistrements et progrès d\'apprentissage seront supprimés. Continuer ?';
+
+  @override
+  String get cancel => 'Annuler';
+
+  @override
+  String get delete => 'Supprimer';
+
+  @override
+  String get settingsResetSuccess =>
+      'Tous les enregistrements ont été réinitialisés.';
+
+  @override
+  String get settingsSectionCache => 'Gestion du cache';
+
+  @override
+  String get settingsCacheDriveDownload => 'Téléchargements Google Drive';
+
+  @override
+  String get settingsClearAllCache => 'Effacer tout le cache';
+
+  @override
+  String get settingsClearCacheSubtitle =>
+      'Supprimer les fichiers Google Drive téléchargés et les fichiers temporaires';
+
+  @override
+  String get settingsCacheDeleteDialogTitle => 'Supprimer le cache';
+
+  @override
+  String settingsCacheDeleteDialogContent(String size) {
+    return '$size de cache sera supprimé.';
+  }
+
+  @override
+  String get settingsCacheDeleteSuccess => 'Cache supprimé.';
+
+  @override
+  String get settingsAppLanguage => 'Langue de l\'appli';
+
+  @override
+  String get settingsAppLanguageTitle => 'Sélectionner la langue de l\'appli';
+
+  @override
+  String get settingsSystemDefault => 'Paramètre système';
+
+  @override
+  String get settingsSystemDefaultSubtitle => 'Suit la langue de l\'appareil';
+
+  @override
+  String homeStreakActive(int days) {
+    return '$days jours de suite !';
+  }
+
+  @override
+  String homeStreakStats(int longest, int total) {
+    return 'Meilleur: $longest j · Total: $total j';
+  }
+
+  @override
+  String get homeEmptyLibrary =>
+      'Ajoutez des fichiers depuis la bibliothèque pour commencer.';
+
+  @override
+  String get homeNoHistory => 'Aucun historique d\'apprentissage.';
+
+  @override
+  String get homeStatusDone => 'Terminé';
+
+  @override
+  String get homeStatusStudying => 'En cours';
+
+  @override
+  String homeDueReview(int count) {
+    return '$count phrases à réviser aujourd\'hui';
+  }
+
+  @override
+  String get homeNoDueReview => 'Aucune phrase à réviser';
+
+  @override
+  String get homeAiConversation => 'Pratique de conversation IA';
+
+  @override
+  String get homeAiConversationSubtitle =>
+      'Discutez librement avec une IA de niveau natif';
+
+  @override
+  String get homePhoneticsHub => 'Centre d\'entraînement à la prononciation';
+
+  @override
+  String get homePhoneticsHubSubtitle =>
+      'TTS + notation sur l\'appareil · Pas d\'API requise';
+
+  @override
+  String get tutorialSkip => 'Passer';
+
+  @override
+  String get tutorialStart => 'Commencer 🚀';
+
+  @override
+  String get tutorialNext => 'Suivant';
+
+  @override
+  String get playerClipEdit => 'Modifier le clip';
+
+  @override
+  String get playerSpeedSuggestion =>
+      'Vous avez écouté 70%+ ! Augmenter la vitesse ? 🚀';
+
+  @override
+  String get playerSpeedIncrease => 'Augmenter';
+
+  @override
+  String get playerMenuDictation => 'Pratique de dictée';
+
+  @override
+  String get playerSelectFileFirst =>
+      'Veuillez d\'abord sélectionner un fichier audio.';
+
+  @override
+  String get playerMenuActiveRecall => 'Entraînement de rappel actif';
+
+  @override
+  String get playerMenuBookmark => 'Enregistrer le signet';
+
+  @override
+  String get playerBookmarkSaved => 'Signet enregistré !';
+
+  @override
+  String get playerBookmarkDuplicate =>
+      'Cette phrase est déjà dans les signets.';
+
+  @override
+  String get playerBeginnerMode => 'Mode débutant (0.75x)';
+
+  @override
+  String get playerLoopOff => 'Pas de répétition';
+
+  @override
+  String get playerLoopOne => 'Répéter une';
+
+  @override
+  String get playerLoopAll => 'Tout répéter';
+
+  @override
+  String get playerScriptReady => 'Script prêt';
+
+  @override
+  String get playerNoScript => 'Pas de script';
+
+  @override
+  String playerAbLoopASet(String time) {
+    return 'A : $time — B non défini';
+  }
+
+  @override
+  String playerError(String error) {
+    return 'Erreur : $error';
+  }
+
+  @override
+  String get conversationTopicSuggest => 'Suggérer un sujet';
+
+  @override
+  String conversationInputHint(String language) {
+    return 'Parlez en $language...';
+  }
+
+  @override
+  String conversationPracticeTitle(String language) {
+    return 'Pratique de conversation en $language';
+  }
+
+  @override
+  String get conversationWelcomeMsg =>
+      'Discutez librement avec une IA de niveau natif.\nN\'ayez pas peur de faire des erreurs !';
+
+  @override
+  String get conversationStartBtn => 'Démarrer la conversation';
+
+  @override
+  String get conversationTopicExamples => 'Exemples de sujets';
+
+  @override
+  String get statsStudiedContent => 'Contenu étudié';
+
+  @override
+  String statsItemCount(int count) {
+    return '$count éléments';
+  }
+
+  @override
+  String get statsTotalTime => 'Temps d\'étude total';
+
+  @override
+  String statsMinutes(int minutes) {
+    return '$minutes min';
+  }
+
+  @override
+  String get statsNoHistory =>
+      'Aucun historique d\'apprentissage.\nAjoutez du contenu depuis la bibliothèque.';
+
+  @override
+  String get statsProgressByItem => 'Progression par élément';
+
+  @override
+  String get statsPronunciationProgress => 'Amélioration de la prononciation';
+
+  @override
+  String get statsPronunciationEmpty =>
+      'Terminez des sessions de shadowing pour voir votre progression ici.';
+
+  @override
+  String statsPracticeCount(int count) {
+    return '$count sessions';
+  }
+
+  @override
+  String get statsStreakSection => 'Série d\'apprentissage';
+
+  @override
+  String get statsStreakCurrentLabel => 'Série actuelle';
+
+  @override
+  String get statsStreakLongestLabel => 'Série la plus longue';
+
+  @override
+  String get statsStreakTotalLabel => 'Jours totaux';
+
+  @override
+  String statsDays(int days) {
+    return '$days jours';
+  }
+
+  @override
+  String get statsJournal => 'Journal d\'apprentissage';
+
+  @override
+  String get statsJournalEmpty =>
+      'Votre journal sera enregistré automatiquement dès que vous commencerez à étudier.';
+
+  @override
+  String get statsShareCard => 'Partager la carte d\'étude';
+
+  @override
+  String get statsShareSubtitle =>
+      'Partagez vos réalisations d\'apprentissage sur les réseaux sociaux';
+
+  @override
+  String get statsMinimalPair => 'Entraînement aux paires minimales';
+
+  @override
+  String get statsMinimalPairSubtitle =>
+      'Distinguer les sons similaires (EN/JA/ES)';
+
+  @override
+  String statsError(String error) {
+    return 'Erreur : $error';
+  }
+
+  @override
+  String get phoneticsHubFreeTitle => 'Entraînement à la prononciation sans IA';
+
+  @override
+  String get phoneticsHubFreeSubtitle =>
+      'TTS de l\'appareil + reconnaissance vocale\nGratuit sans clé API';
+
+  @override
+  String get phoneticsHubTrainingTools => 'Outils d\'entraînement';
+
+  @override
+  String get phoneticsComingSoon => 'Bientôt disponible';
+
+  @override
+  String get phoneticsSpanishIpa => 'IPA espagnol';
+
+  @override
+  String get phoneticsSpanishIpaSubtitle =>
+      'Symboles phonétiques espagnol + pratique (bientôt)';
+
+  @override
+  String get apiKeyRequired => 'Veuillez entrer au moins une clé API.';
+
+  @override
+  String get apiKeyInvalidFormat =>
+      'Format de clé API OpenAI invalide. (doit commencer par sk-)';
+
+  @override
+  String get apiKeySaved => 'Clé API enregistrée en toute sécurité.';
+
+  @override
+  String get libraryNewPlaylist => 'Nouvelle liste de lecture';
+
+  @override
+  String get libraryImport => 'Importer';
+
+  @override
+  String get libraryAllTab => 'Tout';
+
+  @override
+  String get libraryLocalSource => 'Local';
+
+  @override
+  String get libraryNoScript => 'Sans script';
+
+  @override
+  String get libraryUnsetLanguage => 'Non défini';
+
+  @override
+  String get libraryEmptyPlaylist => 'Aucune liste de lecture.';
+
+  @override
+  String get libraryCreatePlaylist => 'Créer une nouvelle liste de lecture';
+
+  @override
+  String libraryTrackCount(int count) {
+    return '$count pistes';
+  }
+
+  @override
+  String libraryMoreTracks(int count) {
+    return '+ $count de plus';
+  }
+
+  @override
+  String get libraryEditNameEmoji => 'Modifier nom/emoji';
+
+  @override
+  String get libraryDeletePlaylist => 'Supprimer';
+
+  @override
+  String get libraryEditPlaylist => 'Modifier la liste de lecture';
+
+  @override
+  String get librarySetLanguage => 'Définir la langue';
+
+  @override
+  String libraryChangeLanguage(String lang) {
+    return 'Changer de langue (actuel: $lang)';
+  }
+
+  @override
+  String get libraryAddToPlaylist => 'Ajouter à la liste de lecture';
+
+  @override
+  String get libraryLanguageBadge => 'Badge de langue';
+
+  @override
+  String get phoneticsQuizTitle => 'Quiz de prononciation';
+
+  @override
+  String get phoneticsQuizDesc =>
+      'Quiz IPA ↔ correspondance de mots\nBonus de série + statistiques de précision';
+
+  @override
+  String get phoneticsTtsPracticeTitle => 'Pratique de prononciation TTS';
+
+  @override
+  String get phoneticsTtsPracticeDesc =>
+      'Écoutez des mots et répétez avec les symboles IPA\nPas de clé API · Complètement gratuit';
+
+  @override
+  String get phoneticsMinimalPairDesc =>
+      'Distinguer les sons similaires (ship vs sheep etc.)\nÉcoute TTS + notation de prononciation';
+
+  @override
+  String get phoneticsPitchAccentTitle => 'Accent de hauteur japonais';
+
+  @override
+  String get phoneticsPitchAccentDesc =>
+      'Visualisez les patterns de hauteur pour les homophones\nex. はし (baguettes/pont/bord)';
+
+  @override
+  String get phoneticsKanaDrillTitle => 'Exercice Hiragana · Katakana';
+
+  @override
+  String get phoneticsKanaDrillDesc =>
+      'Appuyez sur n\'importe quel caractère kana pour entendre la prononciation TTS\nTableau complet des 50 sons inclus';
+
+  @override
+  String get libraryPlaylistTab => 'Listes de lecture';
+
+  @override
+  String get importTitle => 'Importer';
+
+  @override
+  String get importFromDevice => 'Importer depuis cet appareil';
+
+  @override
+  String get importFromDeviceSubtitle =>
+      'Charger audio + scripts depuis un dossier local';
+
+  @override
+  String get importFromICloud => 'Importer depuis iCloud Drive';
+
+  @override
+  String get importFromICloudSubtitle =>
+      'Lier un dossier iCloud Drive à la bibliothèque';
+
+  @override
+  String get importFromGoogleDrive => 'Importer depuis Google Drive';
+
+  @override
+  String get importFromGoogleDriveSubtitle =>
+      'Parcourir et télécharger un dossier Google Drive';
+
+  @override
+  String get importAutoSync =>
+      'Synchronisation automatique du dossier Scripta Sync iCloud';
+
+  @override
+  String get importAutoSyncSubtitle =>
+      'Scan automatique du dossier iCloud Drive/Scripta Sync/';
+
+  @override
+  String heatmapTitle(int weeks) {
+    return 'Historique d\'apprentissage ($weeks dernières semaines)';
+  }
+
+  @override
+  String heatmapTooltip(String date, int minutes) {
+    return '$date : $minutes min';
+  }
+
+  @override
+  String get heatmapNoActivity => 'Aucune activité';
+
+  @override
+  String get heatmapLess => 'Moins';
+
+  @override
+  String get heatmapMore => 'Plus';
 }

@@ -93,12 +93,11 @@ class _AiTutorBottomSheetState extends ConsumerState<AiTutorBottomSheet> {
       }
     });
 
-    IconData aiIcon;
-    switch (activeAi) {
-      case AiProviderType.openai: aiIcon = Icons.psychology; break;
-      case AiProviderType.google: aiIcon = Icons.auto_awesome; break;
-      case AiProviderType.claude: aiIcon = Icons.memory; break;
-    }
+    final aiIcon = switch (activeAi) {
+      AiProviderType.openai => Icons.psychology,
+      AiProviderType.google => Icons.auto_awesome,
+      AiProviderType.claude => Icons.memory,
+    };
 
     return Container(
       decoration: BoxDecoration(

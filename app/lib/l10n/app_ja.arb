@@ -36,5 +36,275 @@
   "noContentFound": "コンテンツが見つかりません。フォルダアイコンをタップしてインポートしてください。",
   "selectFile": "ファイルを選択してください",
   "noScriptFile": "スクリプトファイルが見つかりません。",
-  "noScriptHint": "音声と同じ名前の .txt ファイルを同じフォルダに追加してください。"
+  "noScriptHint": "音声と同じ名前の .txt ファイルを同じフォルダに追加してください。",
+  "settingsSectionLanguage": "言語",
+  "settingsSectionAiProvider": "AIプロバイダー",
+  "settingsApiKeyManage": "APIキー管理",
+  "settingsSectionSubscription": "サブスクリプション",
+  "settingsProPlanActive": "Proプラン 利用中",
+  "settingsFreePlan": "Freeプラン 利用中",
+  "settingsProPlanSubtitle": "すべての機能が無制限",
+  "settingsFreePlanSubtitle": "AI月20回、発音練習月10回",
+  "settingsSectionData": "データ",
+  "settingsRescanLibrary": "ライブラリを再スキャン",
+  "settingsRescanSubtitle": "ディレクトリから新しいファイルを検索します",
+  "settingsResetData": "学習記録をリセット",
+  "settingsResetSubtitle": "すべての進捗と記録を削除します",
+  "settingsResetDialogTitle": "記録をリセット",
+  "settingsResetDialogContent": "すべての学習記録と進捗が削除されます。続けますか？",
+  "cancel": "キャンセル",
+  "delete": "削除",
+  "settingsResetSuccess": "すべての記録がリセットされました。",
+  "settingsSectionCache": "キャッシュ管理",
+  "settingsCacheDriveDownload": "Google Driveダウンロード",
+  "settingsClearAllCache": "キャッシュをすべて削除",
+  "settingsClearCacheSubtitle": "ダウンロードされたGoogle Driveファイルと一時ファイルを削除",
+  "settingsCacheDeleteDialogTitle": "キャッシュを削除",
+  "settingsCacheDeleteDialogContent": "{size}のキャッシュが削除されます。",
+  "settingsCacheDeleteSuccess": "キャッシュが削除されました。",
+  "settingsAppLanguage": "アプリの言語",
+  "settingsAppLanguageTitle": "アプリの言語を選択",
+  "settingsSystemDefault": "システムデフォルト",
+  "settingsSystemDefaultSubtitle": "デバイスの言語に従います",
+  "@settingsCacheDeleteDialogContent": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStreakActive": "{days}日連続学習中！",
+  "@homeStreakActive": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeStreakStats": "最長{longest}日 · 合計{total}日",
+  "@homeStreakStats": {
+    "placeholders": {
+      "longest": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeEmptyLibrary": "ライブラリからファイルを追加して学習を始めましょう。",
+  "homeNoHistory": "まだ学習記録がありません。",
+  "homeStatusDone": "完了",
+  "homeStatusStudying": "学習中",
+  "homeDueReview": "今日の復習: {count}文",
+  "@homeDueReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoDueReview": "復習する文なし",
+  "homeAiConversation": "AI会話練習",
+  "homeAiConversationSubtitle": "ネイティブAIと自由に会話する",
+  "homePhoneticsHub": "発音トレーニングセンター",
+  "homePhoneticsHubSubtitle": "TTS + オンデバイス採点 · API不要",
+  "tutorialSkip": "スキップ",
+  "tutorialStart": "始めましょう 🚀",
+  "tutorialNext": "次へ",
+  "playerClipEdit": "クリップ編集",
+  "playerSpeedSuggestion": "70%以上聴きました！再生速度を上げてみますか？ 🚀",
+  "playerSpeedIncrease": "上げる",
+  "playerMenuDictation": "ディクテーション練習",
+  "playerSelectFileFirst": "まずオーディオファイルを選択してください。",
+  "playerMenuActiveRecall": "能動的想起トレーニング",
+  "playerMenuBookmark": "ブックマーク保存",
+  "playerBookmarkSaved": "ブックマークに保存しました！",
+  "playerBookmarkDuplicate": "すでにブックマーク済みの文です。",
+  "playerBeginnerMode": "入門者モード (0.75x)",
+  "playerLoopOff": "リピートなし",
+  "playerLoopOne": "1曲リピート",
+  "playerLoopAll": "全曲リピート",
+  "playerScriptReady": "台本準備完了",
+  "playerNoScript": "台本なし",
+  "playerAbLoopASet": "A: {time} — B 未設定",
+  "@playerAbLoopASet": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "playerError": "エラー: {error}",
+  "@playerError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationTopicSuggest": "トピック提案",
+  "conversationInputHint": "{language}で話してみてください...",
+  "@conversationInputHint": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationPracticeTitle": "{language}会話練習",
+  "@conversationPracticeTitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationWelcomeMsg": "ネイティブAIと自由に会話しましょう。\nミスを恐れないでください！",
+  "conversationStartBtn": "会話を始める",
+  "conversationTopicExamples": "トピック例",
+  "statsStudiedContent": "学習済みコンテンツ",
+  "statsItemCount": "{count}個",
+  "@statsItemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalTime": "総学習時間",
+  "statsMinutes": "{minutes}分",
+  "@statsMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "statsNoHistory": "まだ学習記録がありません。\nライブラリからコンテンツを追加してください。",
+  "statsProgressByItem": "項目別進捗",
+  "statsPronunciationProgress": "発音向上状況",
+  "statsPronunciationEmpty": "シャドーイング練習を完了すると、発音向上記録がここに表示されます。",
+  "statsPracticeCount": "{count}回練習",
+  "@statsPracticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsStreakSection": "学習ストリーク",
+  "statsStreakCurrentLabel": "連続学習",
+  "statsStreakLongestLabel": "最長ストリーク",
+  "statsStreakTotalLabel": "総学習日数",
+  "statsDays": "{days}日",
+  "@statsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statsJournal": "学習日誌",
+  "statsJournalEmpty": "学習を始めると自動的に日誌が記録されます。",
+  "statsShareCard": "学習カードをシェア",
+  "statsShareSubtitle": "学習成果をSNSでシェアしましょう",
+  "statsMinimalPair": "最小対訓練",
+  "statsMinimalPairSubtitle": "似た音の聞き分け（英語/日本語/スペイン語）",
+  "statsError": "エラー: {error}",
+  "@statsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "phoneticsHubFreeTitle": "AIなしで発音練習",
+  "phoneticsHubFreeSubtitle": "デバイスTTS + オンデバイス音声認識\nAPIキー不要で無料使用可能",
+  "phoneticsHubTrainingTools": "トレーニングツール",
+  "phoneticsComingSoon": "準備中",
+  "phoneticsSpanishIpa": "スペイン語IPA",
+  "phoneticsSpanishIpaSubtitle": "スペイン語発音記号 + 練習（準備中）",
+  "apiKeyRequired": "少なくとも1つのAPIキーを入力してください。",
+  "apiKeyInvalidFormat": "OpenAI APIキーの形式が正しくありません。(sk-で始まる必要があります)",
+  "apiKeySaved": "APIキーが安全に保存されました。",
+  "libraryNewPlaylist": "新しいプレイリスト",
+  "libraryImport": "インポート",
+  "libraryAllTab": "すべて",
+  "libraryLocalSource": "ローカル",
+  "libraryNoScript": "スクリプトなし",
+  "libraryUnsetLanguage": "未設定",
+  "libraryEmptyPlaylist": "プレイリストがありません。",
+  "libraryCreatePlaylist": "新しいプレイリストを作成",
+  "libraryTrackCount": "{count}曲",
+  "@libraryTrackCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryMoreTracks": "+ {count}曲 もっと",
+  "@libraryMoreTracks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryEditNameEmoji": "名前/絵文字を編集",
+  "libraryDeletePlaylist": "削除",
+  "libraryEditPlaylist": "プレイリストを編集",
+  "librarySetLanguage": "言語設定",
+  "libraryChangeLanguage": "言語変更（現在: {lang}）",
+  "@libraryChangeLanguage": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryAddToPlaylist": "プレイリストに追加",
+  "libraryLanguageBadge": "言語バッジ",
+  "phoneticsQuizTitle": "発音クイズ",
+  "phoneticsQuizDesc": "IPA記号 ↔ 単語マッチングクイズ\nストリークボーナス + 正確度統計",
+  "phoneticsTtsPracticeTitle": "TTS発音練習",
+  "phoneticsTtsPracticeDesc": "単語を聞いてIPA記号とともに繰り返す\nAPIキー不要 · 完全無料",
+  "phoneticsMinimalPairDesc": "似た音の聞き分け（ship vs sheep など）\nTTS聴取 + 発音採点",
+  "phoneticsPitchAccentTitle": "日本語ピッチアクセント",
+  "phoneticsPitchAccentDesc": "同音異義語のピッチパターン可視化訓練\n例: はし(箸/橋/端)の区別",
+  "phoneticsKanaDrillTitle": "ひらがな・カタカナ ドリル",
+  "phoneticsKanaDrillDesc": "かな文字をタップしてTTS発音を聴く\n五十音図全体収録",
+  "libraryPlaylistTab": "プレイリスト",
+  "importTitle": "インポート",
+  "importFromDevice": "このデバイスからインポート",
+  "importFromDeviceSubtitle": "ローカルフォルダからオーディオ+スクリプトを読み込む",
+  "importFromICloud": "iCloud Driveからインポート",
+  "importFromICloudSubtitle": "iCloud Driveフォルダをライブラリに連結",
+  "importFromGoogleDrive": "Google Driveからインポート",
+  "importFromGoogleDriveSubtitle": "Google Driveフォルダを参照してダウンロード",
+  "importAutoSync": "Scripta Sync iCloudフォルダの自動同期",
+  "importAutoSyncSubtitle": "iCloud Drive/Scripta Sync/フォルダを自動スキャン",
+  "heatmapTitle": "学習記録（最近{weeks}週間）",
+  "@heatmapTitle": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapTooltip": "{date}: {minutes}分",
+  "@heatmapTooltip": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapNoActivity": "学習なし",
+  "heatmapLess": "少ない",
+  "heatmapMore": "多い"
 }

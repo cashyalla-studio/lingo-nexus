@@ -50,23 +50,23 @@ class StatsScreen extends ConsumerWidget {
                           children: [
                             Expanded(child: _StatCard(
                               icon: Icons.headphones,
-                              label: '학습한 콘텐츠',
-                              value: '${studiedItems.length}개',
+                              label: l10n.statsStudiedContent,
+                              value: l10n.statsItemCount(studiedItems.length),
                               theme: theme,
                             )),
                             const SizedBox(width: 12),
                             Expanded(child: _StatCard(
                               icon: Icons.check_circle,
-                              label: '완료',
-                              value: '$completedCount개',
+                              label: l10n.homeStatusDone,
+                              value: l10n.statsItemCount(completedCount),
                               theme: theme,
                               color: AppTheme.success,
                             )),
                             const SizedBox(width: 12),
                             Expanded(child: _StatCard(
                               icon: Icons.timer,
-                              label: '총 학습시간',
-                              value: '$totalMinutes분',
+                              label: l10n.statsTotalTime,
+                              value: l10n.statsMinutes(totalMinutes),
                               theme: theme,
                             )),
                           ],
@@ -82,7 +82,7 @@ class StatsScreen extends ConsumerWidget {
                                   Icon(Icons.bar_chart_outlined, size: 64,
                                     color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.4)),
                                   const SizedBox(height: 16),
-                                  Text('아직 학습 기록이 없습니다.\n라이브러리에서 콘텐츠를 추가해보세요.',
+                                  Text(l10n.statsNoHistory,
                                     style: theme.textTheme.bodyLarge?.copyWith(
                                       color: theme.colorScheme.onSurfaceVariant),
                                     textAlign: TextAlign.center),
@@ -91,7 +91,7 @@ class StatsScreen extends ConsumerWidget {
                             ),
                           )
                         else ...[
-                          Text('학습 항목별 진도',
+                          Text(l10n.statsProgressByItem,
                             style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
                           const SizedBox(height: 16),
                           ...studiedItems.map((item) => Padding(
@@ -119,7 +119,7 @@ class StatsScreen extends ConsumerWidget {
                                           maxLines: 1, overflow: TextOverflow.ellipsis),
                                       ),
                                       Text(
-                                        item.isCompleted ? '완료' : '${(item.progressRatio * 100).toInt()}%',
+                                        item.isCompleted ? l10n.homeStatusDone : '${(item.progressRatio * 100).toInt()}%',
                                         style: theme.textTheme.labelMedium?.copyWith(
                                           color: item.isCompleted ? AppTheme.success : theme.colorScheme.primary,
                                           fontWeight: FontWeight.bold,
@@ -144,7 +144,7 @@ class StatsScreen extends ConsumerWidget {
                           )),
                           // Pronunciation improvement section
                           const SizedBox(height: 32),
-                          Text('발음 향상 현황',
+                          Text(l10n.statsPronunciationProgress,
                             style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
                           const SizedBox(height: 16),
                           FutureBuilder<List<Map<String, dynamic>>>(
@@ -153,7 +153,7 @@ class StatsScreen extends ConsumerWidget {
                               if (!snapshot.hasData) return const SizedBox.shrink();
                               final progress = snapshot.data!;
                               if (progress.isEmpty) {
-                                return Text('쉐도잉 연습을 완료하면 발음 향상 기록이 여기에 표시됩니다.',
+                                return Text(l10n.statsPronunciationEmpty,
                                   style: theme.textTheme.bodyMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant));
                               }
                               return Column(
@@ -179,7 +179,7 @@ class StatsScreen extends ConsumerWidget {
                                                 Text(p['sentence'] as String,
                                                   style: theme.textTheme.bodyMedium,
                                                   maxLines: 1, overflow: TextOverflow.ellipsis),
-                                                Text('${p["attempts"]}회 연습',
+                                                Text(l10n.statsPracticeCount(p["attempts"] as int),
                                                   style: theme.textTheme.labelSmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
                                               ],
                                             ),
@@ -200,7 +200,7 @@ class StatsScreen extends ConsumerWidget {
                           ),
                           // Streak & Heatmap Section
                           const SizedBox(height: 32),
-                          Text('학습 스트릭',
+                          Text(l10n.statsStreakSection,
                             style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
                           const SizedBox(height: 16),
                           Consumer(builder: (ctx, ref, _) {
@@ -210,23 +210,23 @@ class StatsScreen extends ConsumerWidget {
                                 children: [
                                   Expanded(child: _StatCard(
                                     icon: Icons.local_fire_department,
-                                    label: '연속 학습',
-                                    value: '${streak.current}일',
+                                    label: l10n.statsStreakCurrentLabel,
+                                    value: l10n.statsDays(streak.current),
                                     theme: theme,
                                     color: const Color(0xFFFF6B00),
                                   )),
                                   const SizedBox(width: 12),
                                   Expanded(child: _StatCard(
                                     icon: Icons.emoji_events,
-                                    label: '최장 스트릭',
-                                    value: '${streak.longest}일',
+                                    label: l10n.statsStreakLongestLabel,
+                                    value: l10n.statsDays(streak.longest),
                                     theme: theme,
                                   )),
                                   const SizedBox(width: 12),
                                   Expanded(child: _StatCard(
                                     icon: Icons.calendar_today,
-                                    label: '총 학습일',
-                                    value: '${streak.totalDays}일',
+                                    label: l10n.statsStreakTotalLabel,
+                                    value: l10n.statsDays(streak.totalDays),
                                     theme: theme,
                                   )),
                                 ],
@@ -245,7 +245,7 @@ class StatsScreen extends ConsumerWidget {
                             );
                           }),
                           const SizedBox(height: 24),
-                          Text('학습 일지',
+                          Text(l10n.statsJournal,
                             style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
                           const SizedBox(height: 16),
                           Consumer(builder: (ctx, ref, _) {
@@ -253,7 +253,7 @@ class StatsScreen extends ConsumerWidget {
                             return journalAsync.when(
                               data: (entries) {
                                 if (entries.isEmpty) {
-                                  return Text('학습을 시작하면 자동으로 일지가 기록됩니다.',
+                                  return Text(l10n.statsJournalEmpty,
                                     style: theme.textTheme.bodyMedium?.copyWith(
                                       color: theme.colorScheme.onSurfaceVariant));
                                 }
@@ -282,7 +282,7 @@ class StatsScreen extends ConsumerWidget {
                                           ),
                                           const Spacer(),
                                           if (entry.minutesStudied > 0)
-                                            Text('${entry.minutesStudied}분',
+                                            Text(l10n.statsMinutes(entry.minutesStudied),
                                               style: theme.textTheme.labelMedium?.copyWith(
                                                 color: theme.colorScheme.onSurfaceVariant)),
                                         ],
@@ -321,8 +321,8 @@ class StatsScreen extends ConsumerWidget {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('학습 카드 공유', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-                                        Text('내 학습 성과를 SNS에 공유해보세요',
+                                        Text(l10n.statsShareCard, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                                        Text(l10n.statsShareSubtitle,
                                           style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
                                       ],
                                     ),
@@ -358,8 +358,8 @@ class StatsScreen extends ConsumerWidget {
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text('최소쌍 훈련', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-                                        Text('비슷한 소리 구별하기 (영어/일본어/스페인어)',
+                                        Text(l10n.statsMinimalPair, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                                        Text(l10n.statsMinimalPairSubtitle,
                                           style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
                                       ],
                                     ),
@@ -378,7 +378,7 @@ class StatsScreen extends ConsumerWidget {
                     padding: EdgeInsets.all(40.0),
                     child: CircularProgressIndicator(),
                   )),
-                  error: (err, _) => Center(child: Text('오류: $err')),
+                  error: (err, _) => Center(child: Text(l10n.statsError(err.toString()))),
                 ),
               ],
             ),

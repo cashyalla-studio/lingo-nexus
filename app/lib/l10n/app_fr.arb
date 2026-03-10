@@ -36,5 +36,275 @@
   "noContentFound": "Aucun contenu trouvé. Appuyez sur l'icône du dossier.",
   "selectFile": "Sélectionner un fichier",
   "noScriptFile": "Fichier de script introuvable.",
-  "noScriptHint": "Ajoutez un fichier .txt portant le même nom que l'audio dans le même dossier."
+  "noScriptHint": "Ajoutez un fichier .txt portant le même nom que l'audio dans le même dossier.",
+  "settingsSectionLanguage": "Langue",
+  "settingsSectionAiProvider": "Fournisseur IA",
+  "settingsApiKeyManage": "Gérer les clés API",
+  "settingsSectionSubscription": "Abonnement",
+  "settingsProPlanActive": "Plan Pro actif",
+  "settingsFreePlan": "Plan gratuit",
+  "settingsProPlanSubtitle": "Toutes les fonctionnalités illimitées",
+  "settingsFreePlanSubtitle": "20 utilisations IA/mois, 10 sessions de prononciation/mois",
+  "settingsSectionData": "Données",
+  "settingsRescanLibrary": "Rescanner la bibliothèque",
+  "settingsRescanSubtitle": "Recherche de nouveaux fichiers dans le répertoire",
+  "settingsResetData": "Réinitialiser les données d'apprentissage",
+  "settingsResetSubtitle": "Supprime tous les progrès et enregistrements",
+  "settingsResetDialogTitle": "Réinitialiser les enregistrements",
+  "settingsResetDialogContent": "Tous les enregistrements et progrès d'apprentissage seront supprimés. Continuer ?",
+  "cancel": "Annuler",
+  "delete": "Supprimer",
+  "settingsResetSuccess": "Tous les enregistrements ont été réinitialisés.",
+  "settingsSectionCache": "Gestion du cache",
+  "settingsCacheDriveDownload": "Téléchargements Google Drive",
+  "settingsClearAllCache": "Effacer tout le cache",
+  "settingsClearCacheSubtitle": "Supprimer les fichiers Google Drive téléchargés et les fichiers temporaires",
+  "settingsCacheDeleteDialogTitle": "Supprimer le cache",
+  "settingsCacheDeleteDialogContent": "{size} de cache sera supprimé.",
+  "settingsCacheDeleteSuccess": "Cache supprimé.",
+  "settingsAppLanguage": "Langue de l'appli",
+  "settingsAppLanguageTitle": "Sélectionner la langue de l'appli",
+  "settingsSystemDefault": "Paramètre système",
+  "settingsSystemDefaultSubtitle": "Suit la langue de l'appareil",
+  "@settingsCacheDeleteDialogContent": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStreakActive": "{days} jours de suite !",
+  "@homeStreakActive": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeStreakStats": "Meilleur: {longest} j · Total: {total} j",
+  "@homeStreakStats": {
+    "placeholders": {
+      "longest": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeEmptyLibrary": "Ajoutez des fichiers depuis la bibliothèque pour commencer.",
+  "homeNoHistory": "Aucun historique d'apprentissage.",
+  "homeStatusDone": "Terminé",
+  "homeStatusStudying": "En cours",
+  "homeDueReview": "{count} phrases à réviser aujourd'hui",
+  "@homeDueReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoDueReview": "Aucune phrase à réviser",
+  "homeAiConversation": "Pratique de conversation IA",
+  "homeAiConversationSubtitle": "Discutez librement avec une IA de niveau natif",
+  "homePhoneticsHub": "Centre d'entraînement à la prononciation",
+  "homePhoneticsHubSubtitle": "TTS + notation sur l'appareil · Pas d'API requise",
+  "tutorialSkip": "Passer",
+  "tutorialStart": "Commencer 🚀",
+  "tutorialNext": "Suivant",
+  "playerClipEdit": "Modifier le clip",
+  "playerSpeedSuggestion": "Vous avez écouté 70%+ ! Augmenter la vitesse ? 🚀",
+  "playerSpeedIncrease": "Augmenter",
+  "playerMenuDictation": "Pratique de dictée",
+  "playerSelectFileFirst": "Veuillez d'abord sélectionner un fichier audio.",
+  "playerMenuActiveRecall": "Entraînement de rappel actif",
+  "playerMenuBookmark": "Enregistrer le signet",
+  "playerBookmarkSaved": "Signet enregistré !",
+  "playerBookmarkDuplicate": "Cette phrase est déjà dans les signets.",
+  "playerBeginnerMode": "Mode débutant (0.75x)",
+  "playerLoopOff": "Pas de répétition",
+  "playerLoopOne": "Répéter une",
+  "playerLoopAll": "Tout répéter",
+  "playerScriptReady": "Script prêt",
+  "playerNoScript": "Pas de script",
+  "playerAbLoopASet": "A : {time} — B non défini",
+  "@playerAbLoopASet": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "playerError": "Erreur : {error}",
+  "@playerError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationTopicSuggest": "Suggérer un sujet",
+  "conversationInputHint": "Parlez en {language}...",
+  "@conversationInputHint": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationPracticeTitle": "Pratique de conversation en {language}",
+  "@conversationPracticeTitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationWelcomeMsg": "Discutez librement avec une IA de niveau natif.\nN'ayez pas peur de faire des erreurs !",
+  "conversationStartBtn": "Démarrer la conversation",
+  "conversationTopicExamples": "Exemples de sujets",
+  "statsStudiedContent": "Contenu étudié",
+  "statsItemCount": "{count} éléments",
+  "@statsItemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalTime": "Temps d'étude total",
+  "statsMinutes": "{minutes} min",
+  "@statsMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "statsNoHistory": "Aucun historique d'apprentissage.\nAjoutez du contenu depuis la bibliothèque.",
+  "statsProgressByItem": "Progression par élément",
+  "statsPronunciationProgress": "Amélioration de la prononciation",
+  "statsPronunciationEmpty": "Terminez des sessions de shadowing pour voir votre progression ici.",
+  "statsPracticeCount": "{count} sessions",
+  "@statsPracticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsStreakSection": "Série d'apprentissage",
+  "statsStreakCurrentLabel": "Série actuelle",
+  "statsStreakLongestLabel": "Série la plus longue",
+  "statsStreakTotalLabel": "Jours totaux",
+  "statsDays": "{days} jours",
+  "@statsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statsJournal": "Journal d'apprentissage",
+  "statsJournalEmpty": "Votre journal sera enregistré automatiquement dès que vous commencerez à étudier.",
+  "statsShareCard": "Partager la carte d'étude",
+  "statsShareSubtitle": "Partagez vos réalisations d'apprentissage sur les réseaux sociaux",
+  "statsMinimalPair": "Entraînement aux paires minimales",
+  "statsMinimalPairSubtitle": "Distinguer les sons similaires (EN/JA/ES)",
+  "statsError": "Erreur : {error}",
+  "@statsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "phoneticsHubFreeTitle": "Entraînement à la prononciation sans IA",
+  "phoneticsHubFreeSubtitle": "TTS de l'appareil + reconnaissance vocale\nGratuit sans clé API",
+  "phoneticsHubTrainingTools": "Outils d'entraînement",
+  "phoneticsComingSoon": "Bientôt disponible",
+  "phoneticsSpanishIpa": "IPA espagnol",
+  "phoneticsSpanishIpaSubtitle": "Symboles phonétiques espagnol + pratique (bientôt)",
+  "apiKeyRequired": "Veuillez entrer au moins une clé API.",
+  "apiKeyInvalidFormat": "Format de clé API OpenAI invalide. (doit commencer par sk-)",
+  "apiKeySaved": "Clé API enregistrée en toute sécurité.",
+  "libraryNewPlaylist": "Nouvelle liste de lecture",
+  "libraryImport": "Importer",
+  "libraryAllTab": "Tout",
+  "libraryLocalSource": "Local",
+  "libraryNoScript": "Sans script",
+  "libraryUnsetLanguage": "Non défini",
+  "libraryEmptyPlaylist": "Aucune liste de lecture.",
+  "libraryCreatePlaylist": "Créer une nouvelle liste de lecture",
+  "libraryTrackCount": "{count} pistes",
+  "@libraryTrackCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryMoreTracks": "+ {count} de plus",
+  "@libraryMoreTracks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryEditNameEmoji": "Modifier nom/emoji",
+  "libraryDeletePlaylist": "Supprimer",
+  "libraryEditPlaylist": "Modifier la liste de lecture",
+  "librarySetLanguage": "Définir la langue",
+  "libraryChangeLanguage": "Changer de langue (actuel: {lang})",
+  "@libraryChangeLanguage": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryAddToPlaylist": "Ajouter à la liste de lecture",
+  "libraryLanguageBadge": "Badge de langue",
+  "phoneticsQuizTitle": "Quiz de prononciation",
+  "phoneticsQuizDesc": "Quiz IPA ↔ correspondance de mots\nBonus de série + statistiques de précision",
+  "phoneticsTtsPracticeTitle": "Pratique de prononciation TTS",
+  "phoneticsTtsPracticeDesc": "Écoutez des mots et répétez avec les symboles IPA\nPas de clé API · Complètement gratuit",
+  "phoneticsMinimalPairDesc": "Distinguer les sons similaires (ship vs sheep etc.)\nÉcoute TTS + notation de prononciation",
+  "phoneticsPitchAccentTitle": "Accent de hauteur japonais",
+  "phoneticsPitchAccentDesc": "Visualisez les patterns de hauteur pour les homophones\nex. はし (baguettes/pont/bord)",
+  "phoneticsKanaDrillTitle": "Exercice Hiragana · Katakana",
+  "phoneticsKanaDrillDesc": "Appuyez sur n'importe quel caractère kana pour entendre la prononciation TTS\nTableau complet des 50 sons inclus",
+  "libraryPlaylistTab": "Listes de lecture",
+  "importTitle": "Importer",
+  "importFromDevice": "Importer depuis cet appareil",
+  "importFromDeviceSubtitle": "Charger audio + scripts depuis un dossier local",
+  "importFromICloud": "Importer depuis iCloud Drive",
+  "importFromICloudSubtitle": "Lier un dossier iCloud Drive à la bibliothèque",
+  "importFromGoogleDrive": "Importer depuis Google Drive",
+  "importFromGoogleDriveSubtitle": "Parcourir et télécharger un dossier Google Drive",
+  "importAutoSync": "Synchronisation automatique du dossier Scripta Sync iCloud",
+  "importAutoSyncSubtitle": "Scan automatique du dossier iCloud Drive/Scripta Sync/",
+  "heatmapTitle": "Historique d'apprentissage ({weeks} dernières semaines)",
+  "@heatmapTitle": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapTooltip": "{date} : {minutes} min",
+  "@heatmapTooltip": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapNoActivity": "Aucune activité",
+  "heatmapLess": "Moins",
+  "heatmapMore": "Plus"
 }

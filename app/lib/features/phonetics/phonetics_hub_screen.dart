@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
 import '../minimal_pair/minimal_pair_screen.dart';
 import 'tts_practice_screen.dart';
 import 'pitch_accent_screen.dart';
@@ -12,44 +13,45 @@ class PhoneticsHubScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
 
     final tools = [
       _PhoneticsTool(
         icon: Icons.quiz,
-        title: '발음 퀴즈',
-        description: 'IPA 발음기호 ↔ 단어 매칭 퀴즈\n스트릭 보너스 + 정확도 통계',
+        title: l10n.phoneticsQuizTitle,
+        description: l10n.phoneticsQuizDesc,
         color: Colors.deepPurple,
         onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => const PhoneticsQuizScreen())),
       ),
       _PhoneticsTool(
         icon: Icons.volume_up,
-        title: 'TTS 발음 연습',
-        description: '단어를 듣고 IPA 발음기호와 함께 따라 말하기\nAPI 키 불필요 · 완전 무료',
+        title: l10n.phoneticsTtsPracticeTitle,
+        description: l10n.phoneticsTtsPracticeDesc,
         color: const Color(0xFF00FFD1),
         onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => const TtsPracticeScreen())),
       ),
       _PhoneticsTool(
         icon: Icons.compare_arrows,
-        title: '최소쌍 훈련',
-        description: '비슷한 소리 구별하기 (ship vs sheep 등)\nTTS 듣기 + 발음 채점 포함',
+        title: l10n.statsMinimalPair,
+        description: l10n.phoneticsMinimalPairDesc,
         color: Colors.orange,
         onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => const MinimalPairScreen())),
       ),
       _PhoneticsTool(
         icon: Icons.graphic_eq,
-        title: '일본어 피치 악센트',
-        description: '同音異義語의 높낮이 패턴 시각화 훈련\n예: はし(箸/橋/端) 구별하기',
+        title: l10n.phoneticsPitchAccentTitle,
+        description: l10n.phoneticsPitchAccentDesc,
         color: Colors.purple,
         onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => const PitchAccentScreen())),
       ),
       _PhoneticsTool(
         icon: Icons.translate,
-        title: '히라가나 · 가타카나 드릴',
-        description: '모든 가나 문자를 탭하여 TTS 발음 청취\n50음도 전체 수록',
+        title: l10n.phoneticsKanaDrillTitle,
+        description: l10n.phoneticsKanaDrillDesc,
         color: Colors.blue,
         onTap: () => Navigator.push(context,
           MaterialPageRoute(builder: (_) => const KanaDrillScreen())),
@@ -59,7 +61,7 @@ class PhoneticsHubScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
       appBar: AppBar(
-        title: const Text('발음 훈련 센터'),
+        title: Text(AppLocalizations.of(context)!.homePhoneticsHub),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -103,11 +105,11 @@ class PhoneticsHubScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('AI 없이 발음 훈련',
+                        Text(l10n.phoneticsHubFreeTitle,
                           style: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold)),
                         const SizedBox(height: 4),
-                        Text('기기 TTS + 온디바이스 음성인식\nAPI 키 없이 무료로 사용 가능',
+                        Text(l10n.phoneticsHubFreeSubtitle,
                           style: theme.textTheme.bodySmall?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                             height: 1.5)),
@@ -120,7 +122,7 @@ class PhoneticsHubScreen extends ConsumerWidget {
 
             const SizedBox(height: 28),
 
-            Text('훈련 도구',
+            Text(l10n.phoneticsHubTrainingTools,
               style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
             const SizedBox(height: 16),
 
@@ -174,13 +176,13 @@ class PhoneticsHubScreen extends ConsumerWidget {
             const SizedBox(height: 28),
 
             // Coming soon section
-            Text('준비 중',
+            Text(l10n.phoneticsComingSoon,
               style: theme.textTheme.titleMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.w600)),
             const SizedBox(height: 12),
             ...[
-              ('스페인어 IPA', '스페인어 발음기호 + 연습 (준비 중)', Icons.language),
+              (l10n.phoneticsSpanishIpa, l10n.phoneticsSpanishIpaSubtitle, Icons.language),
             ].map((item) => Padding(
               padding: const EdgeInsets.only(bottom: 8),
               child: Container(
@@ -215,7 +217,7 @@ class PhoneticsHubScreen extends ConsumerWidget {
                         color: theme.colorScheme.outline.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: Text('준비 중',
+                      child: Text(l10n.phoneticsComingSoon,
                         style: theme.textTheme.labelSmall?.copyWith(
                           color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5))),
                     ),

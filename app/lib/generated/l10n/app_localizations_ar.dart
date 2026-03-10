@@ -123,4 +123,474 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noScriptHint => 'أضف ملف .txt بنفس اسم الصوت في نفس المجلد.';
+
+  @override
+  String get settingsSectionLanguage => 'اللغة';
+
+  @override
+  String get settingsSectionAiProvider => 'مزود الذكاء الاصطناعي';
+
+  @override
+  String get settingsApiKeyManage => 'إدارة مفاتيح API';
+
+  @override
+  String get settingsSectionSubscription => 'الاشتراك';
+
+  @override
+  String get settingsProPlanActive => 'خطة Pro نشطة';
+
+  @override
+  String get settingsFreePlan => 'الخطة المجانية';
+
+  @override
+  String get settingsProPlanSubtitle => 'جميع الميزات غير محدودة';
+
+  @override
+  String get settingsFreePlanSubtitle =>
+      '20 استخداماً للذكاء الاصطناعي/شهر، 10 جلسات نطق/شهر';
+
+  @override
+  String get settingsSectionData => 'البيانات';
+
+  @override
+  String get settingsRescanLibrary => 'إعادة فحص المكتبة';
+
+  @override
+  String get settingsRescanSubtitle => 'يبحث عن ملفات جديدة في الدليل';
+
+  @override
+  String get settingsResetData => 'إعادة تعيين بيانات التعلم';
+
+  @override
+  String get settingsResetSubtitle => 'يحذف جميع التقدم والسجلات';
+
+  @override
+  String get settingsResetDialogTitle => 'إعادة تعيين السجلات';
+
+  @override
+  String get settingsResetDialogContent =>
+      'سيتم حذف جميع سجلات التعلم والتقدم. هل تريد المتابعة؟';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get delete => 'حذف';
+
+  @override
+  String get settingsResetSuccess => 'تم إعادة تعيين جميع السجلات.';
+
+  @override
+  String get settingsSectionCache => 'إدارة ذاكرة التخزين المؤقت';
+
+  @override
+  String get settingsCacheDriveDownload => 'تنزيلات Google Drive';
+
+  @override
+  String get settingsClearAllCache => 'مسح كل ذاكرة التخزين المؤقت';
+
+  @override
+  String get settingsClearCacheSubtitle =>
+      'حذف ملفات Google Drive المحملة والملفات المؤقتة';
+
+  @override
+  String get settingsCacheDeleteDialogTitle => 'حذف ذاكرة التخزين المؤقت';
+
+  @override
+  String settingsCacheDeleteDialogContent(String size) {
+    return 'سيتم حذف $size من ذاكرة التخزين المؤقت.';
+  }
+
+  @override
+  String get settingsCacheDeleteSuccess => 'تم حذف ذاكرة التخزين المؤقت.';
+
+  @override
+  String get settingsAppLanguage => 'لغة التطبيق';
+
+  @override
+  String get settingsAppLanguageTitle => 'اختر لغة التطبيق';
+
+  @override
+  String get settingsSystemDefault => 'الافتراضي للنظام';
+
+  @override
+  String get settingsSystemDefaultSubtitle => 'يتبع لغة الجهاز';
+
+  @override
+  String homeStreakActive(int days) {
+    return '$days أيام متتالية!';
+  }
+
+  @override
+  String homeStreakStats(int longest, int total) {
+    return 'الأفضل: $longest أيام · الإجمالي: $total أيام';
+  }
+
+  @override
+  String get homeEmptyLibrary => 'أضف ملفات من المكتبة لبدء التعلم.';
+
+  @override
+  String get homeNoHistory => 'لا يوجد سجل دراسة بعد.';
+
+  @override
+  String get homeStatusDone => 'مكتمل';
+
+  @override
+  String get homeStatusStudying => 'قيد الدراسة';
+
+  @override
+  String homeDueReview(int count) {
+    return '$count جمل للمراجعة اليوم';
+  }
+
+  @override
+  String get homeNoDueReview => 'لا توجد جمل للمراجعة';
+
+  @override
+  String get homeAiConversation => 'ممارسة المحادثة مع الذكاء الاصطناعي';
+
+  @override
+  String get homeAiConversationSubtitle =>
+      'تحدث بحرية مع ذكاء اصطناعي بمستوى المتحدث الأصلي';
+
+  @override
+  String get homePhoneticsHub => 'مركز تدريب النطق';
+
+  @override
+  String get homePhoneticsHubSubtitle =>
+      'TTS + تسجيل النقاط على الجهاز · لا حاجة لـ API';
+
+  @override
+  String get tutorialSkip => 'تخطي';
+
+  @override
+  String get tutorialStart => 'ابدأ 🚀';
+
+  @override
+  String get tutorialNext => 'التالي';
+
+  @override
+  String get playerClipEdit => 'تعديل المقطع';
+
+  @override
+  String get playerSpeedSuggestion =>
+      'لقد استمعت لأكثر من 70%! هل تجرب زيادة السرعة؟ 🚀';
+
+  @override
+  String get playerSpeedIncrease => 'زيادة';
+
+  @override
+  String get playerMenuDictation => 'تمرين الإملاء';
+
+  @override
+  String get playerSelectFileFirst => 'يرجى اختيار ملف صوتي أولاً.';
+
+  @override
+  String get playerMenuActiveRecall => 'تدريب الاسترجاع النشط';
+
+  @override
+  String get playerMenuBookmark => 'حفظ الإشارة المرجعية';
+
+  @override
+  String get playerBookmarkSaved => 'تم حفظ الإشارة المرجعية!';
+
+  @override
+  String get playerBookmarkDuplicate => 'هذه الجملة محفوظة بالفعل.';
+
+  @override
+  String get playerBeginnerMode => 'وضع المبتدئ (0.75x)';
+
+  @override
+  String get playerLoopOff => 'بدون تكرار';
+
+  @override
+  String get playerLoopOne => 'تكرار واحد';
+
+  @override
+  String get playerLoopAll => 'تكرار الكل';
+
+  @override
+  String get playerScriptReady => 'النص جاهز';
+
+  @override
+  String get playerNoScript => 'لا يوجد نص';
+
+  @override
+  String playerAbLoopASet(String time) {
+    return 'A: $time — B غير محدد';
+  }
+
+  @override
+  String playerError(String error) {
+    return 'خطأ: $error';
+  }
+
+  @override
+  String get conversationTopicSuggest => 'اقتراح موضوع';
+
+  @override
+  String conversationInputHint(String language) {
+    return 'تحدث بالـ $language...';
+  }
+
+  @override
+  String conversationPracticeTitle(String language) {
+    return 'تمرين محادثة $language';
+  }
+
+  @override
+  String get conversationWelcomeMsg =>
+      'تحدث بحرية مع ذكاء اصطناعي بمستوى المتحدث الأصلي.\nلا تخف من ارتكاب الأخطاء!';
+
+  @override
+  String get conversationStartBtn => 'بدء المحادثة';
+
+  @override
+  String get conversationTopicExamples => 'أمثلة على الموضوعات';
+
+  @override
+  String get statsStudiedContent => 'المحتوى المدروس';
+
+  @override
+  String statsItemCount(int count) {
+    return '$count عناصر';
+  }
+
+  @override
+  String get statsTotalTime => 'إجمالي وقت الدراسة';
+
+  @override
+  String statsMinutes(int minutes) {
+    return '$minutes دقيقة';
+  }
+
+  @override
+  String get statsNoHistory =>
+      'لا يوجد سجل دراسة بعد.\nأضف محتوى من المكتبة للبدء.';
+
+  @override
+  String get statsProgressByItem => 'التقدم حسب العنصر';
+
+  @override
+  String get statsPronunciationProgress => 'تحسين النطق';
+
+  @override
+  String get statsPronunciationEmpty =>
+      'أكمل جلسات المحاكاة لرؤية تحسن نطقك هنا.';
+
+  @override
+  String statsPracticeCount(int count) {
+    return '$count جلسات';
+  }
+
+  @override
+  String get statsStreakSection => 'سلسلة الدراسة';
+
+  @override
+  String get statsStreakCurrentLabel => 'السلسلة الحالية';
+
+  @override
+  String get statsStreakLongestLabel => 'أطول سلسلة';
+
+  @override
+  String get statsStreakTotalLabel => 'إجمالي الأيام';
+
+  @override
+  String statsDays(int days) {
+    return '$days أيام';
+  }
+
+  @override
+  String get statsJournal => 'يوميات الدراسة';
+
+  @override
+  String get statsJournalEmpty =>
+      'سيتم تسجيل يوميات الدراسة تلقائيًا بمجرد البدء.';
+
+  @override
+  String get statsShareCard => 'مشاركة بطاقة الدراسة';
+
+  @override
+  String get statsShareSubtitle =>
+      'شارك إنجازات تعلمك على وسائل التواصل الاجتماعي';
+
+  @override
+  String get statsMinimalPair => 'تدريب الأزواج الصغيرة';
+
+  @override
+  String get statsMinimalPairSubtitle => 'تمييز الأصوات المتشابهة (EN/JA/ES)';
+
+  @override
+  String statsError(String error) {
+    return 'خطأ: $error';
+  }
+
+  @override
+  String get phoneticsHubFreeTitle => 'تدريب النطق بدون ذكاء اصطناعي';
+
+  @override
+  String get phoneticsHubFreeSubtitle =>
+      'TTS للجهاز + التعرف على الكلام\nمجاني بدون مفتاح API';
+
+  @override
+  String get phoneticsHubTrainingTools => 'أدوات التدريب';
+
+  @override
+  String get phoneticsComingSoon => 'قريبًا';
+
+  @override
+  String get phoneticsSpanishIpa => 'IPA الإسبانية';
+
+  @override
+  String get phoneticsSpanishIpaSubtitle =>
+      'رموز صوتية إسبانية + تمرين (قريبًا)';
+
+  @override
+  String get apiKeyRequired => 'يرجى إدخال مفتاح API واحد على الأقل.';
+
+  @override
+  String get apiKeyInvalidFormat =>
+      'تنسيق مفتاح OpenAI API غير صحيح. (يجب أن يبدأ بـ sk-)';
+
+  @override
+  String get apiKeySaved => 'تم حفظ مفتاح API بأمان.';
+
+  @override
+  String get libraryNewPlaylist => 'قائمة تشغيل جديدة';
+
+  @override
+  String get libraryImport => 'استيراد';
+
+  @override
+  String get libraryAllTab => 'الكل';
+
+  @override
+  String get libraryLocalSource => 'محلي';
+
+  @override
+  String get libraryNoScript => 'بدون نص';
+
+  @override
+  String get libraryUnsetLanguage => 'غير محدد';
+
+  @override
+  String get libraryEmptyPlaylist => 'لا توجد قوائم تشغيل بعد.';
+
+  @override
+  String get libraryCreatePlaylist => 'إنشاء قائمة تشغيل جديدة';
+
+  @override
+  String libraryTrackCount(int count) {
+    return '$count مقاطع';
+  }
+
+  @override
+  String libraryMoreTracks(int count) {
+    return '+ $count أكثر';
+  }
+
+  @override
+  String get libraryEditNameEmoji => 'تعديل الاسم/الرمز التعبيري';
+
+  @override
+  String get libraryDeletePlaylist => 'حذف';
+
+  @override
+  String get libraryEditPlaylist => 'تعديل قائمة التشغيل';
+
+  @override
+  String get librarySetLanguage => 'تعيين اللغة';
+
+  @override
+  String libraryChangeLanguage(String lang) {
+    return 'تغيير اللغة (الحالية: $lang)';
+  }
+
+  @override
+  String get libraryAddToPlaylist => 'إضافة إلى قائمة التشغيل';
+
+  @override
+  String get libraryLanguageBadge => 'شارة اللغة';
+
+  @override
+  String get phoneticsQuizTitle => 'اختبار النطق';
+
+  @override
+  String get phoneticsQuizDesc =>
+      'اختبار IPA ↔ مطابقة الكلمات\nمكافأة السلسلة + إحصائيات الدقة';
+
+  @override
+  String get phoneticsTtsPracticeTitle => 'ممارسة النطق TTS';
+
+  @override
+  String get phoneticsTtsPracticeDesc =>
+      'استمع إلى كلمات وكررها مع رموز IPA\nلا حاجة لمفتاح API · مجاني تمامًا';
+
+  @override
+  String get phoneticsMinimalPairDesc =>
+      'تمييز الأصوات المتشابهة (ship vs sheep إلخ)\nاستماع TTS + تسجيل النطق';
+
+  @override
+  String get phoneticsPitchAccentTitle => 'لهجة نبرة اليابانية';
+
+  @override
+  String get phoneticsPitchAccentDesc =>
+      'تصور أنماط النبرة للمترادفات الصوتية\nمثال: はし (عيدان/جسر/حافة)';
+
+  @override
+  String get phoneticsKanaDrillTitle => 'تمرين الهيراغانا والكاتاكانا';
+
+  @override
+  String get phoneticsKanaDrillDesc =>
+      'اضغط على أي حرف كانا لسماع نطق TTS\nيتضمن جدول 50 صوتًا كاملًا';
+
+  @override
+  String get libraryPlaylistTab => 'قوائم التشغيل';
+
+  @override
+  String get importTitle => 'استيراد';
+
+  @override
+  String get importFromDevice => 'الاستيراد من هذا الجهاز';
+
+  @override
+  String get importFromDeviceSubtitle => 'تحميل الصوت + النصوص من مجلد محلي';
+
+  @override
+  String get importFromICloud => 'الاستيراد من iCloud Drive';
+
+  @override
+  String get importFromICloudSubtitle => 'ربط مجلد iCloud Drive بالمكتبة';
+
+  @override
+  String get importFromGoogleDrive => 'الاستيراد من Google Drive';
+
+  @override
+  String get importFromGoogleDriveSubtitle => 'تصفح مجلد Google Drive وتنزيله';
+
+  @override
+  String get importAutoSync => 'المزامنة التلقائية لمجلد Scripta Sync iCloud';
+
+  @override
+  String get importAutoSyncSubtitle =>
+      'المسح التلقائي لمجلد iCloud Drive/Scripta Sync/';
+
+  @override
+  String heatmapTitle(int weeks) {
+    return 'سجل الدراسة (آخر $weeks أسابيع)';
+  }
+
+  @override
+  String heatmapTooltip(String date, int minutes) {
+    return '$date: $minutes دقيقة';
+  }
+
+  @override
+  String get heatmapNoActivity => 'لا نشاط';
+
+  @override
+  String get heatmapLess => 'أقل';
+
+  @override
+  String get heatmapMore => 'أكثر';
 }

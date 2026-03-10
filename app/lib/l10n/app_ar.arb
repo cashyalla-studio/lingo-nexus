@@ -36,5 +36,275 @@
   "noContentFound": "لم يتم العثور على محتوى. اضغط على أيقونة المجلد للاستيراد.",
   "selectFile": "اختر ملفاً",
   "noScriptFile": "لم يتم العثور على ملف النص.",
-  "noScriptHint": "أضف ملف .txt بنفس اسم الصوت في نفس المجلد."
+  "noScriptHint": "أضف ملف .txt بنفس اسم الصوت في نفس المجلد.",
+  "settingsSectionLanguage": "اللغة",
+  "settingsSectionAiProvider": "مزود الذكاء الاصطناعي",
+  "settingsApiKeyManage": "إدارة مفاتيح API",
+  "settingsSectionSubscription": "الاشتراك",
+  "settingsProPlanActive": "خطة Pro نشطة",
+  "settingsFreePlan": "الخطة المجانية",
+  "settingsProPlanSubtitle": "جميع الميزات غير محدودة",
+  "settingsFreePlanSubtitle": "20 استخداماً للذكاء الاصطناعي/شهر، 10 جلسات نطق/شهر",
+  "settingsSectionData": "البيانات",
+  "settingsRescanLibrary": "إعادة فحص المكتبة",
+  "settingsRescanSubtitle": "يبحث عن ملفات جديدة في الدليل",
+  "settingsResetData": "إعادة تعيين بيانات التعلم",
+  "settingsResetSubtitle": "يحذف جميع التقدم والسجلات",
+  "settingsResetDialogTitle": "إعادة تعيين السجلات",
+  "settingsResetDialogContent": "سيتم حذف جميع سجلات التعلم والتقدم. هل تريد المتابعة؟",
+  "cancel": "إلغاء",
+  "delete": "حذف",
+  "settingsResetSuccess": "تم إعادة تعيين جميع السجلات.",
+  "settingsSectionCache": "إدارة ذاكرة التخزين المؤقت",
+  "settingsCacheDriveDownload": "تنزيلات Google Drive",
+  "settingsClearAllCache": "مسح كل ذاكرة التخزين المؤقت",
+  "settingsClearCacheSubtitle": "حذف ملفات Google Drive المحملة والملفات المؤقتة",
+  "settingsCacheDeleteDialogTitle": "حذف ذاكرة التخزين المؤقت",
+  "settingsCacheDeleteDialogContent": "سيتم حذف {size} من ذاكرة التخزين المؤقت.",
+  "settingsCacheDeleteSuccess": "تم حذف ذاكرة التخزين المؤقت.",
+  "settingsAppLanguage": "لغة التطبيق",
+  "settingsAppLanguageTitle": "اختر لغة التطبيق",
+  "settingsSystemDefault": "الافتراضي للنظام",
+  "settingsSystemDefaultSubtitle": "يتبع لغة الجهاز",
+  "@settingsCacheDeleteDialogContent": {
+    "placeholders": {
+      "size": {
+        "type": "String"
+      }
+    }
+  },
+  "homeStreakActive": "{days} أيام متتالية!",
+  "@homeStreakActive": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "homeStreakStats": "الأفضل: {longest} أيام · الإجمالي: {total} أيام",
+  "@homeStreakStats": {
+    "placeholders": {
+      "longest": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeEmptyLibrary": "أضف ملفات من المكتبة لبدء التعلم.",
+  "homeNoHistory": "لا يوجد سجل دراسة بعد.",
+  "homeStatusDone": "مكتمل",
+  "homeStatusStudying": "قيد الدراسة",
+  "homeDueReview": "{count} جمل للمراجعة اليوم",
+  "@homeDueReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeNoDueReview": "لا توجد جمل للمراجعة",
+  "homeAiConversation": "ممارسة المحادثة مع الذكاء الاصطناعي",
+  "homeAiConversationSubtitle": "تحدث بحرية مع ذكاء اصطناعي بمستوى المتحدث الأصلي",
+  "homePhoneticsHub": "مركز تدريب النطق",
+  "homePhoneticsHubSubtitle": "TTS + تسجيل النقاط على الجهاز · لا حاجة لـ API",
+  "tutorialSkip": "تخطي",
+  "tutorialStart": "ابدأ 🚀",
+  "tutorialNext": "التالي",
+  "playerClipEdit": "تعديل المقطع",
+  "playerSpeedSuggestion": "لقد استمعت لأكثر من 70%! هل تجرب زيادة السرعة؟ 🚀",
+  "playerSpeedIncrease": "زيادة",
+  "playerMenuDictation": "تمرين الإملاء",
+  "playerSelectFileFirst": "يرجى اختيار ملف صوتي أولاً.",
+  "playerMenuActiveRecall": "تدريب الاسترجاع النشط",
+  "playerMenuBookmark": "حفظ الإشارة المرجعية",
+  "playerBookmarkSaved": "تم حفظ الإشارة المرجعية!",
+  "playerBookmarkDuplicate": "هذه الجملة محفوظة بالفعل.",
+  "playerBeginnerMode": "وضع المبتدئ (0.75x)",
+  "playerLoopOff": "بدون تكرار",
+  "playerLoopOne": "تكرار واحد",
+  "playerLoopAll": "تكرار الكل",
+  "playerScriptReady": "النص جاهز",
+  "playerNoScript": "لا يوجد نص",
+  "playerAbLoopASet": "A: {time} — B غير محدد",
+  "@playerAbLoopASet": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "playerError": "خطأ: {error}",
+  "@playerError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationTopicSuggest": "اقتراح موضوع",
+  "conversationInputHint": "تحدث بالـ {language}...",
+  "@conversationInputHint": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationPracticeTitle": "تمرين محادثة {language}",
+  "@conversationPracticeTitle": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "conversationWelcomeMsg": "تحدث بحرية مع ذكاء اصطناعي بمستوى المتحدث الأصلي.\nلا تخف من ارتكاب الأخطاء!",
+  "conversationStartBtn": "بدء المحادثة",
+  "conversationTopicExamples": "أمثلة على الموضوعات",
+  "statsStudiedContent": "المحتوى المدروس",
+  "statsItemCount": "{count} عناصر",
+  "@statsItemCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsTotalTime": "إجمالي وقت الدراسة",
+  "statsMinutes": "{minutes} دقيقة",
+  "@statsMinutes": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "statsNoHistory": "لا يوجد سجل دراسة بعد.\nأضف محتوى من المكتبة للبدء.",
+  "statsProgressByItem": "التقدم حسب العنصر",
+  "statsPronunciationProgress": "تحسين النطق",
+  "statsPronunciationEmpty": "أكمل جلسات المحاكاة لرؤية تحسن نطقك هنا.",
+  "statsPracticeCount": "{count} جلسات",
+  "@statsPracticeCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "statsStreakSection": "سلسلة الدراسة",
+  "statsStreakCurrentLabel": "السلسلة الحالية",
+  "statsStreakLongestLabel": "أطول سلسلة",
+  "statsStreakTotalLabel": "إجمالي الأيام",
+  "statsDays": "{days} أيام",
+  "@statsDays": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "statsJournal": "يوميات الدراسة",
+  "statsJournalEmpty": "سيتم تسجيل يوميات الدراسة تلقائيًا بمجرد البدء.",
+  "statsShareCard": "مشاركة بطاقة الدراسة",
+  "statsShareSubtitle": "شارك إنجازات تعلمك على وسائل التواصل الاجتماعي",
+  "statsMinimalPair": "تدريب الأزواج الصغيرة",
+  "statsMinimalPairSubtitle": "تمييز الأصوات المتشابهة (EN/JA/ES)",
+  "statsError": "خطأ: {error}",
+  "@statsError": {
+    "placeholders": {
+      "error": {
+        "type": "String"
+      }
+    }
+  },
+  "phoneticsHubFreeTitle": "تدريب النطق بدون ذكاء اصطناعي",
+  "phoneticsHubFreeSubtitle": "TTS للجهاز + التعرف على الكلام\nمجاني بدون مفتاح API",
+  "phoneticsHubTrainingTools": "أدوات التدريب",
+  "phoneticsComingSoon": "قريبًا",
+  "phoneticsSpanishIpa": "IPA الإسبانية",
+  "phoneticsSpanishIpaSubtitle": "رموز صوتية إسبانية + تمرين (قريبًا)",
+  "apiKeyRequired": "يرجى إدخال مفتاح API واحد على الأقل.",
+  "apiKeyInvalidFormat": "تنسيق مفتاح OpenAI API غير صحيح. (يجب أن يبدأ بـ sk-)",
+  "apiKeySaved": "تم حفظ مفتاح API بأمان.",
+  "libraryNewPlaylist": "قائمة تشغيل جديدة",
+  "libraryImport": "استيراد",
+  "libraryAllTab": "الكل",
+  "libraryLocalSource": "محلي",
+  "libraryNoScript": "بدون نص",
+  "libraryUnsetLanguage": "غير محدد",
+  "libraryEmptyPlaylist": "لا توجد قوائم تشغيل بعد.",
+  "libraryCreatePlaylist": "إنشاء قائمة تشغيل جديدة",
+  "libraryTrackCount": "{count} مقاطع",
+  "@libraryTrackCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryMoreTracks": "+ {count} أكثر",
+  "@libraryMoreTracks": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "libraryEditNameEmoji": "تعديل الاسم/الرمز التعبيري",
+  "libraryDeletePlaylist": "حذف",
+  "libraryEditPlaylist": "تعديل قائمة التشغيل",
+  "librarySetLanguage": "تعيين اللغة",
+  "libraryChangeLanguage": "تغيير اللغة (الحالية: {lang})",
+  "@libraryChangeLanguage": {
+    "placeholders": {
+      "lang": {
+        "type": "String"
+      }
+    }
+  },
+  "libraryAddToPlaylist": "إضافة إلى قائمة التشغيل",
+  "libraryLanguageBadge": "شارة اللغة",
+  "phoneticsQuizTitle": "اختبار النطق",
+  "phoneticsQuizDesc": "اختبار IPA ↔ مطابقة الكلمات\nمكافأة السلسلة + إحصائيات الدقة",
+  "phoneticsTtsPracticeTitle": "ممارسة النطق TTS",
+  "phoneticsTtsPracticeDesc": "استمع إلى كلمات وكررها مع رموز IPA\nلا حاجة لمفتاح API · مجاني تمامًا",
+  "phoneticsMinimalPairDesc": "تمييز الأصوات المتشابهة (ship vs sheep إلخ)\nاستماع TTS + تسجيل النطق",
+  "phoneticsPitchAccentTitle": "لهجة نبرة اليابانية",
+  "phoneticsPitchAccentDesc": "تصور أنماط النبرة للمترادفات الصوتية\nمثال: はし (عيدان/جسر/حافة)",
+  "phoneticsKanaDrillTitle": "تمرين الهيراغانا والكاتاكانا",
+  "phoneticsKanaDrillDesc": "اضغط على أي حرف كانا لسماع نطق TTS\nيتضمن جدول 50 صوتًا كاملًا",
+  "libraryPlaylistTab": "قوائم التشغيل",
+  "importTitle": "استيراد",
+  "importFromDevice": "الاستيراد من هذا الجهاز",
+  "importFromDeviceSubtitle": "تحميل الصوت + النصوص من مجلد محلي",
+  "importFromICloud": "الاستيراد من iCloud Drive",
+  "importFromICloudSubtitle": "ربط مجلد iCloud Drive بالمكتبة",
+  "importFromGoogleDrive": "الاستيراد من Google Drive",
+  "importFromGoogleDriveSubtitle": "تصفح مجلد Google Drive وتنزيله",
+  "importAutoSync": "المزامنة التلقائية لمجلد Scripta Sync iCloud",
+  "importAutoSyncSubtitle": "المسح التلقائي لمجلد iCloud Drive/Scripta Sync/",
+  "heatmapTitle": "سجل الدراسة (آخر {weeks} أسابيع)",
+  "@heatmapTitle": {
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapTooltip": "{date}: {minutes} دقيقة",
+  "@heatmapTooltip": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "heatmapNoActivity": "لا نشاط",
+  "heatmapLess": "أقل",
+  "heatmapMore": "أكثر"
 }

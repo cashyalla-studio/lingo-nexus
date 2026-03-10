@@ -92,7 +92,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
           if (currentItem != null)
             IconButton(
               icon: const Icon(Icons.content_cut_outlined),
-              tooltip: '클립 편집',
+              tooltip: l10n.playerClipEdit,
               onPressed: () => Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (_) => ClipEditorScreen(
@@ -162,7 +162,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                     );
                   },
                   loading: () => const Center(child: CircularProgressIndicator()),
-                  error: (err, _) => Center(child: Text("오류 발생: $err", style: TextStyle(color: theme.colorScheme.error))),
+                  error: (err, _) => Center(child: Text(l10n.playerError(err.toString()), style: TextStyle(color: theme.colorScheme.error))),
                 ),
               ),
 
@@ -182,7 +182,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                       const SizedBox(width: 8),
                       Expanded(
                         child: Text(
-                          '70% 이상 들었습니다! 배속을 높여볼까요? 🚀',
+                          l10n.playerSpeedSuggestion,
                           style: theme.textTheme.labelMedium?.copyWith(color: theme.colorScheme.primary),
                         ),
                       ),
@@ -199,7 +199,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                           }
                         },
                         style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: const Size(40, 28)),
-                        child: const Text('높이기'),
+                        child: Text(l10n.playerSpeedIncrease),
                       ),
                     ],
                   ),
@@ -244,7 +244,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
             color: theme.colorScheme.surface,
             borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
           ),
-          child: SafeArea(
+          child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -289,7 +289,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   );
                 }),
                 const SizedBox(height: 12),
-                _buildMenuButton(context, Icons.draw_outlined, '받아쓰기 연습', theme, () {
+                _buildMenuButton(context, Icons.draw_outlined, l10n.playerMenuDictation, theme, () {
                   Navigator.pop(context);
                   // Find the matching sync item for this sentence to get audio timing
                   final syncItems = ref.read(currentSyncItemsProvider);
@@ -297,7 +297,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
 
                   if (currentItem == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('먼저 오디오 파일을 선택해주세요.')),
+                      SnackBar(content: Text(l10n.playerSelectFileFirst)),
                     );
                     return;
                   }
@@ -353,12 +353,12 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   );
                 }),
                 const SizedBox(height: 12),
-                _buildMenuButton(context, Icons.psychology_outlined, '능동 회상 훈련', theme, () {
+                _buildMenuButton(context, Icons.psychology_outlined, l10n.playerMenuActiveRecall, theme, () {
                   Navigator.pop(context);
                   final currentItem = ref.read(currentStudyItemProvider);
                   if (currentItem == null) {
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('먼저 오디오 파일을 선택해주세요.')),
+                      SnackBar(content: Text(l10n.playerSelectFileFirst)),
                     );
                     return;
                   }
@@ -384,7 +384,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   ));
                 }),
                 const SizedBox(height: 12),
-                _buildMenuButton(context, Icons.bookmark_add_outlined, '북마크 저장', theme, () async {
+                _buildMenuButton(context, Icons.bookmark_add_outlined, l10n.playerMenuBookmark, theme, () async {
                   Navigator.pop(context);
                   final currentItem = ref.read(currentStudyItemProvider);
                   if (currentItem == null) return;
@@ -412,7 +412,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                   final added = await ref.read(bookmarksProvider.notifier).add(bookmark);
                   if (context.mounted) {
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text(added ? '북마크에 저장되었습니다!' : '이미 북마크된 문장입니다.'),
+                      content: Text(added ? l10n.playerBookmarkSaved : l10n.playerBookmarkDuplicate),
                       duration: const Duration(seconds: 2),
                     ));
                   }
@@ -523,7 +523,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                 Scaffold.of(context).openDrawer();
               },
               icon: const Icon(Icons.slow_motion_video),
-              label: const Text('입문자 모드 (0.75x)'),
+              label: Text(AppLocalizations.of(context)!.playerBeginnerMode),
               style: OutlinedButton.styleFrom(
                 foregroundColor: theme.colorScheme.onSurfaceVariant,
                 side: BorderSide(color: theme.colorScheme.outline),
@@ -615,6 +615,7 @@ class PlayerBottomBar extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context)!;
     final position = ref.watch(positionProvider).value ?? Duration.zero;
     final duration = ref.watch(durationProvider).value;
     final sliderValue = (duration != null && duration.inMilliseconds > 0)
@@ -655,7 +656,7 @@ class PlayerBottomBar extends ConsumerWidget {
                         Text(
                           abLoop.isActive
                               ? 'A-B: ${_fmtDur(abLoop.start!)} → ${_fmtDur(abLoop.end!)}'
-                              : 'A: ${_fmtDur(abLoop.start!)} — B 미설정',
+                              : l10n.playerAbLoopASet(_fmtDur(abLoop.start!)),
                           style: TextStyle(fontSize: 11, color: theme.colorScheme.primary, fontWeight: FontWeight.w500),
                         ),
                       ],
@@ -750,7 +751,7 @@ class PlayerBottomBar extends ConsumerWidget {
                 onTap: () => hasItem ? engine.toggleLoopMode() : null,
                 child: _buildSmallChip(
                   context,
-                  loopMode == LoopMode.off ? '반복 끔' : loopMode == LoopMode.one ? '1곡 반복' : '전체 반복',
+                  loopMode == LoopMode.off ? l10n.playerLoopOff : loopMode == LoopMode.one ? l10n.playerLoopOne : l10n.playerLoopAll,
                   loopMode == LoopMode.one ? Icons.repeat_one : Icons.repeat,
                   isActive: loopMode != LoopMode.off,
                 ),
@@ -930,7 +931,7 @@ class _StudyListDrawer extends ConsumerWidget {
                                           ),
                                           const SizedBox(width: 4),
                                           Text(
-                                            hasScript ? "대본 준비됨" : "대본 없음", 
+                                            hasScript ? l10n.playerScriptReady : l10n.playerNoScript,
                                             style: theme.textTheme.labelMedium?.copyWith(
                                               color: hasScript ? AppTheme.success : theme.colorScheme.onSurfaceVariant
                                             )
@@ -949,7 +950,7 @@ class _StudyListDrawer extends ConsumerWidget {
                   );
                 },
                 loading: () => const Center(child: CircularProgressIndicator()),
-                error: (err, stack) => Center(child: Text("오류: $err", style: TextStyle(color: theme.colorScheme.error))),
+                error: (err, stack) => Center(child: Text(l10n.playerError(err.toString()), style: TextStyle(color: theme.colorScheme.error))),
               ),
             )
           ],

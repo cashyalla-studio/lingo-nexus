@@ -1,4 +1,4 @@
-package com.example.lingo_nexus
+package xyz.cashyalla.scrypta.sync
 
 import android.content.Context
 import android.content.Intent

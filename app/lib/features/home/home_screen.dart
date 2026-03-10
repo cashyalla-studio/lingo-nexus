@@ -14,6 +14,7 @@ import '../shadowing/shadow_deck_provider.dart';
 import '../conversation/conversation_screen.dart';
 import '../../core/services/streak_provider.dart';
 import '../phonetics/phonetics_hub_screen.dart';
+import '../tutorial/tutorial_overlay.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -36,48 +37,53 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.5), width: 1),
+    return Stack(
+      children: [
+        Scaffold(
+          body: _screens[_currentIndex],
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              border: Border(
+                top: BorderSide(color: theme.colorScheme.outline.withValues(alpha: 0.5), width: 1),
+              ),
+            ),
+            child: BottomNavigationBar(
+              currentIndex: _currentIndex,
+              onTap: (index) {
+                if (index == 1) {
+                  // Open Library as a full-screen modal sheet (don't change index)
+                  showModalBottomSheet(
+                    context: context,
+                    isScrollControlled: true,
+                    useSafeArea: true,
+                    backgroundColor: Colors.transparent,
+                    builder: (context) => const LibrarySheet(),
+                  );
+                } else {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                }
+              },
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: theme.colorScheme.surface,
+              selectedItemColor: theme.colorScheme.primary,
+              unselectedItemColor: theme.colorScheme.onSurfaceVariant,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+              selectedLabelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
+              unselectedLabelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
+              items: [
+                BottomNavigationBarItem(icon: const Icon(Icons.home_outlined), activeIcon: const Icon(Icons.home), label: l10n.home),
+                BottomNavigationBarItem(icon: const Icon(Icons.library_books_outlined), activeIcon: const Icon(Icons.library_books), label: l10n.library),
+                BottomNavigationBarItem(icon: const Icon(Icons.bar_chart_outlined), activeIcon: const Icon(Icons.bar_chart), label: l10n.stats),
+                BottomNavigationBarItem(icon: const Icon(Icons.settings_outlined), activeIcon: const Icon(Icons.settings), label: l10n.settings),
+              ],
+            ),
           ),
         ),
-        child: BottomNavigationBar(
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            if (index == 1) {
-              // Open Library as a full-screen modal sheet (don't change index)
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                useSafeArea: true,
-                backgroundColor: Colors.transparent,
-                builder: (context) => const LibrarySheet(),
-              );
-            } else {
-              setState(() {
-                _currentIndex = index;
-              });
-            }
-          },
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: theme.colorScheme.surface,
-          selectedItemColor: theme.colorScheme.primary,
-          unselectedItemColor: theme.colorScheme.onSurfaceVariant,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          selectedLabelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w600),
-          unselectedLabelStyle: const TextStyle(fontSize: 12, fontWeight: FontWeight.w400),
-          items: [
-            BottomNavigationBarItem(icon: const Icon(Icons.home_outlined), activeIcon: const Icon(Icons.home), label: l10n.home),
-            BottomNavigationBarItem(icon: const Icon(Icons.library_books_outlined), activeIcon: const Icon(Icons.library_books), label: l10n.library),
-            BottomNavigationBarItem(icon: const Icon(Icons.bar_chart_outlined), activeIcon: const Icon(Icons.bar_chart), label: l10n.stats),
-            BottomNavigationBarItem(icon: const Icon(Icons.settings_outlined), activeIcon: const Icon(Icons.settings), label: l10n.settings),
-          ],
-        ),
-      ),
+        const TutorialOverlay(),
+      ],
     );
   }
 }
@@ -186,9 +192,9 @@ class HomeScreen extends ConsumerWidget {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('${streak.current}일 연속 학습 중!',
+                                Text(l10n.homeStreakActive(streak.current),
                                   style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-                                Text('최장 ${streak.longest}일 · 총 ${streak.totalDays}일 학습',
+                                Text(l10n.homeStreakStats(streak.longest, streak.totalDays),
                                   style: theme.textTheme.labelMedium?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
                               ],
                             ),
@@ -244,7 +250,7 @@ class HomeScreen extends ConsumerWidget {
                             const SizedBox(width: 16),
                             Expanded(
                               child: Text(
-                                '라이브러리에서 파일을 추가하여 학습을 시작하세요.',
+                                l10n.homeEmptyLibrary,
                                 style: theme.textTheme.bodyMedium?.copyWith(
                                   color: theme.colorScheme.onSurfaceVariant,
                                 ),
@@ -351,7 +357,7 @@ class HomeScreen extends ConsumerWidget {
                         padding: const EdgeInsets.symmetric(vertical: 24.0),
                         child: Center(
                           child: Text(
-                            '아직 학습 기록이 없습니다.',
+                            l10n.homeNoHistory,
                             style: theme.textTheme.bodyMedium?.copyWith(
                               color: theme.colorScheme.onSurfaceVariant,
                             ),
@@ -366,7 +372,7 @@ class HomeScreen extends ConsumerWidget {
                       itemCount: recentItems.length,
                       itemBuilder: (context, index) {
                         final item = recentItems[index];
-                        final statusLabel = item.isCompleted ? '완료' : '학습 중';
+                        final statusLabel = item.isCompleted ? l10n.homeStatusDone : l10n.homeStatusStudying;
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 12.0),
                           child: InkWell(
@@ -435,7 +441,7 @@ class HomeScreen extends ConsumerWidget {
                                   final deck = ref.watch(shadowDeckProvider);
                                   final dueCount = deck.value?.where((e) => e.isDue).length ?? 0;
                                   return Text(
-                                    dueCount > 0 ? '오늘 복습할 문장 $dueCount개' : '복습할 문장 없음',
+                                    dueCount > 0 ? l10n.homeDueReview(dueCount) : l10n.homeNoDueReview,
                                     style: theme.textTheme.labelMedium?.copyWith(
                                       color: dueCount > 0 ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant),
                                   );
@@ -482,8 +488,8 @@ class HomeScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('AI 대화 연습', style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
-                              Text('원어민 AI와 자유롭게 대화하기',
+                              Text(l10n.homeAiConversation, style: theme.textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold)),
+                              Text(l10n.homeAiConversationSubtitle,
                                 style: theme.textTheme.bodySmall?.copyWith(color: theme.colorScheme.onSurfaceVariant)),
                             ],
                           ),
@@ -528,10 +534,10 @@ class HomeScreen extends ConsumerWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text('발음 훈련 센터',
+                              Text(l10n.homePhoneticsHub,
                                 style: theme.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.bold)),
-                              Text('TTS + 온디바이스 채점 · API 불필요',
+                              Text(l10n.homePhoneticsHubSubtitle,
                                 style: theme.textTheme.bodySmall?.copyWith(
                                   color: theme.colorScheme.onSurfaceVariant)),
                             ],

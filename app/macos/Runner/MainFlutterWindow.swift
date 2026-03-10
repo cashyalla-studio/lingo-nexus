@@ -19,7 +19,7 @@ class MainFlutterWindow: NSWindow {
       // iCloud 컨테이너 Documents 경로 반환
       case "getICloudContainerURL":
         let fm = FileManager.default
-        guard let containerURL = fm.url(forUbiquityContainerIdentifier: "iCloud.com.example.lingoNexus") else {
+        guard let containerURL = fm.url(forUbiquityContainerIdentifier: "iCloud.xyz.cashyalla.scrypta.sync") else {
           result(nil)
           return
         }
