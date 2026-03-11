@@ -55,7 +55,7 @@ func (s *LLMService) evaluateWithQwen(ctx context.Context, req model.ToneEvalReq
 			{
 				"role": "user",
 				"content": []map[string]any{
-					{"type": "input_audio", "input_audio": map[string]string{"data": req.AudioBase64, "format": "wav"}},
+					{"type": "audio_url", "audio_url": map[string]string{"url": "data:audio/wav;base64," + req.AudioBase64}},
 					{"type": "text", "text": prompt},
 				},
 			},
@@ -136,7 +136,7 @@ Respond ONLY in this exact JSON format (no markdown):
 			{
 				"role": "user",
 				"content": []map[string]any{
-					{"type": "input_audio", "input_audio": map[string]string{"data": audioBase64, "format": "wav"}},
+					{"type": "audio_url", "audio_url": map[string]string{"url": "data:audio/wav;base64," + audioBase64}},
 					{"type": "text", "text": prompt},
 				},
 			},
