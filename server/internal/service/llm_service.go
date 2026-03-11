@@ -40,7 +40,7 @@ func NewLLMService(qwenKey, geminiKey string) *LLMService {
 // ── 성조 평가 ─────────────────────────────────────────────────────────────────
 
 func (s *LLMService) EvaluateTone(ctx context.Context, req model.ToneEvalRequest) (model.ToneEvalResponse, model.LLMUsage, error) {
-	if req.Language == "zh" {
+	if isChineseLanguage(req.Language) {
 		return s.evaluateWithQwen(ctx, req)
 	}
 	return s.evaluateWithGemini(ctx, req)
@@ -102,7 +102,7 @@ func (s *LLMService) Transcribe(ctx context.Context, req model.TranscribeRequest
 	var usage model.LLMUsage
 	var err error
 
-	if req.Language == "zh" {
+	if isChineseLanguage(req.Language) {
 		sentences, usage, err = s.transcribeWithQwen(ctx, req.AudioBase64)
 	} else {
 		sentences, usage, err = s.transcribeWithGemini(ctx, req.AudioBase64, req.Language)
@@ -325,6 +325,13 @@ func (s *LLMService) askGeminiText(ctx context.Context, prompt string) (string, 
 		return "", usage, fmt.Errorf("empty gemini response")
 	}
 	return raw.Candidates[0].Content.Parts[0].Text, usage, nil
+}
+
+// ── 언어 유틸 ─────────────────────────────────────────────────────────────────
+
+// isChineseLanguage는 zh, zh-CN, zh-TW, zh-HK 등 중국어 계열 코드를 모두 인식합니다.
+func isChineseLanguage(lang string) bool {
+	return lang == "zh" || len(lang) >= 3 && lang[:3] == "zh-"
 }
 
 // ── 토큰 사용량 파싱 ───────────────────────────────────────────────────────────
