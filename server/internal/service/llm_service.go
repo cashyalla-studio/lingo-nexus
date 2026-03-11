@@ -47,6 +47,7 @@ func (s *LLMService) EvaluateTone(ctx context.Context, req model.ToneEvalRequest
 }
 
 func (s *LLMService) evaluateWithQwen(ctx context.Context, req model.ToneEvalRequest) (model.ToneEvalResponse, model.LLMUsage, error) {
+	baseUsage := model.LLMUsage{Provider: "qwen", Model: qwenModel}
 	prompt := buildTonePrompt(req)
 	body := map[string]any{
 		"model": qwenModel,
@@ -63,7 +64,7 @@ func (s *LLMService) evaluateWithQwen(ctx context.Context, req model.ToneEvalReq
 
 	respBody, err := s.doPost(ctx, qwenEndpoint, "Bearer "+s.QwenAPIKey, body)
 	if err != nil {
-		return model.ToneEvalResponse{}, model.LLMUsage{}, fmt.Errorf("qwen request: %w", err)
+		return model.ToneEvalResponse{}, baseUsage, fmt.Errorf("qwen request: %w", err)
 	}
 
 	usage := extractQwenUsage(respBody)
@@ -72,6 +73,7 @@ func (s *LLMService) evaluateWithQwen(ctx context.Context, req model.ToneEvalReq
 }
 
 func (s *LLMService) evaluateWithGemini(ctx context.Context, req model.ToneEvalRequest) (model.ToneEvalResponse, model.LLMUsage, error) {
+	baseUsage := model.LLMUsage{Provider: "gemini", Model: geminiModelName}
 	prompt := buildTonePrompt(req)
 	url := geminiEndpoint + "?key=" + s.GeminiAPIKey
 	body := map[string]any{
@@ -87,7 +89,7 @@ func (s *LLMService) evaluateWithGemini(ctx context.Context, req model.ToneEvalR
 
 	respBody, err := s.doPost(ctx, url, "", body)
 	if err != nil {
-		return model.ToneEvalResponse{}, model.LLMUsage{}, fmt.Errorf("gemini request: %w", err)
+		return model.ToneEvalResponse{}, baseUsage, fmt.Errorf("gemini request: %w", err)
 	}
 
 	usage := extractGeminiUsage(respBody)
@@ -115,6 +117,7 @@ func (s *LLMService) Transcribe(ctx context.Context, req model.TranscribeRequest
 }
 
 func (s *LLMService) transcribeWithQwen(ctx context.Context, audioBase64 string) ([]string, model.LLMUsage, error) {
+	baseUsage := model.LLMUsage{Provider: "qwen", Model: qwenModel}
 	prompt := `You are a Chinese (Mandarin) speech transcription assistant.
 Listen to the audio and transcribe ALL spoken content.
 
@@ -142,7 +145,7 @@ Respond ONLY in this exact JSON format (no markdown):
 
 	respBody, err := s.doPost(ctx, qwenEndpoint, "Bearer "+s.QwenAPIKey, body)
 	if err != nil {
-		return nil, model.LLMUsage{}, fmt.Errorf("qwen transcribe: %w", err)
+		return nil, baseUsage, fmt.Errorf("qwen transcribe: %w", err)
 	}
 
 	usage := extractQwenUsage(respBody)
@@ -151,6 +154,7 @@ Respond ONLY in this exact JSON format (no markdown):
 }
 
 func (s *LLMService) transcribeWithGemini(ctx context.Context, audioBase64 string, language string) ([]string, model.LLMUsage, error) {
+	baseUsage := model.LLMUsage{Provider: "gemini", Model: geminiModelName}
 	langNames := map[string]string{
 		"en": "English", "ja": "Japanese", "ko": "Korean",
 		"es": "Spanish", "de": "German", "fr": "French",
@@ -186,7 +190,7 @@ Respond ONLY in this exact JSON format (no markdown):
 
 	respBody, err := s.doPost(ctx, url, "", body)
 	if err != nil {
-		return nil, model.LLMUsage{}, fmt.Errorf("gemini transcribe: %w", err)
+		return nil, baseUsage, fmt.Errorf("gemini transcribe: %w", err)
 	}
 
 	usage := extractGeminiUsage(respBody)
@@ -266,12 +270,13 @@ func (s *LLMService) Chat(ctx context.Context, messages []model.AIChatMessage, s
 		})
 	}
 
+	baseUsage := model.LLMUsage{Provider: "gemini", Model: geminiModelName}
 	url := geminiEndpoint + "?key=" + s.GeminiAPIKey
 	body := map[string]any{"contents": contents}
 
 	respBody, err := s.doPost(ctx, url, "", body)
 	if err != nil {
-		return "", model.LLMUsage{}, fmt.Errorf("gemini chat: %w", err)
+		return "", baseUsage, fmt.Errorf("gemini chat: %w", err)
 	}
 
 	usage := extractGeminiUsage(respBody)
@@ -295,6 +300,7 @@ func (s *LLMService) Chat(ctx context.Context, messages []model.AIChatMessage, s
 }
 
 func (s *LLMService) askGeminiText(ctx context.Context, prompt string) (string, model.LLMUsage, error) {
+	baseUsage := model.LLMUsage{Provider: "gemini", Model: geminiModelName}
 	url := geminiEndpoint + "?key=" + s.GeminiAPIKey
 	body := map[string]any{
 		"contents": []map[string]any{
@@ -304,7 +310,7 @@ func (s *LLMService) askGeminiText(ctx context.Context, prompt string) (string, 
 
 	respBody, err := s.doPost(ctx, url, "", body)
 	if err != nil {
-		return "", model.LLMUsage{}, fmt.Errorf("gemini text: %w", err)
+		return "", baseUsage, fmt.Errorf("gemini text: %w", err)
 	}
 
 	usage := extractGeminiUsage(respBody)
