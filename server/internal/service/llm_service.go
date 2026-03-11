@@ -13,9 +13,10 @@ import (
 )
 
 const (
-	// Qwen: 중국어 성조 평가 전용 (중국어 오디오 이해 최강)
-	qwenEndpoint = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions"
-	qwenModel    = "qwen3-omni-flash" // 오디오 입력 지원 + 중국어 특화
+	// Qwen: 중국어 오디오 전용 — DashScope 네이티브 멀티모달 API 사용
+	// (OpenAI 호환 엔드포인트는 오디오 입력 미지원)
+	qwenNativeEndpoint = "https://dashscope-intl.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation"
+	qwenModel          = "qwen3-omni-flash"
 
 	// Gemini: 중국어 외 언어 발음 평가 (다국어 균형)
 	geminiEndpoint  = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent"
@@ -49,26 +50,12 @@ func (s *LLMService) EvaluateTone(ctx context.Context, req model.ToneEvalRequest
 func (s *LLMService) evaluateWithQwen(ctx context.Context, req model.ToneEvalRequest) (model.ToneEvalResponse, model.LLMUsage, error) {
 	baseUsage := model.LLMUsage{Provider: "qwen", Model: qwenModel}
 	prompt := buildTonePrompt(req)
-	body := map[string]any{
-		"model": qwenModel,
-		"messages": []map[string]any{
-			{
-				"role": "user",
-				"content": []map[string]any{
-					{"type": "audio_url", "audio_url": map[string]string{"url": "data:audio/wav;base64," + req.AudioBase64}},
-					{"type": "text", "text": prompt},
-				},
-			},
-		},
-	}
 
-	respBody, err := s.doPost(ctx, qwenEndpoint, "Bearer "+s.QwenAPIKey, body)
+	text, usage, err := s.callQwenNative(ctx, req.AudioBase64, prompt)
 	if err != nil {
 		return model.ToneEvalResponse{}, baseUsage, fmt.Errorf("qwen request: %w", err)
 	}
-
-	usage := extractQwenUsage(respBody)
-	result, err := parseOpenAICompatibleResponse(respBody)
+	result, err := parseToneJSON(text)
 	return result, usage, err
 }
 
@@ -117,7 +104,6 @@ func (s *LLMService) Transcribe(ctx context.Context, req model.TranscribeRequest
 }
 
 func (s *LLMService) transcribeWithQwen(ctx context.Context, audioBase64 string) ([]string, model.LLMUsage, error) {
-	baseUsage := model.LLMUsage{Provider: "qwen", Model: qwenModel}
 	prompt := `You are a Chinese (Mandarin) speech transcription assistant.
 Listen to the audio and transcribe ALL spoken content.
 
@@ -130,26 +116,12 @@ Rules:
 Respond ONLY in this exact JSON format (no markdown):
 {"sentences": ["第一句。", "第二句。"]}`
 
-	body := map[string]any{
-		"model": qwenModel,
-		"messages": []map[string]any{
-			{
-				"role": "user",
-				"content": []map[string]any{
-					{"type": "audio_url", "audio_url": map[string]string{"url": "data:audio/wav;base64," + audioBase64}},
-					{"type": "text", "text": prompt},
-				},
-			},
-		},
-	}
-
-	respBody, err := s.doPost(ctx, qwenEndpoint, "Bearer "+s.QwenAPIKey, body)
+	text, usage, err := s.callQwenNative(ctx, audioBase64, prompt)
 	if err != nil {
-		return nil, baseUsage, fmt.Errorf("qwen transcribe: %w", err)
+		return nil, usage, fmt.Errorf("qwen transcribe: %w", err)
 	}
 
-	usage := extractQwenUsage(respBody)
-	sentences, err := parseTranscribeSentences(respBody, "openai")
+	sentences, err := parseTranscribeSentencesFromText(text)
 	return sentences, usage, err
 }
 
@@ -331,6 +303,90 @@ func (s *LLMService) askGeminiText(ctx context.Context, prompt string) (string, 
 		return "", usage, fmt.Errorf("empty gemini response")
 	}
 	return raw.Candidates[0].Content.Parts[0].Text, usage, nil
+}
+
+// ── Qwen DashScope 네이티브 API ───────────────────────────────────────────────
+//
+// OpenAI 호환 엔드포인트는 오디오 입력을 지원하지 않으므로
+// DashScope 멀티모달 생성 API를 직접 호출합니다.
+
+func (s *LLMService) callQwenNative(ctx context.Context, audioBase64, prompt string) (string, model.LLMUsage, error) {
+	baseUsage := model.LLMUsage{Provider: "qwen", Model: qwenModel}
+
+	body := map[string]any{
+		"model": qwenModel,
+		"input": map[string]any{
+			"messages": []map[string]any{
+				{
+					"role": "user",
+					"content": []map[string]any{
+						{"audio": "data:audio/mp3;base64," + audioBase64},
+						{"text": prompt},
+					},
+				},
+			},
+		},
+		"parameters": map[string]any{
+			"result_format": "message",
+		},
+	}
+
+	respBody, err := s.doPost(ctx, qwenNativeEndpoint, "Bearer "+s.QwenAPIKey, body)
+	if err != nil {
+		return "", baseUsage, err
+	}
+
+	return parseDashScopeResponse(respBody)
+}
+
+// parseDashScopeResponse parses the DashScope native multimodal API response.
+// Response shape: {"output":{"choices":[{"message":{"content":[{"text":"..."}]}}]},"usage":{...}}
+func parseDashScopeResponse(body []byte) (string, model.LLMUsage, error) {
+	var raw struct {
+		Output struct {
+			Choices []struct {
+				Message struct {
+					Content []struct {
+						Text string `json:"text"`
+					} `json:"content"`
+				} `json:"message"`
+			} `json:"choices"`
+		} `json:"output"`
+		Usage struct {
+			InputTokens  int `json:"input_tokens"`
+			OutputTokens int `json:"output_tokens"`
+		} `json:"usage"`
+	}
+	if err := json.Unmarshal(body, &raw); err != nil {
+		return "", model.LLMUsage{}, fmt.Errorf("parse dashscope response: %w", err)
+	}
+
+	usage := model.LLMUsage{
+		Provider:     "qwen",
+		Model:        qwenModel,
+		InputTokens:  raw.Usage.InputTokens,
+		OutputTokens: raw.Usage.OutputTokens,
+	}
+
+	if len(raw.Output.Choices) == 0 || len(raw.Output.Choices[0].Message.Content) == 0 {
+		return "", usage, fmt.Errorf("empty response from qwen native API")
+	}
+	text := raw.Output.Choices[0].Message.Content[0].Text
+	return text, usage, nil
+}
+
+// parseTranscribeSentencesFromText parses {"sentences":[...]} from plain text (not raw HTTP body).
+func parseTranscribeSentencesFromText(text string) ([]string, error) {
+	var result struct {
+		Sentences []string `json:"sentences"`
+	}
+	if err := json.Unmarshal([]byte(text), &result); err != nil {
+		return nil, fmt.Errorf("parse sentences json (%q): %w", text, err)
+	}
+	if len(result.Sentences) == 0 {
+		return nil, fmt.Errorf("no sentences in response")
+	}
+	return result.Sentences, nil
 }
 
 // ── 언어 유틸 ─────────────────────────────────────────────────────────────────
