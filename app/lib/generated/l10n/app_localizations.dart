@@ -1535,6 +1535,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You may request account deletion at any time. Contact: support@lingonexus.app'**
   String get privacySec5Body;
+
+  /// No description provided for @syncNoiseWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Background noise may reduce transcription accuracy. Use audio recorded in a quiet environment.'**
+  String get syncNoiseWarning;
+
+  /// No description provided for @syncTranslationLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Translation language'**
+  String get syncTranslationLanguage;
+
+  /// No description provided for @syncAnnotating.
+  ///
+  /// In en, this message translates to:
+  /// **'Generating phonetics and translation…'**
+  String get syncAnnotating;
+
+  /// No description provided for @syncScriptSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} sentences synced! Script saved.'**
+  String syncScriptSaved(Object count);
 }
 
 class _AppLocalizationsDelegate

@@ -755,4 +755,18 @@ class AppLocalizationsZh extends AppLocalizations {
 
   @override
   String get privacySec5Body => '您可以随时请求删除账户。联系：support@lingonexus.app';
+
+  @override
+  String get syncNoiseWarning => '周围噪音过多可能会降低转录准确性。请使用在安静环境中录制的音频。';
+
+  @override
+  String get syncTranslationLanguage => '翻译语言';
+
+  @override
+  String get syncAnnotating => '正在生成注音和翻译…';
+
+  @override
+  String syncScriptSaved(Object count) {
+    return '已同步$count个句子！脚本已保存。';
+  }
 }

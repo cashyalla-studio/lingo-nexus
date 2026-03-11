@@ -763,4 +763,19 @@ class AppLocalizationsJa extends AppLocalizations {
   @override
   String get privacySec5Body =>
       'いつでもアカウント削除を要求できます。お問い合わせ: support@lingonexus.app';
+
+  @override
+  String get syncNoiseWarning =>
+      '周囲の雑音が多いと文字起こしの精度が下がる場合があります。静かな環境で録音した音声をご使用ください。';
+
+  @override
+  String get syncTranslationLanguage => '翻訳言語';
+
+  @override
+  String get syncAnnotating => '発音記号と翻訳を生成中…';
+
+  @override
+  String syncScriptSaved(Object count) {
+    return '$count文のシンクが完了しました！スクリプトが保存されました。';
+  }
 }

@@ -368,5 +368,9 @@
   "privacySec4Title": "4. 第三方服务",
   "privacySec4Body": "我们使用Google Sign-In、Google Gemini API和阿里巴巴Qwen API。",
   "privacySec5Title": "5. 您的权利",
-  "privacySec5Body": "您可以随时请求删除账户。联系：support@lingonexus.app"
+  "privacySec5Body": "您可以随时请求删除账户。联系：support@lingonexus.app",
+  "syncNoiseWarning": "周围噪音过多可能会降低转录准确性。请使用在安静环境中录制的音频。",
+  "syncTranslationLanguage": "翻译语言",
+  "syncAnnotating": "正在生成注音和翻译…",
+  "syncScriptSaved": "已同步{count}个句子！脚本已保存。"
 }

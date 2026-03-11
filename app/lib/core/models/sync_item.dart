@@ -2,11 +2,15 @@ class SyncItem {
   final Duration startTime;
   final Duration endTime;
   final String sentence;
+  final String? phonetics;
+  final String? translation;
 
   SyncItem({
     required this.startTime,
     required this.endTime,
     required this.sentence,
+    this.phonetics,
+    this.translation,
   });
 
   String get formattedTime {

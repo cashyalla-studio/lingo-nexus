@@ -797,4 +797,19 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get privacySec5Body =>
       'You may request account deletion at any time. Contact: support@lingonexus.app';
+
+  @override
+  String get syncNoiseWarning =>
+      'Background noise may reduce transcription accuracy. Use audio recorded in a quiet environment.';
+
+  @override
+  String get syncTranslationLanguage => 'Translation language';
+
+  @override
+  String get syncAnnotating => 'Generating phonetics and translation…';
+
+  @override
+  String syncScriptSaved(Object count) {
+    return '$count sentences synced! Script saved.';
+  }
 }

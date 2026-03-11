@@ -368,5 +368,9 @@
   "privacySec4Title": "4. שירותי צד שלישי",
   "privacySec4Body": "אנו משתמשים ב-Google Sign-In, Google Gemini API ו-Alibaba Qwen API.",
   "privacySec5Title": "5. הזכויות שלך",
-  "privacySec5Body": "תוכל לבקש מחיקת חשבון בכל עת. צור קשר: support@lingonexus.app"
+  "privacySec5Body": "תוכל לבקש מחיקת חשבון בכל עת. צור קשר: support@lingonexus.app",
+  "syncNoiseWarning": "רעש רקע עלול להפחית את דיוק התמלול. השתמש בשמע שהוקלט בסביבה שקטה.",
+  "syncTranslationLanguage": "שפת תרגום",
+  "syncAnnotating": "מייצר פונטיקה ותרגום…",
+  "syncScriptSaved": "{count} משפטים סונכרנו! הסקריפט נשמר."
 }

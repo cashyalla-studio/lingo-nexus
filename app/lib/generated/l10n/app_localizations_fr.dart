@@ -813,4 +813,20 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get privacySec5Body =>
       'Vous pouvez demander la suppression de votre compte à tout moment. Contact : support@lingonexus.app';
+
+  @override
+  String get syncNoiseWarning =>
+      'Le bruit de fond peut réduire la précision de la transcription. Utilisez un audio enregistré dans un environnement calme.';
+
+  @override
+  String get syncTranslationLanguage => 'Langue de traduction';
+
+  @override
+  String get syncAnnotating =>
+      'Génération de la phonétique et de la traduction…';
+
+  @override
+  String syncScriptSaved(Object count) {
+    return '$count phrases synchronisées ! Script enregistré.';
+  }
 }

@@ -373,5 +373,15 @@
   "privacySec4Title": "4. 제3자 서비스",
   "privacySec4Body": "Google Sign-In, Google Gemini API, Alibaba Qwen API를 사용합니다. 각 서비스의 개인정보처리방침이 적용됩니다.",
   "privacySec5Title": "5. 사용자 권리",
-  "privacySec5Body": "언제든지 계정 삭제 및 개인정보 삭제를 요청할 수 있습니다. 문의: support@lingonexus.app"
+  "privacySec5Body": "언제든지 계정 삭제 및 개인정보 삭제를 요청할 수 있습니다. 문의: support@lingonexus.app",
+
+  "syncNoiseWarning": "주변 잡음이 많으면 전사 정확도가 낮아질 수 있습니다. 조용한 환경에서 녹음된 오디오를 사용하세요.",
+  "syncTranslationLanguage": "번역 언어",
+  "syncAnnotating": "발음기호 및 번역 생성 중…",
+  "syncScriptSaved": "{count}개 문장 싱크 완료! 스크립트가 저장되었습니다.",
+  "@syncScriptSaved": {
+    "placeholders": {
+      "count": { "type": "Object" }
+    }
+  }
 }

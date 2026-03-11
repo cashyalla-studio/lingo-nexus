@@ -368,5 +368,9 @@
   "privacySec4Title": "4. Serviços de terceiros",
   "privacySec4Body": "Usamos Google Sign-In, Google Gemini API e Alibaba Qwen API.",
   "privacySec5Title": "5. Seus direitos",
-  "privacySec5Body": "Você pode solicitar a exclusão da conta a qualquer momento. Contato: support@lingonexus.app"
+  "privacySec5Body": "Você pode solicitar a exclusão da conta a qualquer momento. Contato: support@lingonexus.app",
+  "syncNoiseWarning": "O ruído de fundo pode reduzir a precisão da transcrição. Use áudio gravado em um ambiente silencioso.",
+  "syncTranslationLanguage": "Idioma de tradução",
+  "syncAnnotating": "Gerando fonética e tradução…",
+  "syncScriptSaved": "{count} frases sincronizadas! Script salvo."
 }

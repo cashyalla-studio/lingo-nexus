@@ -802,4 +802,19 @@ class AppLocalizationsPt extends AppLocalizations {
   @override
   String get privacySec5Body =>
       'Você pode solicitar a exclusão da conta a qualquer momento. Contato: support@lingonexus.app';
+
+  @override
+  String get syncNoiseWarning =>
+      'O ruído de fundo pode reduzir a precisão da transcrição. Use áudio gravado em um ambiente silencioso.';
+
+  @override
+  String get syncTranslationLanguage => 'Idioma de tradução';
+
+  @override
+  String get syncAnnotating => 'Gerando fonética e tradução…';
+
+  @override
+  String syncScriptSaved(Object count) {
+    return '$count frases sincronizadas! Script salvo.';
+  }
 }

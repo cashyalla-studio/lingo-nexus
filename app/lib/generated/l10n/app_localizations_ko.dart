@@ -770,4 +770,19 @@ class AppLocalizationsKo extends AppLocalizations {
   @override
   String get privacySec5Body =>
       '언제든지 계정 삭제 및 개인정보 삭제를 요청할 수 있습니다. 문의: support@lingonexus.app';
+
+  @override
+  String get syncNoiseWarning =>
+      '주변 잡음이 많으면 전사 정확도가 낮아질 수 있습니다. 조용한 환경에서 녹음된 오디오를 사용하세요.';
+
+  @override
+  String get syncTranslationLanguage => '번역 언어';
+
+  @override
+  String get syncAnnotating => '발음기호 및 번역 생성 중…';
+
+  @override
+  String syncScriptSaved(Object count) {
+    return '$count개 문장 싱크 완료! 스크립트가 저장되었습니다.';
+  }
 }

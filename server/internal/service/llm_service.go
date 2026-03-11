@@ -170,6 +170,77 @@ Respond ONLY in this exact JSON format (no markdown):
 	return sentences, usage, err
 }
 
+// ── 전사 어노테이션 (발음기호 + 번역) ──────────────────────────────────────────
+
+// AnnotateTranscription은 전사된 문장 목록에 발음기호와 번역을 추가합니다.
+// 모든 문장을 단일 Gemini 호출로 처리하여 비용을 최소화합니다.
+func (s *LLMService) AnnotateTranscription(
+	ctx context.Context,
+	sentences []string,
+	sourceLang, targetLang string,
+) ([]model.AnnotationItem, model.LLMUsage, error) {
+	baseUsage := model.LLMUsage{Provider: "gemini", Model: geminiModelName}
+	if len(sentences) == 0 {
+		return nil, baseUsage, nil
+	}
+
+	// 발음기호 시스템 결정
+	phoneticSystem := map[string]string{
+		"zh": "Pinyin (with tone marks, e.g. nǐ hǎo)",
+		"ja": "Hiragana furigana + Romaji (e.g. 東京(とうきょう) / Tōkyō)",
+		"ko": "Revised Romanization (e.g. annyeonghaseyo)",
+		"ar": "Arabic transliteration (Buckwalter or standard)",
+		"he": "Hebrew transliteration",
+	}
+	phonetic, ok := phoneticSystem[sourceLang]
+	if !ok {
+		phonetic = "IPA or standard romanization"
+	}
+
+	// 번역 대상 언어명
+	targetLangName := map[string]string{
+		"ko": "Korean", "en": "English", "ja": "Japanese",
+		"zh": "Simplified Chinese", "de": "German", "es": "Spanish",
+		"fr": "French", "pt": "Portuguese", "ar": "Arabic", "he": "Hebrew",
+	}
+	targetName, ok := targetLangName[targetLang]
+	if !ok {
+		targetName = "Korean"
+	}
+
+	// 번호 매긴 문장 목록
+	numberedSentences := ""
+	for i, s := range sentences {
+		numberedSentences += fmt.Sprintf("%d. %s\n", i+1, s)
+	}
+
+	prompt := fmt.Sprintf(`You are a language annotation assistant.
+For each numbered sentence below (source language: %s), provide:
+1. Phonetic transcription using %s
+2. Natural translation in %s
+
+Sentences:
+%s
+Respond ONLY in this exact JSON format (no markdown, no explanation):
+{"annotations":[{"phonetics":"...","translation":"..."},{"phonetics":"...","translation":"..."}]}
+
+The annotations array MUST have exactly %d items in the same order as the input sentences.`,
+		sourceLang, phonetic, targetName, numberedSentences, len(sentences))
+
+	text, usage, err := s.askGeminiText(ctx, prompt)
+	if err != nil {
+		return nil, usage, fmt.Errorf("annotate transcription: %w", err)
+	}
+
+	var result struct {
+		Annotations []model.AnnotationItem `json:"annotations"`
+	}
+	if err := json.Unmarshal([]byte(text), &result); err != nil {
+		return nil, usage, fmt.Errorf("parse annotation json (%q): %w", text, err)
+	}
+	return result.Annotations, usage, nil
+}
+
 // ── 텍스트 AI (Grammar / Vocabulary / Chat) ───────────────────────────────────
 
 func (s *LLMService) AskGrammar(ctx context.Context, sentence, uiLang string) (string, model.LLMUsage, error) {
