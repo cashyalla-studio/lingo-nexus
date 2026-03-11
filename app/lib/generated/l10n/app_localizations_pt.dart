@@ -811,6 +811,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get syncTranslationLanguage => 'Idioma de tradução';
 
   @override
+  String get syncAudioLanguage => 'Idioma do áudio';
+
+  @override
   String get syncAnnotating => 'Gerando fonética e tradução…';
 
   @override

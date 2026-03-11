@@ -822,6 +822,9 @@ class AppLocalizationsFr extends AppLocalizations {
   String get syncTranslationLanguage => 'Langue de traduction';
 
   @override
+  String get syncAudioLanguage => 'Langue audio';
+
+  @override
   String get syncAnnotating =>
       'Génération de la phonétique et de la traduction…';
 

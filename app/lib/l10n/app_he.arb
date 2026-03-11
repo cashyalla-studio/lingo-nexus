@@ -371,6 +371,7 @@
   "privacySec5Body": "תוכל לבקש מחיקת חשבון בכל עת. צור קשר: support@lingonexus.app",
   "syncNoiseWarning": "רעש רקע עלול להפחית את דיוק התמלול. השתמש בשמע שהוקלט בסביבה שקטה.",
   "syncTranslationLanguage": "שפת תרגום",
+  "syncAudioLanguage": "שפת האודיו",
   "syncAnnotating": "מייצר פונטיקה ותרגום…",
   "syncScriptSaved": "{count} משפטים סונכרנו! הסקריפט נשמר."
 }

@@ -371,6 +371,7 @@
   "privacySec5Body": "You may request account deletion at any time. Contact: support@lingonexus.app",
   "syncNoiseWarning": "Background noise may reduce transcription accuracy. Use audio recorded in a quiet environment.",
   "syncTranslationLanguage": "Translation language",
+  "syncAudioLanguage": "Audio language",
   "syncAnnotating": "Generating phonetics and translation…",
   "syncScriptSaved": "{count} sentences synced! Script saved."
 }

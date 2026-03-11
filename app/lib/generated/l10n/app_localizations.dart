@@ -1548,6 +1548,12 @@ abstract class AppLocalizations {
   /// **'Translation language'**
   String get syncTranslationLanguage;
 
+  /// No description provided for @syncAudioLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio language'**
+  String get syncAudioLanguage;
+
   /// No description provided for @syncAnnotating.
   ///
   /// In en, this message translates to:

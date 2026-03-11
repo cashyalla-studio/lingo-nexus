@@ -371,6 +371,7 @@
   "privacySec5Body": "Puedes solicitar la eliminación de tu cuenta en cualquier momento. Contacto: support@lingonexus.app",
   "syncNoiseWarning": "El ruido de fondo puede reducir la precisión de la transcripción. Use audio grabado en un ambiente silencioso.",
   "syncTranslationLanguage": "Idioma de traducción",
+  "syncAudioLanguage": "Idioma del audio",
   "syncAnnotating": "Generando fonética y traducción…",
   "syncScriptSaved": "¡{count} oraciones sincronizadas! Guión guardado."
 }

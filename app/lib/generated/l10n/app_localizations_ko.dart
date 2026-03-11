@@ -779,6 +779,9 @@ class AppLocalizationsKo extends AppLocalizations {
   String get syncTranslationLanguage => '번역 언어';
 
   @override
+  String get syncAudioLanguage => '오디오 언어';
+
+  @override
   String get syncAnnotating => '발음기호 및 번역 생성 중…';
 
   @override

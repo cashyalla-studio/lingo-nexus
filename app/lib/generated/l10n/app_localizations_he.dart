@@ -794,6 +794,9 @@ class AppLocalizationsHe extends AppLocalizations {
   String get syncTranslationLanguage => 'שפת תרגום';
 
   @override
+  String get syncAudioLanguage => 'שפת האודיו';
+
+  @override
   String get syncAnnotating => 'מייצר פונטיקה ותרגום…';
 
   @override

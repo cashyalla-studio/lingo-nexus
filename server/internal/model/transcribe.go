@@ -28,3 +28,10 @@ type AnnotationItem struct {
 	Phonetics   string `json:"phonetics"`
 	Translation string `json:"translation"`
 }
+
+// AnnotateRequest는 기기 내장 STT로 전사된 문장에 발음기호+번역을 추가 요청합니다.
+type AnnotateRequest struct {
+	Sentences      []string `json:"sentences"`       // 전사된 문장 목록
+	Language       string   `json:"language"`        // 원문 언어 코드
+	TargetLanguage string   `json:"target_language"` // 번역 대상 언어 코드 (기본값: ko)
+}

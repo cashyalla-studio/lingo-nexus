@@ -307,7 +307,6 @@
   "heatmapNoActivity": "학습 없음",
   "heatmapLess": "적음",
   "heatmapMore": "많음",
-
   "loginSubtitle": "AI 언어 튜터로 더 빠르게 실력을 키우세요",
   "loginWithGoogle": "Google로 계속하기",
   "loginFeatureAi": "AI 문법·어휘·대화 튜터 (무료)",
@@ -319,7 +318,6 @@
   "loginLegalAnd": "및",
   "loginPrivacyLink": "개인정보처리방침",
   "loginLegalSuffix": "에 동의하는 것으로 간주됩니다.",
-
   "settingsSectionAccount": "계정",
   "settingsLogin": "로그인",
   "settingsLoginSubtitle": "AI 기능을 사용하려면 로그인이 필요합니다",
@@ -331,7 +329,6 @@
   "settingsSectionLegal": "법적 고지",
   "settingsTermsSubtitle": "서비스 이용 조건을 확인하세요",
   "settingsPrivacySubtitle": "개인정보 수집 및 처리 방침",
-
   "creditsTitle": "크레딧",
   "creditsDailyFree": "오늘의 무료 사용량",
   "creditsMinRemaining": "분 남음",
@@ -346,7 +343,6 @@
   "creditPacksSubtitle": "한 번 결제, 기간 없이 사용",
   "creditsLoadError": "크레딧 정보를 불러올 수 없습니다.",
   "creditsPaymentComingSoon": "결제 시스템 준비 중입니다",
-
   "termsTitle": "서비스 이용약관",
   "termsLastUpdated": "최종 수정: 2025년 3월",
   "termsSec1Title": "1. 서비스 개요",
@@ -361,7 +357,6 @@
   "termsSec5Body": "사용자가 업로드한 콘텐츠의 저작권은 사용자에게 있습니다. 서비스의 AI 결과물은 참고용이며, 상업적 용도로 무단 사용할 수 없습니다.",
   "termsSec6Title": "6. 면책 조항",
   "termsSec6Body": "서비스는 AI 결과물의 정확성을 보장하지 않습니다. 서비스 장애, 데이터 손실 등에 대한 책임은 제한됩니다. 이용약관은 사전 고지 없이 변경될 수 있습니다.",
-
   "privacyTitle": "개인정보처리방침",
   "privacyLastUpdated": "최종 수정: 2025년 3월",
   "privacySec1Title": "1. 수집하는 정보",
@@ -374,14 +369,16 @@
   "privacySec4Body": "Google Sign-In, Google Gemini API, Alibaba Qwen API를 사용합니다. 각 서비스의 개인정보처리방침이 적용됩니다.",
   "privacySec5Title": "5. 사용자 권리",
   "privacySec5Body": "언제든지 계정 삭제 및 개인정보 삭제를 요청할 수 있습니다. 문의: support@lingonexus.app",
-
   "syncNoiseWarning": "주변 잡음이 많으면 전사 정확도가 낮아질 수 있습니다. 조용한 환경에서 녹음된 오디오를 사용하세요.",
   "syncTranslationLanguage": "번역 언어",
+  "syncAudioLanguage": "오디오 언어",
   "syncAnnotating": "발음기호 및 번역 생성 중…",
   "syncScriptSaved": "{count}개 문장 싱크 완료! 스크립트가 저장되었습니다.",
   "@syncScriptSaved": {
     "placeholders": {
-      "count": { "type": "Object" }
+      "count": {
+        "type": "Object"
+      }
     }
   }
 }

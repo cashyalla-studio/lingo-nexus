@@ -12,6 +12,7 @@ import UIKit
 
   func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
     GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+    NativeSttPlugin.register(with: engineBridge.pluginRegistry.registrar(forPlugin: "NativeSttPlugin")!)
   }
 
   // 다른 앱 / Files 앱에서 "Scripta Sync으로 열기" 했을 때 호출됩니다.

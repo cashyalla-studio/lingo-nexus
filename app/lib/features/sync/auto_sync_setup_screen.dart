@@ -189,7 +189,7 @@ class _AutoSyncSetupScreenState extends ConsumerState<AutoSyncSetupScreen>
 
               // ── 오디오 언어 선택 ──────────────────────────────────────────
               _LanguageDropdown(
-                label: l10n.language,
+                label: l10n.syncAudioLanguage,
                 value: _selectedLanguageCode,
                 languages: _syncLanguages,
                 onChanged: (v) => setState(() => _selectedLanguageCode = v),
@@ -237,7 +237,7 @@ class _AutoSyncSetupScreenState extends ConsumerState<AutoSyncSetupScreen>
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      '${selectedLang.emoji}  ${selectedLang.name} ${_syncStatus}',
+                      '${selectedLang.emoji}  ${selectedLang.name} $_syncStatus',
                       style: theme.textTheme.bodyMedium?.copyWith(
                         color: theme.colorScheme.primary,
                         fontWeight: FontWeight.w500,
@@ -285,7 +285,7 @@ class _AutoSyncSetupScreenState extends ConsumerState<AutoSyncSetupScreen>
 class _LanguageDropdown extends StatelessWidget {
   final String label;
   final String value;
-  final List<LanguageOption> languages;
+  final List<({String code, String name, String emoji})> languages;
   final ValueChanged<String> onChanged;
 
   const _LanguageDropdown({

@@ -813,6 +813,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get syncTranslationLanguage => 'Übersetzungssprache';
 
   @override
+  String get syncAudioLanguage => 'Audiosprache';
+
+  @override
   String get syncAnnotating => 'Lautschrift und Übersetzung werden generiert…';
 
   @override

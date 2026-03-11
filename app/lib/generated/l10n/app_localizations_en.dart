@@ -806,6 +806,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get syncTranslationLanguage => 'Translation language';
 
   @override
+  String get syncAudioLanguage => 'Audio language';
+
+  @override
   String get syncAnnotating => 'Generating phonetics and translation…';
 
   @override

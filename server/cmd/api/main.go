@@ -44,6 +44,7 @@ func main() {
 	// ── Handlers ─────────────────────────────────────────────────────────────
 	toneHandler := handler.NewToneHandler(llmSvc, creditSvc, usageSvc)
 	transcribeHandler := handler.NewTranscribeHandler(llmSvc, creditSvc, usageSvc)
+	annotateHandler := handler.NewAnnotateHandler(llmSvc, usageSvc)
 	authHandler := handler.NewAuthHandler(authSvc)
 	userHandler := handler.NewUserHandler(database)
 	creditHandler := handler.NewCreditHandler(creditSvc)
@@ -105,6 +106,7 @@ func main() {
 			// Audio AI (requires credits or daily free quota)
 			r.Post("/tone/evaluate", toneHandler.EvaluateTone)
 			r.Post("/sync/transcribe", transcribeHandler.Transcribe)
+			r.Post("/sync/annotate", annotateHandler.Annotate)
 		})
 	})
 

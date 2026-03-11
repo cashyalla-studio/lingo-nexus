@@ -371,6 +371,7 @@
   "privacySec5Body": "يمكنك طلب حذف حسابك في أي وقت. التواصل: support@lingonexus.app",
   "syncNoiseWarning": "قد يؤثر الضوضاء المحيطة على دقة النسخ. استخدم صوتًا مسجلًا في بيئة هادئة.",
   "syncTranslationLanguage": "لغة الترجمة",
+  "syncAudioLanguage": "لغة الصوت",
   "syncAnnotating": "جارٍ توليد النطق والترجمة…",
   "syncScriptSaved": "تمت مزامنة {count} جملة! تم حفظ النص."
 }

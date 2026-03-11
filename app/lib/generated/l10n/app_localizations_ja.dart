@@ -772,6 +772,9 @@ class AppLocalizationsJa extends AppLocalizations {
   String get syncTranslationLanguage => '翻訳言語';
 
   @override
+  String get syncAudioLanguage => '音声言語';
+
+  @override
   String get syncAnnotating => '発音記号と翻訳を生成中…';
 
   @override

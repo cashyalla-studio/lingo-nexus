@@ -804,6 +804,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get syncTranslationLanguage => 'لغة الترجمة';
 
   @override
+  String get syncAudioLanguage => 'لغة الصوت';
+
+  @override
   String get syncAnnotating => 'جارٍ توليد النطق والترجمة…';
 
   @override

@@ -763,6 +763,9 @@ class AppLocalizationsZh extends AppLocalizations {
   String get syncTranslationLanguage => '翻译语言';
 
   @override
+  String get syncAudioLanguage => '音频语言';
+
+  @override
   String get syncAnnotating => '正在生成注音和翻译…';
 
   @override
