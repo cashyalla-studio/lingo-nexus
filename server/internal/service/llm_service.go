@@ -14,7 +14,7 @@ import (
 
 const (
 	// Qwen: 중국어 성조 평가 전용 (중국어 오디오 이해 최강)
-	qwenEndpoint = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
+	qwenEndpoint = "https://dashscope-intl.aliyuncs.com/compatible-mode/v1/chat/completions"
 	qwenModel    = "qwen3-omni-flash" // 오디오 입력 지원 + 중국어 특화
 
 	// Gemini: 중국어 외 언어 발음 평가 (다국어 균형)
