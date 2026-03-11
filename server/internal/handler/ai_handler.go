@@ -3,6 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"net/http"
+	"time"
 
 	"github.com/liel/lingo-nexus-server/internal/model"
 	"github.com/liel/lingo-nexus-server/internal/service"
@@ -11,11 +12,12 @@ import (
 // AIHandler handles text-based AI requests (grammar, vocabulary, chat).
 // These endpoints are auth-protected but do NOT deduct audio credits.
 type AIHandler struct {
-	llm *service.LLMService
+	llm   *service.LLMService
+	usage *service.UsageLogService
 }
 
-func NewAIHandler(llm *service.LLMService) *AIHandler {
-	return &AIHandler{llm: llm}
+func NewAIHandler(llm *service.LLMService, usage *service.UsageLogService) *AIHandler {
+	return &AIHandler{llm: llm, usage: usage}
 }
 
 // POST /api/v1/ai/grammar
@@ -33,11 +35,16 @@ func (h *AIHandler) Grammar(w http.ResponseWriter, r *http.Request) {
 		req.UILanguage = "ko"
 	}
 
-	reply, err := h.llm.AskGrammar(r.Context(), req.Sentence, req.UILanguage)
+	start := time.Now()
+	reply, llmUsage, err := h.llm.AskGrammar(r.Context(), req.Sentence, req.UILanguage)
+	durationMs := time.Since(start).Milliseconds()
+
 	if err != nil {
+		h.usage.LogAsync(nil, "grammar", req.UILanguage, llmUsage, durationMs, "", err.Error())
 		writeError(w, http.StatusInternalServerError, "AI request failed: "+err.Error())
 		return
 	}
+	h.usage.LogAsync(nil, "grammar", req.UILanguage, llmUsage, durationMs, reply, "")
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(model.TextAIResponse{Reply: reply})
@@ -58,11 +65,16 @@ func (h *AIHandler) Vocabulary(w http.ResponseWriter, r *http.Request) {
 		req.UILanguage = "ko"
 	}
 
-	reply, err := h.llm.AskVocabulary(r.Context(), req.Word, req.Context, req.UILanguage)
+	start := time.Now()
+	reply, llmUsage, err := h.llm.AskVocabulary(r.Context(), req.Word, req.Context, req.UILanguage)
+	durationMs := time.Since(start).Milliseconds()
+
 	if err != nil {
+		h.usage.LogAsync(nil, "vocabulary", req.UILanguage, llmUsage, durationMs, "", err.Error())
 		writeError(w, http.StatusInternalServerError, "AI request failed: "+err.Error())
 		return
 	}
+	h.usage.LogAsync(nil, "vocabulary", req.UILanguage, llmUsage, durationMs, reply, "")
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(model.TextAIResponse{Reply: reply})
@@ -80,11 +92,16 @@ func (h *AIHandler) Chat(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	reply, err := h.llm.Chat(r.Context(), req.Messages, req.SystemPrompt)
+	start := time.Now()
+	reply, llmUsage, err := h.llm.Chat(r.Context(), req.Messages, req.SystemPrompt)
+	durationMs := time.Since(start).Milliseconds()
+
 	if err != nil {
+		h.usage.LogAsync(nil, "chat", "", llmUsage, durationMs, "", err.Error())
 		writeError(w, http.StatusInternalServerError, "AI request failed: "+err.Error())
 		return
 	}
+	h.usage.LogAsync(nil, "chat", "", llmUsage, durationMs, reply, "")
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(model.TextAIResponse{Reply: reply})

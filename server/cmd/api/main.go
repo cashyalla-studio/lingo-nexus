@@ -39,14 +39,15 @@ func main() {
 	llmSvc := service.NewLLMService(qwenKey, geminiKey)
 	authSvc := service.NewAuthService(database)
 	creditSvc := service.NewCreditService(database)
+	usageSvc := service.NewUsageLogService(database)
 
 	// ── Handlers ─────────────────────────────────────────────────────────────
-	toneHandler := handler.NewToneHandler(llmSvc, creditSvc)
-	transcribeHandler := handler.NewTranscribeHandler(llmSvc, creditSvc)
+	toneHandler := handler.NewToneHandler(llmSvc, creditSvc, usageSvc)
+	transcribeHandler := handler.NewTranscribeHandler(llmSvc, creditSvc, usageSvc)
 	authHandler := handler.NewAuthHandler(authSvc)
 	userHandler := handler.NewUserHandler(database)
 	creditHandler := handler.NewCreditHandler(creditSvc)
-	aiHandler := handler.NewAIHandler(llmSvc)
+	aiHandler := handler.NewAIHandler(llmSvc, usageSvc)
 
 	// ── Middleware ────────────────────────────────────────────────────────────
 	// TODO(testing): re-enable before production

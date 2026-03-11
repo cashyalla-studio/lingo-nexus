@@ -2,8 +2,10 @@ package handler
 
 import (
 	"encoding/json"
+	"fmt"
 	"log"
 	"net/http"
+	"time"
 
 	// appMiddleware "github.com/liel/lingo-nexus-server/internal/middleware" // TODO(testing): re-enable
 	"github.com/liel/lingo-nexus-server/internal/model"
@@ -13,14 +15,15 @@ import (
 type ToneHandler struct {
 	llm    *service.LLMService
 	credit *service.CreditService
+	usage  *service.UsageLogService
 }
 
-func NewToneHandler(llm *service.LLMService, credit *service.CreditService) *ToneHandler {
-	return &ToneHandler{llm: llm, credit: credit}
+func NewToneHandler(llm *service.LLMService, credit *service.CreditService, usage *service.UsageLogService) *ToneHandler {
+	return &ToneHandler{llm: llm, credit: credit, usage: usage}
 }
 
 // EvaluateTone godoc
-// POST /api/v1/tone/evaluate (auth required)
+// POST /api/v1/tone/evaluate
 func (h *ToneHandler) EvaluateTone(w http.ResponseWriter, r *http.Request) {
 	// TODO(testing): re-enable auth + credit checks before production
 	// userID, ok := appMiddleware.GetUserID(r.Context())
@@ -52,12 +55,21 @@ func (h *ToneHandler) EvaluateTone(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
-	result, err := h.llm.EvaluateTone(r.Context(), req)
+	start := time.Now()
+	result, llmUsage, err := h.llm.EvaluateTone(r.Context(), req)
+	durationMs := time.Since(start).Milliseconds()
+
+	errStr := ""
 	if err != nil {
+		errStr = err.Error()
 		log.Printf("EvaluateTone error (lang=%s): %v", req.Language, err)
-		writeError(w, http.StatusInternalServerError, "evaluation failed: "+err.Error())
+		h.usage.LogAsync(nil, "tone_evaluate", req.Language, llmUsage, durationMs, "", errStr)
+		writeError(w, http.StatusInternalServerError, "evaluation failed: "+errStr)
 		return
 	}
+
+	preview := fmt.Sprintf("correct=%v score=%.2f detected=%s", result.Correct, result.Score, result.DetectedPattern)
+	h.usage.LogAsync(nil, "tone_evaluate", req.Language, llmUsage, durationMs, preview, "")
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(result)
