@@ -49,6 +49,8 @@ func main() {
 	userHandler := handler.NewUserHandler(database)
 	creditHandler := handler.NewCreditHandler(creditSvc)
 	aiHandler := handler.NewAIHandler(llmSvc, usageSvc)
+	shadowingHandler := handler.NewShadowingHandler(llmSvc, usageSvc)
+	contentHandler := handler.NewContentHandler()
 
 	// ── Middleware ────────────────────────────────────────────────────────────
 	// TODO(testing): re-enable before production
@@ -107,6 +109,13 @@ func main() {
 			r.Post("/tone/evaluate", toneHandler.EvaluateTone)
 			r.Post("/sync/transcribe", transcribeHandler.Transcribe)
 			r.Post("/sync/annotate", annotateHandler.Annotate)
+
+			// Shadowing score
+			r.Post("/shadowing/score", shadowingHandler.Score)
+
+			// Content import (yt-dlp)
+			r.Post("/content/import", contentHandler.Import)
+			r.Get("/content/file/{fileID}/{filename}", contentHandler.ServeFile)
 		})
 	})
 

@@ -12,12 +12,12 @@ import (
 )
 
 type TranscribeHandler struct {
-	llm    *service.LLMService
-	credit *service.CreditService
-	usage  *service.UsageLogService
+	llm    service.LLMServiceInterface
+	credit service.CreditServiceInterface
+	usage  service.UsageLogServiceInterface
 }
 
-func NewTranscribeHandler(llm *service.LLMService, credit *service.CreditService, usage *service.UsageLogService) *TranscribeHandler {
+func NewTranscribeHandler(llm service.LLMServiceInterface, credit service.CreditServiceInterface, usage service.UsageLogServiceInterface) *TranscribeHandler {
 	return &TranscribeHandler{llm: llm, credit: credit, usage: usage}
 }
 

@@ -12,11 +12,11 @@ import (
 // AIHandler handles text-based AI requests (grammar, vocabulary, chat).
 // These endpoints are auth-protected but do NOT deduct audio credits.
 type AIHandler struct {
-	llm   *service.LLMService
-	usage *service.UsageLogService
+	llm   service.LLMServiceInterface
+	usage service.UsageLogServiceInterface
 }
 
-func NewAIHandler(llm *service.LLMService, usage *service.UsageLogService) *AIHandler {
+func NewAIHandler(llm service.LLMServiceInterface, usage service.UsageLogServiceInterface) *AIHandler {
 	return &AIHandler{llm: llm, usage: usage}
 }
 

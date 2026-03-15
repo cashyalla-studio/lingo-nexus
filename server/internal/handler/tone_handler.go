@@ -13,12 +13,12 @@ import (
 )
 
 type ToneHandler struct {
-	llm    *service.LLMService
-	credit *service.CreditService
-	usage  *service.UsageLogService
+	llm    service.LLMServiceInterface
+	credit service.CreditServiceInterface
+	usage  service.UsageLogServiceInterface
 }
 
-func NewToneHandler(llm *service.LLMService, credit *service.CreditService, usage *service.UsageLogService) *ToneHandler {
+func NewToneHandler(llm service.LLMServiceInterface, credit service.CreditServiceInterface, usage service.UsageLogServiceInterface) *ToneHandler {
 	return &ToneHandler{llm: llm, credit: credit, usage: usage}
 }
 

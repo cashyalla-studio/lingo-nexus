@@ -10,10 +10,10 @@ import (
 )
 
 type CreditHandler struct {
-	creditSvc *service.CreditService
+	creditSvc service.CreditServiceInterface
 }
 
-func NewCreditHandler(creditSvc *service.CreditService) *CreditHandler {
+func NewCreditHandler(creditSvc service.CreditServiceInterface) *CreditHandler {
 	return &CreditHandler{creditSvc: creditSvc}
 }
 

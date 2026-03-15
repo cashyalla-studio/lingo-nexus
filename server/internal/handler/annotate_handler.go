@@ -11,11 +11,11 @@ import (
 )
 
 type AnnotateHandler struct {
-	llm   *service.LLMService
-	usage *service.UsageLogService
+	llm   service.LLMServiceInterface
+	usage service.UsageLogServiceInterface
 }
 
-func NewAnnotateHandler(llm *service.LLMService, usage *service.UsageLogService) *AnnotateHandler {
+func NewAnnotateHandler(llm service.LLMServiceInterface, usage service.UsageLogServiceInterface) *AnnotateHandler {
 	return &AnnotateHandler{llm: llm, usage: usage}
 }
 
