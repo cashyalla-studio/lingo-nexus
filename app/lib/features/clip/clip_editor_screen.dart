@@ -35,12 +35,14 @@ class _ClipEditorScreenState extends ConsumerState<ClipEditorScreen> {
   bool _isPreviewing = false;
   bool _isSaving = false;
   bool _isDetectingSilence = false;
+  bool _isAutoSplitting = false;
+  bool _isLoadingWaveform = false;
   List<(Duration, Duration)> _silenceSegments = [];
 
   // 미리듣기용 전용 플레이어
   final _previewPlayer = AudioPlayer();
 
-  // 파형 데이터 (해시 기반 일관된 pseudo 데이터)
+  // 파형 데이터 (초기에는 pseudo, 비동기로 실제 파형 로드)
   late List<double> _waveformData;
 
   @override
@@ -50,8 +52,21 @@ class _ClipEditorScreenState extends ConsumerState<ClipEditorScreen> {
     _end = widget.initialEnd ?? const Duration(seconds: 30);
     _waveformData = _generateWaveform(widget.item.audioPath, 120);
 
-    // 전체 길이 로드
+    // 전체 길이 로드 후 파형 로드
     _loadDuration();
+    _loadWaveform();
+  }
+
+  Future<void> _loadWaveform() async {
+    if (!mounted) return;
+    setState(() => _isLoadingWaveform = true);
+    final waveform = await ClipService().extractWaveform(widget.item.audioPath);
+    if (mounted) {
+      setState(() {
+        _waveformData = waveform;
+        _isLoadingWaveform = false;
+      });
+    }
   }
 
   Future<void> _loadDuration() async {
@@ -115,6 +130,21 @@ class _ClipEditorScreenState extends ConsumerState<ClipEditorScreen> {
         _isDetectingSilence = false;
       });
     }
+  }
+
+  Future<void> _autoSplitAll() async {
+    setState(() => _isAutoSplitting = true);
+    final clips = await ClipService().autoSplitAndSave(
+      sourcePath: widget.item.audioPath,
+      baseTitle: widget.item.title,
+    );
+    if (!mounted) return;
+    ref.read(studyItemsProvider.notifier).addItems(clips);
+    setState(() => _isAutoSplitting = false);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${clips.length}개 클립이 라이브러리에 추가되었습니다.')),
+    );
+    Navigator.pop(context);
   }
 
   Future<void> _saveClip(String title) async {
@@ -289,17 +319,37 @@ class _ClipEditorScreenState extends ConsumerState<ClipEditorScreen> {
           // ─── 파형 + 핸들 영역 ───────────────────────────────
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: _WaveformRangeSelector(
-              waveformData: _waveformData,
-              total: _total,
-              start: _start,
-              end: _end,
-              syncItems: widget.syncItems,
-              silenceSegments: _silenceSegments,
-              onRangeChanged: (s, e) => setState(() {
-                _start = s;
-                _end = e;
-              }),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                _WaveformRangeSelector(
+                  waveformData: _waveformData,
+                  total: _total,
+                  start: _start,
+                  end: _end,
+                  syncItems: widget.syncItems,
+                  silenceSegments: _silenceSegments,
+                  onRangeChanged: (s, e) => setState(() {
+                    _start = s;
+                    _end = e;
+                  }),
+                ),
+                if (_isLoadingWaveform)
+                  Container(
+                    color: Colors.black.withValues(alpha: 0.3),
+                    child: const Padding(
+                      padding: EdgeInsets.all(8),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(width: 14, height: 14, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)),
+                          SizedBox(width: 8),
+                          Text('파형 로딩 중...', style: TextStyle(color: Colors.white, fontSize: 12)),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
             ),
           ),
 
@@ -353,6 +403,27 @@ class _ClipEditorScreenState extends ConsumerState<ClipEditorScreen> {
                   ),
                 ),
               ],
+            ),
+          ),
+
+          const SizedBox(height: 8),
+
+          // ─── 자동 분할 저장 버튼 ────────────────────────────
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: SizedBox(
+              width: double.infinity,
+              child: OutlinedButton.icon(
+                onPressed: _isAutoSplitting || _isSaving ? null : _autoSplitAll,
+                icon: _isAutoSplitting
+                    ? const SizedBox(width: 16, height: 16, child: CircularProgressIndicator(strokeWidth: 2))
+                    : const Icon(Icons.call_split),
+                label: Text(_isAutoSplitting ? '분할 저장 중...' : '자동 분할 저장'),
+                style: OutlinedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                ),
+              ),
             ),
           ),
 
