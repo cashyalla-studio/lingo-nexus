@@ -5,6 +5,8 @@ import '../../core/models/study_item.dart';
 import '../../core/models/language_option.dart';
 import '../../core/theme/app_theme.dart';
 import '../scanner/scanner_provider.dart';
+import '../scanner/sample_content_service.dart';
+import '../scanner/url_import_service.dart';
 import '../player/audio_engine.dart';
 import '../player/player_provider.dart';
 import '../player/player_screen.dart';
@@ -30,6 +32,8 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
   String _langFilter = 'all';
   // 0: 전체, 1: iCloud, 2: Drive, 3: 로컬, 4: 스크립트없음
   int _sourceFilter = 0;
+  bool _isLoadingSamples = false;
+  bool _isUrlImporting = false;
 
   @override
   Widget build(BuildContext context) {
@@ -872,6 +876,114 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
     );
   }
 
+  // ── Sample content ────────────────────────────────────────
+
+  Future<void> _loadSampleContent() async {
+    if (_isLoadingSamples) return;
+    setState(() => _isLoadingSamples = true);
+    Navigator.pop(context); // close import sheet
+    final items = await SampleContentService().createSampleItems();
+    if (!mounted) return;
+    ref.read(studyItemsProvider.notifier).addItems(items);
+    setState(() => _isLoadingSamples = false);
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('${items.length}개 샘플이 추가되었습니다')),
+    );
+  }
+
+  // ── URL Import ────────────────────────────────────────────
+
+  void _showUrlImportDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final urlCtrl = TextEditingController();
+    Navigator.pop(context); // close import sheet
+    showDialog(
+      context: context,
+      barrierDismissible: !_isUrlImporting,
+      builder: (ctx) => StatefulBuilder(
+        builder: (ctx, setDialogState) => AlertDialog(
+          title: Text(l10n.urlImportTitle),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                controller: urlCtrl,
+                autofocus: true,
+                decoration: InputDecoration(hintText: l10n.urlImportHint),
+                keyboardType: TextInputType.url,
+              ),
+              if (_isUrlImporting) ...[
+                const SizedBox(height: 16),
+                Row(
+                  children: [
+                    const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2)),
+                    const SizedBox(width: 12),
+                    Text(l10n.urlImportDownloading),
+                  ],
+                ),
+              ],
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: _isUrlImporting ? null : () => Navigator.pop(ctx),
+              child: Text(AppLocalizations.of(context)!.cancel),
+            ),
+            FilledButton(
+              onPressed: _isUrlImporting
+                  ? null
+                  : () async {
+                      final url = urlCtrl.text.trim();
+                      if (url.isEmpty) return;
+                      setDialogState(() => _isUrlImporting = true);
+                      setState(() => _isUrlImporting = true);
+
+                      final service = UrlImportService();
+                      final result = await service.importFromUrl(url);
+
+                      if (result == null) {
+                        if (mounted) {
+                          setDialogState(() => _isUrlImporting = false);
+                          setState(() => _isUrlImporting = false);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(l10n.urlImportFailed)),
+                          );
+                          Navigator.pop(ctx);
+                        }
+                        return;
+                      }
+
+                      final localPath = await service.downloadToLocal(result.audioUrl, result.title);
+
+                      if (!mounted) return;
+                      setDialogState(() => _isUrlImporting = false);
+                      setState(() => _isUrlImporting = false);
+
+                      if (localPath != null) {
+                        final item = StudyItem(
+                          title: result.title,
+                          audioPath: localPath,
+                          source: StudyItemSource.local,
+                        );
+                        ref.read(studyItemsProvider.notifier).addItems([item]);
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(l10n.urlImportSuccess)),
+                        );
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text(l10n.urlImportFailed)),
+                        );
+                      }
+                      Navigator.pop(ctx);
+                    },
+              child: Text(l10n.urlImportButton),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   // ── Import ───────────────────────────────────────────────
 
   void _showImportOptions(BuildContext context) {
@@ -953,6 +1065,24 @@ class _LibrarySheetState extends ConsumerState<LibrarySheet> {
                   Navigator.pop(context);
                   ref.read(studyItemsProvider.notifier).syncFromICloud();
                 },
+              ),
+              const SizedBox(height: 12),
+              _importOption(
+                context: context,
+                icon: Icons.link,
+                iconColor: const Color(0xFF7C4DFF),
+                title: l10n.urlImportTitle,
+                subtitle: l10n.urlImportHint,
+                onTap: () => _showUrlImportDialog(context),
+              ),
+              const SizedBox(height: 12),
+              _importOption(
+                context: context,
+                icon: Icons.auto_awesome_outlined,
+                iconColor: const Color(0xFF00BFA5),
+                title: l10n.sampleContentLoad,
+                subtitle: 'EN · 中文 · 日本語',
+                onTap: _isLoadingSamples ? () {} : _loadSampleContent,
               ),
             ],
           ),

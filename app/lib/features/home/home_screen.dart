@@ -15,6 +15,7 @@ import '../conversation/conversation_screen.dart';
 import '../../core/services/streak_provider.dart';
 import '../phonetics/phonetics_hub_screen.dart';
 import '../tutorial/tutorial_overlay.dart';
+import '../podcast/podcast_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -29,6 +30,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   final List<Widget> _screens = [
     const HomeScreen(),
     const SizedBox.shrink(), // Library is handled via modal
+    const PodcastScreen(),
     const StatsScreen(),
     const SettingsScreen(),
   ];
@@ -76,6 +78,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
               items: [
                 BottomNavigationBarItem(icon: const Icon(Icons.home_outlined), activeIcon: const Icon(Icons.home), label: l10n.home),
                 BottomNavigationBarItem(icon: const Icon(Icons.library_books_outlined), activeIcon: const Icon(Icons.library_books), label: l10n.library),
+                BottomNavigationBarItem(icon: const Icon(Icons.podcasts_outlined), activeIcon: const Icon(Icons.podcasts), label: l10n.podcastTitle),
                 BottomNavigationBarItem(icon: const Icon(Icons.bar_chart_outlined), activeIcon: const Icon(Icons.bar_chart), label: l10n.stats),
                 BottomNavigationBarItem(icon: const Icon(Icons.settings_outlined), activeIcon: const Icon(Icons.settings), label: l10n.settings),
               ],

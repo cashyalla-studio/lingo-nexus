@@ -20,6 +20,76 @@ import 'audio_engine.dart';
 import 'player_provider.dart';
 import 'widgets/animated_waveform.dart';
 
+// ─── 단어 탭 → 어휘 팝업 위젯 ───────────────────────────────────────────────
+
+/// 텍스트를 단어(또는 CJK는 글자) 단위로 쪼개어 탭 시 어휘 시트를 띄우는 위젯.
+class _TappableText extends StatelessWidget {
+  final String text;
+  final String? language;
+  final TextStyle? style;
+
+  const _TappableText({required this.text, this.language, this.style});
+
+  bool get _isCjk => language == 'zh' || language == 'ja' || language == 'ko';
+
+  List<String> _tokenize() {
+    if (_isCjk) {
+      // CJK: 한 글자씩
+      return text.runes.map((r) => String.fromCharCode(r)).toList();
+    }
+    // 알파벳 등: 공백 기준으로 분리하되 공백 토큰도 유지
+    return text.split(RegExp(r'(?<=\S)(?=\s)|(?<=\s)(?=\S)')).where((s) => s.isNotEmpty).toList();
+  }
+
+  bool _isWord(String token) {
+    if (_isCjk) {
+      // CJK 글자면 공백·구두점 제외
+      return token.trim().isNotEmpty && !RegExp(r'^[\s\p{P}]+$', unicode: true).hasMatch(token);
+    }
+    // 알파벳 계열: 공백이나 단순 구두점 제외
+    return token.trim().length > 1;
+  }
+
+  void _showWordVocabulary(String word, String? lang, BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => VocabularyBottomSheet(
+        word: word,
+        contextSentence: text,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = _tokenize();
+    return Wrap(
+      children: tokens.map((token) {
+        if (!_isWord(token)) {
+          return Text(token, style: style);
+        }
+        return GestureDetector(
+          onTap: () => _showWordVocabulary(token.trim(), language, context),
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              border: Border(
+                bottom: BorderSide(
+                  color: Colors.white.withValues(alpha: 0.0),
+                  width: 1,
+                ),
+              ),
+            ),
+            child: Text(token, style: style),
+          ),
+        );
+      }).toList(),
+    );
+  }
+}
+
 class PlayerScreen extends ConsumerStatefulWidget {
   const PlayerScreen({super.key});
 
@@ -147,6 +217,7 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
                         return ScriptLine(
                           isActive: hasSync ? index == activeIndex : index == 0,
                           text: sentences[index].trim(),
+                          language: currentItem.language,
                           timeCode: hasSync ? syncItems[index].formattedTime : "00:00",
                           onTap: hasSync ? () => engine.seek(syncItems[index].startTime) : () {},
                           onLongPress: () => _showAiMenu(context, sentences[index].trim(), theme, l10n),
@@ -535,14 +606,16 @@ class _PlayerScreenState extends ConsumerState<PlayerScreen> {
 class ScriptLine extends StatelessWidget {
   final bool isActive;
   final String text;
+  final String? language;
   final String timeCode;
   final VoidCallback onTap;
   final VoidCallback onLongPress;
 
   const ScriptLine({
-    super.key, 
-    required this.isActive, 
-    required this.text, 
+    super.key,
+    required this.isActive,
+    required this.text,
+    this.language,
     required this.timeCode,
     required this.onTap,
     required this.onLongPress,
@@ -551,9 +624,12 @@ class ScriptLine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+    final textStyle = theme.textTheme.bodyLarge?.copyWith(
+      color: isActive ? theme.colorScheme.primary : theme.colorScheme.onSurface,
+    );
+
     return GestureDetector(
-      onTap: onTap,
+      // 롱프레스: AI 메뉴 (문장 전체 선택)
       onLongPress: onLongPress,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
@@ -567,16 +643,21 @@ class ScriptLine extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              width: 44,
-              child: Text(timeCode, style: theme.textTheme.labelMedium),
+            // 타임코드: 탭 시 해당 위치로 이동
+            GestureDetector(
+              onTap: onTap,
+              behavior: HitTestBehavior.opaque,
+              child: SizedBox(
+                width: 44,
+                child: Text(timeCode, style: theme.textTheme.labelMedium),
+              ),
             ),
+            // 문장 텍스트: 단어/글자 단위 탭 → 어휘 팝업
             Expanded(
-              child: Text(
-                text,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: isActive ? theme.colorScheme.primary : theme.colorScheme.onSurface,
-                ),
+              child: _TappableText(
+                text: text,
+                language: language,
+                style: textStyle,
               ),
             ),
           ],

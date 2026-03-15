@@ -63,6 +63,7 @@ class GoogleDriveService {
 
   /// 구글 로그인 후 액세스 토큰 반환
   Future<String?> signIn() async {
+    if (!kIsWeb && Platform.isWindows) return null;
     try {
       GoogleSignInAccount? account = await _signIn.signInSilently();
       account ??= await _signIn.signIn();

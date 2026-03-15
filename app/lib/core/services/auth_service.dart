@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io' show Platform;
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -44,6 +45,9 @@ class AuthService {
 
   /// Signs in with Google and exchanges for server JWT.
   Future<AuthUser> signInWithGoogle() async {
+    if (!kIsWeb && Platform.isWindows) {
+      throw UnsupportedError('Google Sign-In is not supported on Windows');
+    }
     final account = await _googleSignIn.signIn();
     if (account == null) throw Exception('Google sign-in cancelled');
 

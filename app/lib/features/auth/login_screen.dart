@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lingo_nexus/generated/l10n/app_localizations.dart';
@@ -110,7 +112,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                 ),
 
-              // Google Sign-In Button
+              // Google Sign-In Button (not supported on Windows)
+              if (!(!kIsWeb && Platform.isWindows))
               SizedBox(
                 width: double.infinity,
                 height: 54,
