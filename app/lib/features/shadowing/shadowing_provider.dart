@@ -1,18 +1,19 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
-import 'dart:math' as math;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:record/record.dart';
-import '../../core/services/secure_storage_service.dart';
 import '../../core/services/pronunciation_history_service.dart';
 import '../../core/models/pronunciation_history_entry.dart';
+import '../../core/services/native_stt_service.dart';
+import '../../core/config/server_config.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:http_parser/http_parser.dart';
 
 final pronunciationHistoryServiceProvider = Provider((ref) => PronunciationHistoryService());
+
+final nativeSttServiceProvider = Provider((ref) => NativeSttService());
 
 enum ShadowingState { idle, recording, processing, done }
 
@@ -34,6 +35,18 @@ class ShadowingScore {
   });
 }
 
+class RecordingAttempt {
+  final String path;
+  final ShadowingScore score;
+  final int attemptNumber;
+
+  RecordingAttempt({
+    required this.path,
+    required this.score,
+    required this.attemptNumber,
+  });
+}
+
 class ShadowingNotifier extends StateNotifier<ShadowingState> {
   ShadowingNotifier(this._ref) : super(ShadowingState.idle);
   final Ref _ref;
@@ -45,9 +58,17 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
   ShadowingScore? _score;
   List<PronunciationHistoryEntry> _sentenceHistory = [];
 
+  final List<RecordingAttempt> _attempts = [];
+  static const int maxAttempts = 5;
+
   ShadowingScore? get score => _score;
   String? get recordingPath => _recordingPath;
   List<PronunciationHistoryEntry> get sentenceHistory => _sentenceHistory;
+  List<RecordingAttempt> get attempts => List.unmodifiable(_attempts);
+  ShadowingScore? get bestScore => _attempts.isEmpty
+      ? null
+      : _attempts.reduce((a, b) => a.score.accuracy >= b.score.accuracy ? a : b).score;
+  bool get canRecordMore => _attempts.length < maxAttempts;
 
   Future<void> loadHistoryForSentence(String sentence) async {
     if (_disposed) return;
@@ -79,7 +100,7 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
     state = ShadowingState.processing;
   }
 
-  Future<void> scoreRecording(String originalText, String? unused) async {
+  Future<void> scoreRecording(String originalText, String? language) async {
     state = ShadowingState.processing;
 
     if (_recordingPath == null) {
@@ -88,14 +109,45 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
       return;
     }
 
-    // Local scoring: use speech_to_text result if available, otherwise simulate
-    // Full server-based Whisper scoring will be added in a future update
-    await Future.delayed(const Duration(milliseconds: 500));
-    _score = ShadowingScore(
-      accuracy: 75 + math.Random().nextInt(20),
-      intonation: 70 + math.Random().nextInt(25),
-      fluency: 72 + math.Random().nextInt(23),
-    );
+    final sttService = _ref.read(nativeSttServiceProvider);
+    String? transcription;
+    final langCode = language ?? 'en';
+
+    if (await sttService.isAvailable(langCode)) {
+      try {
+        final result = await sttService.transcribeFile(_recordingPath!, langCode);
+        // NativeSttService.transcribeFile returns raw text (not JSON) for shadowing
+        // but per memory, iOS returns JSON with {"text":..., "segments":[...]}
+        // Try JSON first, fall back to raw string
+        try {
+          final decoded = jsonDecode(result);
+          if (decoded is Map) {
+            transcription = decoded['text'] as String?;
+          } else {
+            transcription = result.isNotEmpty ? result : null;
+          }
+        } catch (_) {
+          transcription = result.isNotEmpty ? result : null;
+        }
+      } catch (_) {
+        transcription = null;
+      }
+    }
+
+    if (transcription != null && transcription.isNotEmpty) {
+      _score = _calculateScore(originalText, transcription);
+    } else {
+      _score = await _serverScore(originalText, langCode);
+    }
+
+    // Add to attempts list
+    if (_score != null) {
+      _attempts.add(RecordingAttempt(
+        path: _recordingPath!,
+        score: _score!,
+        attemptNumber: _attempts.length + 1,
+      ));
+    }
 
     state = ShadowingState.done;
 
@@ -109,11 +161,39 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
         score: _score!.accuracy,
         recordedAt: DateTime.now(),
       ));
-      // Refresh in-memory history for the current sentence
       if (!_disposed) {
         _sentenceHistory = await historyService.getHistoryForSentence(sentenceId);
       }
     }
+  }
+
+  Future<ShadowingScore> _serverScore(String originalText, String language) async {
+    try {
+      final bytes = await File(_recordingPath!).readAsBytes();
+      final audioBase64 = base64Encode(bytes);
+      final url = '${ServerConfig.baseUrl}/api/v1/shadowing/score';
+      final response = await http.post(
+        Uri.parse(url),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'audio_base64': audioBase64,
+          'original_text': originalText,
+          'language': language,
+        }),
+      );
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        return ShadowingScore(
+          accuracy: (data['accuracy'] as num).toInt(),
+          intonation: (data['intonation'] as num).toInt(),
+          fluency: (data['fluency'] as num).toInt(),
+          recordedTranscription: data['transcription'] as String?,
+          incorrectWords: List<String>.from(data['incorrect_words'] ?? []),
+        );
+      }
+    } catch (_) {}
+    // Last fallback
+    return const ShadowingScore(accuracy: 0, intonation: 0, fluency: 0);
   }
 
   ShadowingScore _calculateScore(String original, String transcription) {
@@ -144,7 +224,6 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
     final accuracy = origWords.isEmpty
         ? 0
         : ((matched / origWords.length) * 100).round().clamp(0, 100);
-    // Intonation and fluency are approximated from word count ratio
     final lengthRatio = origWords.isEmpty
         ? 0.0
         : (transWords.length / origWords.length).clamp(0.0, 2.0);
@@ -161,15 +240,13 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
     );
   }
 
-  /// 내 녹음 재생
-  Future<void> playRecording() async {
-    if (_recordingPath == null) return;
-
+  /// Play a specific attempt's recording
+  Future<void> playAttemptRecording(String path) async {
     await _previewPlayer.stop();
     _ref.read(comparisonPlaybackProvider.notifier).state =
         ComparisonPlaybackMode.playingRecording;
 
-    await _previewPlayer.setFilePath(_recordingPath!);
+    await _previewPlayer.setFilePath(path);
     await _previewPlayer.play();
     await _previewPlayer.playerStateStream.firstWhere(
       (s) =>
@@ -183,6 +260,12 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
     }
   }
 
+  /// 내 녹음 재생
+  Future<void> playRecording() async {
+    if (_recordingPath == null) return;
+    await playAttemptRecording(_recordingPath!);
+  }
+
   /// 원본 오디오의 특정 구간 재생
   Future<void> playOriginalSegment(
       String audioPath, Duration start, Duration end) async {
@@ -194,7 +277,6 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
     await _previewPlayer.seek(start);
     await _previewPlayer.play();
 
-    // Stop at end time
     final segmentDuration = end - start;
     await Future.delayed(segmentDuration);
     await _previewPlayer.stop();
@@ -221,7 +303,16 @@ class ShadowingNotifier extends StateNotifier<ShadowingState> {
     }
   }
 
+  /// Reset for a new attempt (keeps attempts list visible until newSession)
   void reset() {
+    _score = null;
+    _recordingPath = null;
+    state = ShadowingState.idle;
+  }
+
+  /// Start a completely new session — clears all attempts
+  void newSession() {
+    _attempts.clear();
     _score = null;
     _recordingPath = null;
     state = ShadowingState.idle;

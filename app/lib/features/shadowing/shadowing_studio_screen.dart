@@ -7,7 +7,6 @@ import '../player/widgets/animated_waveform.dart';
 import '../player/player_provider.dart';
 import 'shadowing_provider.dart';
 import 'shadow_deck_provider.dart';
-import '../../core/models/pronunciation_history_entry.dart';
 
 class ShadowingStudioScreen extends ConsumerStatefulWidget {
   final String originalText;
@@ -15,6 +14,7 @@ class ShadowingStudioScreen extends ConsumerStatefulWidget {
   final Duration? startTime;       // optional: segment start
   final Duration? endTime;         // optional: segment end
   final String? deckItemId;        // optional: if reviewing a deck item
+  final String? language;          // optional: language code e.g. 'en', 'ja', 'ko'
 
   const ShadowingStudioScreen({
     super.key,
@@ -23,6 +23,7 @@ class ShadowingStudioScreen extends ConsumerStatefulWidget {
     this.startTime,
     this.endTime,
     this.deckItemId,
+    this.language,
   });
 
   @override
@@ -48,8 +49,7 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
       await notifier.startRecording();
     } else if (state == ShadowingState.recording) {
       await notifier.stopRecording();
-      // Start scoring (server-side, no API key needed)
-      await notifier.scoreRecording(widget.originalText, null);
+      await notifier.scoreRecording(widget.originalText, widget.language);
     }
   }
 
@@ -58,9 +58,11 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context)!;
     final shadowingState = ref.watch(shadowingProvider);
+    final notifier = ref.read(shadowingProvider.notifier);
 
     final isRecording = shadowingState == ShadowingState.recording;
     final isProcessing = shadowingState == ShadowingState.processing;
+    final isDone = shadowingState == ShadowingState.done;
 
     return Scaffold(
       backgroundColor: theme.colorScheme.surface,
@@ -103,7 +105,6 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
                       textAlign: TextAlign.center,
                     ),
                     const SizedBox(height: 24),
-                    // Dummy native waveform
                     SizedBox(
                       height: 60,
                       child: AnimatedWaveform(
@@ -219,25 +220,43 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
                       ),
                     ),
 
-                    if (shadowingState == ShadowingState.done) ...[
+                    if (isDone) ...[
+                      const SizedBox(height: 8),
+                      // Retry button (if more attempts allowed)
+                      if (notifier.canRecordMore)
+                        TextButton.icon(
+                          onPressed: () => notifier.reset(),
+                          icon: const Icon(Icons.mic, size: 18),
+                          label: Text(l10n.shadowingRetry(
+                            notifier.attempts.length,
+                            ShadowingNotifier.maxAttempts,
+                          )),
+                        )
+                      else
+                        TextButton.icon(
+                          onPressed: null,
+                          icon: const Icon(Icons.block, size: 18),
+                          label: Text(l10n.shadowingAttemptCount(
+                            ShadowingNotifier.maxAttempts,
+                          )),
+                        ),
+                      // New session button
                       TextButton.icon(
-                        onPressed: () =>
-                            ref.read(shadowingProvider.notifier).reset(),
+                        onPressed: () => notifier.newSession(),
                         icon: const Icon(Icons.refresh),
-                        label: const Text('다시 연습'),
+                        label: Text(l10n.shadowingNewSession),
                       ),
                       // Shadow Deck button
-                      const SizedBox(height: 16),
-                      if (widget.deckItemId == null)  // Don't show "add" if reviewing from deck
+                      const SizedBox(height: 8),
+                      if (widget.deckItemId == null)
                         Consumer(
                           builder: (context, ref, _) {
                             return ElevatedButton.icon(
                               onPressed: () async {
-                                final notifier = ref.read(shadowingProvider.notifier);
-                                final score = notifier.score;
+                                final n = ref.read(shadowingProvider.notifier);
+                                final score = n.score;
                                 if (score == null) return;
 
-                                // Build a ShadowDeckItem from current context
                                 final item = ShadowDeckItem(
                                   id: '${widget.audioPath ?? "unknown"}_${widget.startTime?.inMilliseconds ?? 0}',
                                   sentence: widget.originalText,
@@ -269,7 +288,7 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
                             );
                           },
                         )
-                      else  // Reviewing from deck: update score
+                      else
                         Consumer(
                           builder: (context, ref, _) {
                             return ElevatedButton.icon(
@@ -304,11 +323,11 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
 
   Widget _buildDoneSection(ThemeData theme, AppLocalizations l10n) {
     final score = ref.read(shadowingProvider.notifier).score;
+    final notifier = ref.read(shadowingProvider.notifier);
+    final attempts = notifier.attempts;
     final playbackMode = ref.watch(comparisonPlaybackProvider);
     final shadowingNotifier = ref.read(shadowingProvider.notifier);
 
-    // Use explicitly provided segment times if available (e.g. from deck review),
-    // otherwise fall back to finding a matching sync item.
     Duration segmentStart;
     Duration segmentEnd;
     if (widget.startTime != null && widget.endTime != null) {
@@ -366,6 +385,12 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          // Attempts row (shown if more than 1 attempt)
+          if (attempts.isNotEmpty)
+            _buildAttemptsRow(theme, l10n, attempts),
+
+          const SizedBox(height: 8),
+
           // Highlighted text: mark incorrect words
           if (score.incorrectWords.isNotEmpty &&
               score.recordedTranscription != null)
@@ -398,7 +423,7 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
 
           const SizedBox(height: 32),
 
-          // Scoring Charts
+          // Scoring Charts (show latest score)
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -463,7 +488,6 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
                         ],
                       ),
                       const SizedBox(height: 12),
-                      // Mini score graph (horizontal bar chart using score dots)
                       SizedBox(
                         height: 40,
                         child: Row(
@@ -500,6 +524,69 @@ class _ShadowingStudioScreenState extends ConsumerState<ShadowingStudioScreen> {
             );
           }),
         ],
+      ),
+    );
+  }
+
+  Widget _buildAttemptsRow(
+    ThemeData theme,
+    AppLocalizations l10n,
+    List<RecordingAttempt> attempts,
+  ) {
+    final notifier = ref.read(shadowingProvider.notifier);
+    final bestScore = notifier.bestScore;
+    bool isBest(RecordingAttempt a) =>
+        bestScore != null && a.score.accuracy == bestScore.accuracy;
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 8),
+      child: Wrap(
+        spacing: 6,
+        runSpacing: 6,
+        alignment: WrapAlignment.center,
+        children: attempts.map((attempt) {
+          final score = attempt.score.accuracy;
+          final best = isBest(attempt);
+          Color chipColor;
+          if (score >= 90) {
+            chipColor = AppTheme.success;
+          } else if (score >= 70) {
+            chipColor = theme.colorScheme.primary;
+          } else {
+            chipColor = AppTheme.danger;
+          }
+
+          return GestureDetector(
+            onTap: () => notifier.playAttemptRecording(attempt.path),
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+              decoration: BoxDecoration(
+                color: chipColor.withValues(alpha: best ? 0.25 : 0.12),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: chipColor.withValues(alpha: best ? 0.8 : 0.4),
+                  width: best ? 1.5 : 1.0,
+                ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    '${l10n.shadowingAttempt} ${attempt.attemptNumber}: $score점',
+                    style: theme.textTheme.labelSmall?.copyWith(
+                      color: chipColor,
+                      fontWeight: best ? FontWeight.bold : FontWeight.normal,
+                    ),
+                  ),
+                  if (best) ...[
+                    const SizedBox(width: 3),
+                    Icon(Icons.star, size: 12, color: chipColor),
+                  ],
+                ],
+              ),
+            ),
+          );
+        }).toList(),
       ),
     );
   }
