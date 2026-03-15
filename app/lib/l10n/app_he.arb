@@ -373,5 +373,52 @@
   "syncTranslationLanguage": "שפת תרגום",
   "syncAudioLanguage": "שפת האודיו",
   "syncAnnotating": "מייצר פונטיקה ותרגום…",
-  "syncScriptSaved": "{count} משפטים סונכרנו! הסקריפט נשמר."
+  "syncScriptSaved": "{count} משפטים סונכרנו! הסקריפט נשמר.",
+  "shadowingAttempt": "ניסיון",
+  "shadowingRetry": "הקלטה מחדש ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "הניקוד הטוב ביותר",
+  "shadowingNewSession": "סשן חדש",
+  "shadowingAttemptCount": "הגעת למקסימום ניסיונות ({max})",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "urlImportTitle": "ייבוא מ-URL",
+  "urlImportHint": "הדבק URL של YouTube, פודקאסט",
+  "urlImportButton": "ייבא",
+  "urlImportDownloading": "מוריד...",
+  "urlImportSuccess": "הייבוא הושלם",
+  "urlImportFailed": "הייבוא נכשל",
+  "sampleContentLoad": "טען תוכן לדוגמה",
+  "autoSplitSave": "פיצול אוטומטי ושמירה",
+  "waveformLoading": "טוען צורת גל...",
+  "podcastTitle": "פודקאסטים",
+  "podcastAddFeed": "הוסף פיד",
+  "podcastFeedUrl": "כתובת RSS",
+  "podcastSubscribe": "הירשם",
+  "podcastEpisodes": "פרקים",
+  "podcastDownload": "הורד",
+  "podcastAddToLibrary": "הוסף לספרייה",
+  "podcastNoFeeds": "אין פודקאסטים מנויים",
+  "statsTitle": "סטטיסטיקות למידה",
+  "statsTotalSessions": "סה\"כ סשנים",
+  "statsMastered": "משפטים שנרכשו",
+  "statsStreak": "ימי למידה רצופים",
+  "statsRecentScores": "ציוני הגייה אחרונים",
+  "statsDailyGoal": "יעד יומי",
+  "statsDailyGoalDone": "היעד הושג!",
+  "statsLanguageDist": "התפלגות לפי שפה"
 }

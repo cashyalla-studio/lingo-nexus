@@ -813,4 +813,98 @@ class AppLocalizationsAr extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return 'تمت مزامنة $count جملة! تم حفظ النص.';
   }
+
+  @override
+  String get shadowingAttempt => 'محاولة';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return 'إعادة التسجيل ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => 'أفضل نتيجة';
+
+  @override
+  String get shadowingNewSession => 'جلسة جديدة';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return 'تم الوصول إلى الحد الأقصى من المحاولات ($max)';
+  }
+
+  @override
+  String get urlImportTitle => 'استيراد من URL';
+
+  @override
+  String get urlImportHint => 'الصق رابط YouTube أو البودكاست';
+
+  @override
+  String get urlImportButton => 'استيراد';
+
+  @override
+  String get urlImportDownloading => 'جارٍ التنزيل...';
+
+  @override
+  String get urlImportSuccess => 'اكتمل الاستيراد';
+
+  @override
+  String get urlImportFailed => 'فشل الاستيراد';
+
+  @override
+  String get sampleContentLoad => 'تحميل المحتوى النموذجي';
+
+  @override
+  String get autoSplitSave => 'تقسيم تلقائي وحفظ';
+
+  @override
+  String get waveformLoading => 'جارٍ تحميل الموجة الصوتية...';
+
+  @override
+  String get podcastTitle => 'بودكاست';
+
+  @override
+  String get podcastAddFeed => 'إضافة تغذية';
+
+  @override
+  String get podcastFeedUrl => 'رابط تغذية RSS';
+
+  @override
+  String get podcastSubscribe => 'اشتراك';
+
+  @override
+  String get podcastEpisodes => 'حلقات';
+
+  @override
+  String get podcastDownload => 'تحميل';
+
+  @override
+  String get podcastAddToLibrary => 'إضافة إلى المكتبة';
+
+  @override
+  String get podcastNoFeeds => 'لا توجد بودكاست مشترك';
+
+  @override
+  String get statsTitle => 'إحصائيات التعلم';
+
+  @override
+  String get statsTotalSessions => 'إجمالي الجلسات';
+
+  @override
+  String get statsMastered => 'الجمل المتقنة';
+
+  @override
+  String get statsStreak => 'أيام متتالية';
+
+  @override
+  String get statsRecentScores => 'نتائج النطق الأخيرة';
+
+  @override
+  String get statsDailyGoal => 'هدف اليوم';
+
+  @override
+  String get statsDailyGoalDone => 'تم بلوغ الهدف!';
+
+  @override
+  String get statsLanguageDist => 'توزيع اللغات';
 }

@@ -380,5 +380,52 @@
         "type": "Object"
       }
     }
-  }
+  },
+  "shadowingAttempt": "시도",
+  "shadowingRetry": "다시 녹음 ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "최고 점수",
+  "shadowingNewSession": "새로 시작",
+  "shadowingAttemptCount": "최대 시도 횟수 도달 ({max}회)",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "urlImportTitle": "URL에서 가져오기",
+  "urlImportHint": "유튜브, 팟캐스트 URL 붙여넣기",
+  "urlImportButton": "가져오기",
+  "urlImportDownloading": "다운로드 중...",
+  "urlImportSuccess": "가져오기 완료",
+  "urlImportFailed": "가져오기 실패",
+  "sampleContentLoad": "샘플 콘텐츠 불러오기",
+  "autoSplitSave": "자동 분할 저장",
+  "waveformLoading": "파형 로딩 중...",
+  "podcastTitle": "팟캐스트",
+  "podcastAddFeed": "피드 추가",
+  "podcastFeedUrl": "RSS 피드 URL",
+  "podcastSubscribe": "구독",
+  "podcastEpisodes": "에피소드",
+  "podcastDownload": "다운로드",
+  "podcastAddToLibrary": "라이브러리에 추가",
+  "podcastNoFeeds": "구독한 팟캐스트가 없습니다",
+  "statsTitle": "학습 통계",
+  "statsTotalSessions": "총 연습 횟수",
+  "statsMastered": "마스터한 문장",
+  "statsStreak": "연속 학습일",
+  "statsRecentScores": "최근 발음 점수",
+  "statsDailyGoal": "오늘의 목표",
+  "statsDailyGoalDone": "목표 달성!",
+  "statsLanguageDist": "언어별 학습 분포"
 }

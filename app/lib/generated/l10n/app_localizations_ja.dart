@@ -781,4 +781,98 @@ class AppLocalizationsJa extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return '$count文のシンクが完了しました！スクリプトが保存されました。';
   }
+
+  @override
+  String get shadowingAttempt => '試み';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return '再録音 ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => 'ベストスコア';
+
+  @override
+  String get shadowingNewSession => '新しいセッション';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return '最大試行数に達しました ($max回)';
+  }
+
+  @override
+  String get urlImportTitle => 'URLからインポート';
+
+  @override
+  String get urlImportHint => 'YouTube、ポッドキャストのURLを貼り付け';
+
+  @override
+  String get urlImportButton => 'インポート';
+
+  @override
+  String get urlImportDownloading => 'ダウンロード中...';
+
+  @override
+  String get urlImportSuccess => 'インポート完了';
+
+  @override
+  String get urlImportFailed => 'インポート失敗';
+
+  @override
+  String get sampleContentLoad => 'サンプルコンテンツを読み込む';
+
+  @override
+  String get autoSplitSave => '自動分割保存';
+
+  @override
+  String get waveformLoading => '波形読み込み中...';
+
+  @override
+  String get podcastTitle => 'ポッドキャスト';
+
+  @override
+  String get podcastAddFeed => 'フィードを追加';
+
+  @override
+  String get podcastFeedUrl => 'RSSフィードURL';
+
+  @override
+  String get podcastSubscribe => '登録';
+
+  @override
+  String get podcastEpisodes => 'エピソード';
+
+  @override
+  String get podcastDownload => 'ダウンロード';
+
+  @override
+  String get podcastAddToLibrary => 'ライブラリに追加';
+
+  @override
+  String get podcastNoFeeds => '登録済みのポッドキャストはありません';
+
+  @override
+  String get statsTitle => '学習統計';
+
+  @override
+  String get statsTotalSessions => '総練習回数';
+
+  @override
+  String get statsMastered => 'マスターした文';
+
+  @override
+  String get statsStreak => '連続学習日数';
+
+  @override
+  String get statsRecentScores => '最近の発音スコア';
+
+  @override
+  String get statsDailyGoal => '今日の目標';
+
+  @override
+  String get statsDailyGoalDone => '目標達成！';
+
+  @override
+  String get statsLanguageDist => '言語別学習分布';
 }

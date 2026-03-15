@@ -803,4 +803,98 @@ class AppLocalizationsHe extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return '$count משפטים סונכרנו! הסקריפט נשמר.';
   }
+
+  @override
+  String get shadowingAttempt => 'ניסיון';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return 'הקלטה מחדש ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => 'הניקוד הטוב ביותר';
+
+  @override
+  String get shadowingNewSession => 'סשן חדש';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return 'הגעת למקסימום ניסיונות ($max)';
+  }
+
+  @override
+  String get urlImportTitle => 'ייבוא מ-URL';
+
+  @override
+  String get urlImportHint => 'הדבק URL של YouTube, פודקאסט';
+
+  @override
+  String get urlImportButton => 'ייבא';
+
+  @override
+  String get urlImportDownloading => 'מוריד...';
+
+  @override
+  String get urlImportSuccess => 'הייבוא הושלם';
+
+  @override
+  String get urlImportFailed => 'הייבוא נכשל';
+
+  @override
+  String get sampleContentLoad => 'טען תוכן לדוגמה';
+
+  @override
+  String get autoSplitSave => 'פיצול אוטומטי ושמירה';
+
+  @override
+  String get waveformLoading => 'טוען צורת גל...';
+
+  @override
+  String get podcastTitle => 'פודקאסטים';
+
+  @override
+  String get podcastAddFeed => 'הוסף פיד';
+
+  @override
+  String get podcastFeedUrl => 'כתובת RSS';
+
+  @override
+  String get podcastSubscribe => 'הירשם';
+
+  @override
+  String get podcastEpisodes => 'פרקים';
+
+  @override
+  String get podcastDownload => 'הורד';
+
+  @override
+  String get podcastAddToLibrary => 'הוסף לספרייה';
+
+  @override
+  String get podcastNoFeeds => 'אין פודקאסטים מנויים';
+
+  @override
+  String get statsTitle => 'סטטיסטיקות למידה';
+
+  @override
+  String get statsTotalSessions => 'סה\"כ סשנים';
+
+  @override
+  String get statsMastered => 'משפטים שנרכשו';
+
+  @override
+  String get statsStreak => 'ימי למידה רצופים';
+
+  @override
+  String get statsRecentScores => 'ציוני הגייה אחרונים';
+
+  @override
+  String get statsDailyGoal => 'יעד יומי';
+
+  @override
+  String get statsDailyGoalDone => 'היעד הושג!';
+
+  @override
+  String get statsLanguageDist => 'התפלגות לפי שפה';
 }

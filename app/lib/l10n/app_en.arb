@@ -373,5 +373,53 @@
   "syncTranslationLanguage": "Translation language",
   "syncAudioLanguage": "Audio language",
   "syncAnnotating": "Generating phonetics and translation…",
-  "syncScriptSaved": "{count} sentences synced! Script saved."
+  "syncScriptSaved": "{count} sentences synced! Script saved.",
+  "shadowingAttempt": "Attempt",
+  "shadowingRetry": "Record again ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "Best score",
+  "shadowingNewSession": "New session",
+  "shadowingAttemptCount": "Max attempts reached ({max})",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  }
+,
+  "urlImportTitle": "Import from URL",
+  "urlImportHint": "Paste YouTube, podcast URL",
+  "urlImportButton": "Import",
+  "urlImportDownloading": "Downloading...",
+  "urlImportSuccess": "Import complete",
+  "urlImportFailed": "Import failed",
+  "sampleContentLoad": "Load sample content",
+  "autoSplitSave": "Auto split & save",
+  "waveformLoading": "Loading waveform...",
+  "podcastTitle": "Podcasts",
+  "podcastAddFeed": "Add Feed",
+  "podcastFeedUrl": "RSS Feed URL",
+  "podcastSubscribe": "Subscribe",
+  "podcastEpisodes": "Episodes",
+  "podcastDownload": "Download",
+  "podcastAddToLibrary": "Add to Library",
+  "podcastNoFeeds": "No subscribed podcasts",
+  "statsTitle": "Learning Statistics",
+  "statsTotalSessions": "Total Sessions",
+  "statsMastered": "Mastered Sentences",
+  "statsStreak": "Day Streak",
+  "statsRecentScores": "Recent Pronunciation Scores",
+  "statsDailyGoal": "Today's Goal",
+  "statsDailyGoalDone": "Goal Reached!",
+  "statsLanguageDist": "Language Distribution"
 }

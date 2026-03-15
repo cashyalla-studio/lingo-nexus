@@ -1565,6 +1565,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} sentences synced! Script saved.'**
   String syncScriptSaved(Object count);
+
+  /// No description provided for @shadowingAttempt.
+  ///
+  /// In en, this message translates to:
+  /// **'Attempt'**
+  String get shadowingAttempt;
+
+  /// No description provided for @shadowingRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Record again ({current}/{max})'**
+  String shadowingRetry(int current, int max);
+
+  /// No description provided for @shadowingBestScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Best score'**
+  String get shadowingBestScore;
+
+  /// No description provided for @shadowingNewSession.
+  ///
+  /// In en, this message translates to:
+  /// **'New session'**
+  String get shadowingNewSession;
+
+  /// No description provided for @shadowingAttemptCount.
+  ///
+  /// In en, this message translates to:
+  /// **'Max attempts reached ({max})'**
+  String shadowingAttemptCount(int max);
+
+  /// No description provided for @urlImportTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Import from URL'**
+  String get urlImportTitle;
+
+  /// No description provided for @urlImportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paste YouTube, podcast URL'**
+  String get urlImportHint;
+
+  /// No description provided for @urlImportButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Import'**
+  String get urlImportButton;
+
+  /// No description provided for @urlImportDownloading.
+  ///
+  /// In en, this message translates to:
+  /// **'Downloading...'**
+  String get urlImportDownloading;
+
+  /// No description provided for @urlImportSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Import complete'**
+  String get urlImportSuccess;
+
+  /// No description provided for @urlImportFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Import failed'**
+  String get urlImportFailed;
+
+  /// No description provided for @sampleContentLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Load sample content'**
+  String get sampleContentLoad;
+
+  /// No description provided for @autoSplitSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto split & save'**
+  String get autoSplitSave;
+
+  /// No description provided for @waveformLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading waveform...'**
+  String get waveformLoading;
+
+  /// No description provided for @podcastTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Podcasts'**
+  String get podcastTitle;
+
+  /// No description provided for @podcastAddFeed.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Feed'**
+  String get podcastAddFeed;
+
+  /// No description provided for @podcastFeedUrl.
+  ///
+  /// In en, this message translates to:
+  /// **'RSS Feed URL'**
+  String get podcastFeedUrl;
+
+  /// No description provided for @podcastSubscribe.
+  ///
+  /// In en, this message translates to:
+  /// **'Subscribe'**
+  String get podcastSubscribe;
+
+  /// No description provided for @podcastEpisodes.
+  ///
+  /// In en, this message translates to:
+  /// **'Episodes'**
+  String get podcastEpisodes;
+
+  /// No description provided for @podcastDownload.
+  ///
+  /// In en, this message translates to:
+  /// **'Download'**
+  String get podcastDownload;
+
+  /// No description provided for @podcastAddToLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to Library'**
+  String get podcastAddToLibrary;
+
+  /// No description provided for @podcastNoFeeds.
+  ///
+  /// In en, this message translates to:
+  /// **'No subscribed podcasts'**
+  String get podcastNoFeeds;
+
+  /// No description provided for @statsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning Statistics'**
+  String get statsTitle;
+
+  /// No description provided for @statsTotalSessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Sessions'**
+  String get statsTotalSessions;
+
+  /// No description provided for @statsMastered.
+  ///
+  /// In en, this message translates to:
+  /// **'Mastered Sentences'**
+  String get statsMastered;
+
+  /// No description provided for @statsStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Day Streak'**
+  String get statsStreak;
+
+  /// No description provided for @statsRecentScores.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Pronunciation Scores'**
+  String get statsRecentScores;
+
+  /// No description provided for @statsDailyGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s Goal'**
+  String get statsDailyGoal;
+
+  /// No description provided for @statsDailyGoalDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal Reached!'**
+  String get statsDailyGoalDone;
+
+  /// No description provided for @statsLanguageDist.
+  ///
+  /// In en, this message translates to:
+  /// **'Language Distribution'**
+  String get statsLanguageDist;
 }
 
 class _AppLocalizationsDelegate

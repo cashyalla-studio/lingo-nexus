@@ -823,4 +823,98 @@ class AppLocalizationsEs extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return '¡$count oraciones sincronizadas! Guión guardado.';
   }
+
+  @override
+  String get shadowingAttempt => 'Intento';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return 'Grabar de nuevo ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => 'Mejor puntuación';
+
+  @override
+  String get shadowingNewSession => 'Nueva sesión';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return 'Máximo de intentos alcanzado ($max)';
+  }
+
+  @override
+  String get urlImportTitle => 'Importar desde URL';
+
+  @override
+  String get urlImportHint => 'Pegar URL de YouTube, podcast';
+
+  @override
+  String get urlImportButton => 'Importar';
+
+  @override
+  String get urlImportDownloading => 'Descargando...';
+
+  @override
+  String get urlImportSuccess => 'Importación completa';
+
+  @override
+  String get urlImportFailed => 'Error al importar';
+
+  @override
+  String get sampleContentLoad => 'Cargar contenido de muestra';
+
+  @override
+  String get autoSplitSave => 'División automática y guardar';
+
+  @override
+  String get waveformLoading => 'Cargando forma de onda...';
+
+  @override
+  String get podcastTitle => 'Podcasts';
+
+  @override
+  String get podcastAddFeed => 'Agregar fuente';
+
+  @override
+  String get podcastFeedUrl => 'URL del feed RSS';
+
+  @override
+  String get podcastSubscribe => 'Suscribirse';
+
+  @override
+  String get podcastEpisodes => 'Episodios';
+
+  @override
+  String get podcastDownload => 'Descargar';
+
+  @override
+  String get podcastAddToLibrary => 'Agregar a la biblioteca';
+
+  @override
+  String get podcastNoFeeds => 'No hay podcasts suscritos';
+
+  @override
+  String get statsTitle => 'Estadísticas de aprendizaje';
+
+  @override
+  String get statsTotalSessions => 'Total de sesiones';
+
+  @override
+  String get statsMastered => 'Oraciones dominadas';
+
+  @override
+  String get statsStreak => 'Racha de días';
+
+  @override
+  String get statsRecentScores => 'Puntuaciones recientes';
+
+  @override
+  String get statsDailyGoal => 'Meta diaria';
+
+  @override
+  String get statsDailyGoalDone => '¡Meta alcanzada!';
+
+  @override
+  String get statsLanguageDist => 'Distribución por idioma';
 }

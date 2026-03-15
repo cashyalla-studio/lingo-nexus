@@ -373,5 +373,52 @@
   "syncTranslationLanguage": "翻译语言",
   "syncAudioLanguage": "音频语言",
   "syncAnnotating": "正在生成注音和翻译…",
-  "syncScriptSaved": "已同步{count}个句子！脚本已保存。"
+  "syncScriptSaved": "已同步{count}个句子！脚本已保存。",
+  "shadowingAttempt": "尝试",
+  "shadowingRetry": "重新录音 ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "最高分",
+  "shadowingNewSession": "新会话",
+  "shadowingAttemptCount": "已达最大尝试次数 ({max}次)",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "urlImportTitle": "从URL导入",
+  "urlImportHint": "粘贴YouTube、播客URL",
+  "urlImportButton": "导入",
+  "urlImportDownloading": "下载中...",
+  "urlImportSuccess": "导入完成",
+  "urlImportFailed": "导入失败",
+  "sampleContentLoad": "加载示例内容",
+  "autoSplitSave": "自动分割保存",
+  "waveformLoading": "加载波形中...",
+  "podcastTitle": "播客",
+  "podcastAddFeed": "添加订阅",
+  "podcastFeedUrl": "RSS订阅链接",
+  "podcastSubscribe": "订阅",
+  "podcastEpisodes": "剧集",
+  "podcastDownload": "下载",
+  "podcastAddToLibrary": "添加到资料库",
+  "podcastNoFeeds": "没有订阅的播客",
+  "statsTitle": "学习统计",
+  "statsTotalSessions": "总练习次数",
+  "statsMastered": "掌握的句子",
+  "statsStreak": "连续学习天数",
+  "statsRecentScores": "近期发音评分",
+  "statsDailyGoal": "今日目标",
+  "statsDailyGoalDone": "目标完成！",
+  "statsLanguageDist": "各语言学习分布"
 }

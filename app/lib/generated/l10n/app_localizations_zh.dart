@@ -772,4 +772,98 @@ class AppLocalizationsZh extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return '已同步$count个句子！脚本已保存。';
   }
+
+  @override
+  String get shadowingAttempt => '尝试';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return '重新录音 ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => '最高分';
+
+  @override
+  String get shadowingNewSession => '新会话';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return '已达最大尝试次数 ($max次)';
+  }
+
+  @override
+  String get urlImportTitle => '从URL导入';
+
+  @override
+  String get urlImportHint => '粘贴YouTube、播客URL';
+
+  @override
+  String get urlImportButton => '导入';
+
+  @override
+  String get urlImportDownloading => '下载中...';
+
+  @override
+  String get urlImportSuccess => '导入完成';
+
+  @override
+  String get urlImportFailed => '导入失败';
+
+  @override
+  String get sampleContentLoad => '加载示例内容';
+
+  @override
+  String get autoSplitSave => '自动分割保存';
+
+  @override
+  String get waveformLoading => '加载波形中...';
+
+  @override
+  String get podcastTitle => '播客';
+
+  @override
+  String get podcastAddFeed => '添加订阅';
+
+  @override
+  String get podcastFeedUrl => 'RSS订阅链接';
+
+  @override
+  String get podcastSubscribe => '订阅';
+
+  @override
+  String get podcastEpisodes => '剧集';
+
+  @override
+  String get podcastDownload => '下载';
+
+  @override
+  String get podcastAddToLibrary => '添加到资料库';
+
+  @override
+  String get podcastNoFeeds => '没有订阅的播客';
+
+  @override
+  String get statsTitle => '学习统计';
+
+  @override
+  String get statsTotalSessions => '总练习次数';
+
+  @override
+  String get statsMastered => '掌握的句子';
+
+  @override
+  String get statsStreak => '连续学习天数';
+
+  @override
+  String get statsRecentScores => '近期发音评分';
+
+  @override
+  String get statsDailyGoal => '今日目标';
+
+  @override
+  String get statsDailyGoalDone => '目标完成！';
+
+  @override
+  String get statsLanguageDist => '各语言学习分布';
 }

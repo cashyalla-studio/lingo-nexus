@@ -373,5 +373,52 @@
   "syncTranslationLanguage": "翻訳言語",
   "syncAudioLanguage": "音声言語",
   "syncAnnotating": "発音記号と翻訳を生成中…",
-  "syncScriptSaved": "{count}文のシンクが完了しました！スクリプトが保存されました。"
+  "syncScriptSaved": "{count}文のシンクが完了しました！スクリプトが保存されました。",
+  "shadowingAttempt": "試み",
+  "shadowingRetry": "再録音 ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "ベストスコア",
+  "shadowingNewSession": "新しいセッション",
+  "shadowingAttemptCount": "最大試行数に達しました ({max}回)",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "urlImportTitle": "URLからインポート",
+  "urlImportHint": "YouTube、ポッドキャストのURLを貼り付け",
+  "urlImportButton": "インポート",
+  "urlImportDownloading": "ダウンロード中...",
+  "urlImportSuccess": "インポート完了",
+  "urlImportFailed": "インポート失敗",
+  "sampleContentLoad": "サンプルコンテンツを読み込む",
+  "autoSplitSave": "自動分割保存",
+  "waveformLoading": "波形読み込み中...",
+  "podcastTitle": "ポッドキャスト",
+  "podcastAddFeed": "フィードを追加",
+  "podcastFeedUrl": "RSSフィードURL",
+  "podcastSubscribe": "登録",
+  "podcastEpisodes": "エピソード",
+  "podcastDownload": "ダウンロード",
+  "podcastAddToLibrary": "ライブラリに追加",
+  "podcastNoFeeds": "登録済みのポッドキャストはありません",
+  "statsTitle": "学習統計",
+  "statsTotalSessions": "総練習回数",
+  "statsMastered": "マスターした文",
+  "statsStreak": "連続学習日数",
+  "statsRecentScores": "最近の発音スコア",
+  "statsDailyGoal": "今日の目標",
+  "statsDailyGoalDone": "目標達成！",
+  "statsLanguageDist": "言語別学習分布"
 }

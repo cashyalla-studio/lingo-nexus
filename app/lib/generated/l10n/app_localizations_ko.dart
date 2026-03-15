@@ -788,4 +788,98 @@ class AppLocalizationsKo extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return '$count개 문장 싱크 완료! 스크립트가 저장되었습니다.';
   }
+
+  @override
+  String get shadowingAttempt => '시도';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return '다시 녹음 ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => '최고 점수';
+
+  @override
+  String get shadowingNewSession => '새로 시작';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return '최대 시도 횟수 도달 ($max회)';
+  }
+
+  @override
+  String get urlImportTitle => 'URL에서 가져오기';
+
+  @override
+  String get urlImportHint => '유튜브, 팟캐스트 URL 붙여넣기';
+
+  @override
+  String get urlImportButton => '가져오기';
+
+  @override
+  String get urlImportDownloading => '다운로드 중...';
+
+  @override
+  String get urlImportSuccess => '가져오기 완료';
+
+  @override
+  String get urlImportFailed => '가져오기 실패';
+
+  @override
+  String get sampleContentLoad => '샘플 콘텐츠 불러오기';
+
+  @override
+  String get autoSplitSave => '자동 분할 저장';
+
+  @override
+  String get waveformLoading => '파형 로딩 중...';
+
+  @override
+  String get podcastTitle => '팟캐스트';
+
+  @override
+  String get podcastAddFeed => '피드 추가';
+
+  @override
+  String get podcastFeedUrl => 'RSS 피드 URL';
+
+  @override
+  String get podcastSubscribe => '구독';
+
+  @override
+  String get podcastEpisodes => '에피소드';
+
+  @override
+  String get podcastDownload => '다운로드';
+
+  @override
+  String get podcastAddToLibrary => '라이브러리에 추가';
+
+  @override
+  String get podcastNoFeeds => '구독한 팟캐스트가 없습니다';
+
+  @override
+  String get statsTitle => '학습 통계';
+
+  @override
+  String get statsTotalSessions => '총 연습 횟수';
+
+  @override
+  String get statsMastered => '마스터한 문장';
+
+  @override
+  String get statsStreak => '연속 학습일';
+
+  @override
+  String get statsRecentScores => '최근 발음 점수';
+
+  @override
+  String get statsDailyGoal => '오늘의 목표';
+
+  @override
+  String get statsDailyGoalDone => '목표 달성!';
+
+  @override
+  String get statsLanguageDist => '언어별 학습 분포';
 }

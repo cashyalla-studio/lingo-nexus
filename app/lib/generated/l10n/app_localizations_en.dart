@@ -815,4 +815,98 @@ class AppLocalizationsEn extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return '$count sentences synced! Script saved.';
   }
+
+  @override
+  String get shadowingAttempt => 'Attempt';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return 'Record again ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => 'Best score';
+
+  @override
+  String get shadowingNewSession => 'New session';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return 'Max attempts reached ($max)';
+  }
+
+  @override
+  String get urlImportTitle => 'Import from URL';
+
+  @override
+  String get urlImportHint => 'Paste YouTube, podcast URL';
+
+  @override
+  String get urlImportButton => 'Import';
+
+  @override
+  String get urlImportDownloading => 'Downloading...';
+
+  @override
+  String get urlImportSuccess => 'Import complete';
+
+  @override
+  String get urlImportFailed => 'Import failed';
+
+  @override
+  String get sampleContentLoad => 'Load sample content';
+
+  @override
+  String get autoSplitSave => 'Auto split & save';
+
+  @override
+  String get waveformLoading => 'Loading waveform...';
+
+  @override
+  String get podcastTitle => 'Podcasts';
+
+  @override
+  String get podcastAddFeed => 'Add Feed';
+
+  @override
+  String get podcastFeedUrl => 'RSS Feed URL';
+
+  @override
+  String get podcastSubscribe => 'Subscribe';
+
+  @override
+  String get podcastEpisodes => 'Episodes';
+
+  @override
+  String get podcastDownload => 'Download';
+
+  @override
+  String get podcastAddToLibrary => 'Add to Library';
+
+  @override
+  String get podcastNoFeeds => 'No subscribed podcasts';
+
+  @override
+  String get statsTitle => 'Learning Statistics';
+
+  @override
+  String get statsTotalSessions => 'Total Sessions';
+
+  @override
+  String get statsMastered => 'Mastered Sentences';
+
+  @override
+  String get statsStreak => 'Day Streak';
+
+  @override
+  String get statsRecentScores => 'Recent Pronunciation Scores';
+
+  @override
+  String get statsDailyGoal => 'Today\'s Goal';
+
+  @override
+  String get statsDailyGoalDone => 'Goal Reached!';
+
+  @override
+  String get statsLanguageDist => 'Language Distribution';
 }

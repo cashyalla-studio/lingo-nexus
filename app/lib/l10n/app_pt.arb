@@ -373,5 +373,52 @@
   "syncTranslationLanguage": "Idioma de tradução",
   "syncAudioLanguage": "Idioma do áudio",
   "syncAnnotating": "Gerando fonética e tradução…",
-  "syncScriptSaved": "{count} frases sincronizadas! Script salvo."
+  "syncScriptSaved": "{count} frases sincronizadas! Script salvo.",
+  "shadowingAttempt": "Tentativa",
+  "shadowingRetry": "Gravar novamente ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "Melhor pontuação",
+  "shadowingNewSession": "Nova sessão",
+  "shadowingAttemptCount": "Máximo de tentativas atingido ({max})",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "urlImportTitle": "Importar de URL",
+  "urlImportHint": "Colar URL do YouTube, podcast",
+  "urlImportButton": "Importar",
+  "urlImportDownloading": "Baixando...",
+  "urlImportSuccess": "Importação concluída",
+  "urlImportFailed": "Falha na importação",
+  "sampleContentLoad": "Carregar conteúdo de amostra",
+  "autoSplitSave": "Divisão automática e salvar",
+  "waveformLoading": "Carregando forma de onda...",
+  "podcastTitle": "Podcasts",
+  "podcastAddFeed": "Adicionar feed",
+  "podcastFeedUrl": "URL do feed RSS",
+  "podcastSubscribe": "Inscrever-se",
+  "podcastEpisodes": "Episódios",
+  "podcastDownload": "Baixar",
+  "podcastAddToLibrary": "Adicionar à biblioteca",
+  "podcastNoFeeds": "Nenhum podcast assinado",
+  "statsTitle": "Estatísticas de aprendizado",
+  "statsTotalSessions": "Total de sessões",
+  "statsMastered": "Frases dominadas",
+  "statsStreak": "Sequência de dias",
+  "statsRecentScores": "Pontuações recentes",
+  "statsDailyGoal": "Meta diária",
+  "statsDailyGoalDone": "Meta alcançada!",
+  "statsLanguageDist": "Distribuição por idioma"
 }

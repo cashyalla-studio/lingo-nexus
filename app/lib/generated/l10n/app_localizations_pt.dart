@@ -820,4 +820,98 @@ class AppLocalizationsPt extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return '$count frases sincronizadas! Script salvo.';
   }
+
+  @override
+  String get shadowingAttempt => 'Tentativa';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return 'Gravar novamente ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => 'Melhor pontuação';
+
+  @override
+  String get shadowingNewSession => 'Nova sessão';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return 'Máximo de tentativas atingido ($max)';
+  }
+
+  @override
+  String get urlImportTitle => 'Importar de URL';
+
+  @override
+  String get urlImportHint => 'Colar URL do YouTube, podcast';
+
+  @override
+  String get urlImportButton => 'Importar';
+
+  @override
+  String get urlImportDownloading => 'Baixando...';
+
+  @override
+  String get urlImportSuccess => 'Importação concluída';
+
+  @override
+  String get urlImportFailed => 'Falha na importação';
+
+  @override
+  String get sampleContentLoad => 'Carregar conteúdo de amostra';
+
+  @override
+  String get autoSplitSave => 'Divisão automática e salvar';
+
+  @override
+  String get waveformLoading => 'Carregando forma de onda...';
+
+  @override
+  String get podcastTitle => 'Podcasts';
+
+  @override
+  String get podcastAddFeed => 'Adicionar feed';
+
+  @override
+  String get podcastFeedUrl => 'URL do feed RSS';
+
+  @override
+  String get podcastSubscribe => 'Inscrever-se';
+
+  @override
+  String get podcastEpisodes => 'Episódios';
+
+  @override
+  String get podcastDownload => 'Baixar';
+
+  @override
+  String get podcastAddToLibrary => 'Adicionar à biblioteca';
+
+  @override
+  String get podcastNoFeeds => 'Nenhum podcast assinado';
+
+  @override
+  String get statsTitle => 'Estatísticas de aprendizado';
+
+  @override
+  String get statsTotalSessions => 'Total de sessões';
+
+  @override
+  String get statsMastered => 'Frases dominadas';
+
+  @override
+  String get statsStreak => 'Sequência de dias';
+
+  @override
+  String get statsRecentScores => 'Pontuações recentes';
+
+  @override
+  String get statsDailyGoal => 'Meta diária';
+
+  @override
+  String get statsDailyGoalDone => 'Meta alcançada!';
+
+  @override
+  String get statsLanguageDist => 'Distribuição por idioma';
 }

@@ -373,5 +373,52 @@
   "syncTranslationLanguage": "Langue de traduction",
   "syncAudioLanguage": "Langue audio",
   "syncAnnotating": "Génération de la phonétique et de la traduction…",
-  "syncScriptSaved": "{count} phrases synchronisées ! Script enregistré."
+  "syncScriptSaved": "{count} phrases synchronisées ! Script enregistré.",
+  "shadowingAttempt": "Tentative",
+  "shadowingRetry": "Réenregistrer ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "Meilleur score",
+  "shadowingNewSession": "Nouvelle session",
+  "shadowingAttemptCount": "Nombre maximal de tentatives atteint ({max})",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "urlImportTitle": "Importer depuis une URL",
+  "urlImportHint": "Coller l'URL YouTube, podcast",
+  "urlImportButton": "Importer",
+  "urlImportDownloading": "Téléchargement...",
+  "urlImportSuccess": "Importation terminée",
+  "urlImportFailed": "Échec de l'importation",
+  "sampleContentLoad": "Charger le contenu d'exemple",
+  "autoSplitSave": "Découpage auto & enregistrer",
+  "waveformLoading": "Chargement de la forme d'onde...",
+  "podcastTitle": "Podcasts",
+  "podcastAddFeed": "Ajouter un flux",
+  "podcastFeedUrl": "URL du flux RSS",
+  "podcastSubscribe": "S'abonner",
+  "podcastEpisodes": "Épisodes",
+  "podcastDownload": "Télécharger",
+  "podcastAddToLibrary": "Ajouter à la bibliothèque",
+  "podcastNoFeeds": "Aucun podcast abonné",
+  "statsTitle": "Statistiques d'apprentissage",
+  "statsTotalSessions": "Total des sessions",
+  "statsMastered": "Phrases maîtrisées",
+  "statsStreak": "Série de jours",
+  "statsRecentScores": "Scores récents",
+  "statsDailyGoal": "Objectif du jour",
+  "statsDailyGoalDone": "Objectif atteint !",
+  "statsLanguageDist": "Répartition par langue"
 }

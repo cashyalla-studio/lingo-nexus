@@ -373,5 +373,52 @@
   "syncTranslationLanguage": "Übersetzungssprache",
   "syncAudioLanguage": "Audiosprache",
   "syncAnnotating": "Lautschrift und Übersetzung werden generiert…",
-  "syncScriptSaved": "{count} Sätze synchronisiert! Skript gespeichert."
+  "syncScriptSaved": "{count} Sätze synchronisiert! Skript gespeichert.",
+  "shadowingAttempt": "Versuch",
+  "shadowingRetry": "Erneut aufnehmen ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "Beste Punktzahl",
+  "shadowingNewSession": "Neue Sitzung",
+  "shadowingAttemptCount": "Maximale Versuche erreicht ({max})",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "urlImportTitle": "Von URL importieren",
+  "urlImportHint": "YouTube-, Podcast-URL einfügen",
+  "urlImportButton": "Importieren",
+  "urlImportDownloading": "Herunterladen...",
+  "urlImportSuccess": "Import abgeschlossen",
+  "urlImportFailed": "Import fehlgeschlagen",
+  "sampleContentLoad": "Beispielinhalte laden",
+  "autoSplitSave": "Automatisch teilen & speichern",
+  "waveformLoading": "Wellenform wird geladen...",
+  "podcastTitle": "Podcasts",
+  "podcastAddFeed": "Feed hinzufügen",
+  "podcastFeedUrl": "RSS-Feed-URL",
+  "podcastSubscribe": "Abonnieren",
+  "podcastEpisodes": "Episoden",
+  "podcastDownload": "Herunterladen",
+  "podcastAddToLibrary": "Zur Bibliothek hinzufügen",
+  "podcastNoFeeds": "Keine abonnierten Podcasts",
+  "statsTitle": "Lernstatistiken",
+  "statsTotalSessions": "Gesamtsitzungen",
+  "statsMastered": "Gemeisterte Sätze",
+  "statsStreak": "Lernserie",
+  "statsRecentScores": "Letzte Aussprache-Scores",
+  "statsDailyGoal": "Tagesziel",
+  "statsDailyGoalDone": "Ziel erreicht!",
+  "statsLanguageDist": "Sprachverteilung"
 }

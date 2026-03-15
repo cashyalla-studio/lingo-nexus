@@ -822,4 +822,98 @@ class AppLocalizationsDe extends AppLocalizations {
   String syncScriptSaved(Object count) {
     return '$count Sätze synchronisiert! Skript gespeichert.';
   }
+
+  @override
+  String get shadowingAttempt => 'Versuch';
+
+  @override
+  String shadowingRetry(int current, int max) {
+    return 'Erneut aufnehmen ($current/$max)';
+  }
+
+  @override
+  String get shadowingBestScore => 'Beste Punktzahl';
+
+  @override
+  String get shadowingNewSession => 'Neue Sitzung';
+
+  @override
+  String shadowingAttemptCount(int max) {
+    return 'Maximale Versuche erreicht ($max)';
+  }
+
+  @override
+  String get urlImportTitle => 'Von URL importieren';
+
+  @override
+  String get urlImportHint => 'YouTube-, Podcast-URL einfügen';
+
+  @override
+  String get urlImportButton => 'Importieren';
+
+  @override
+  String get urlImportDownloading => 'Herunterladen...';
+
+  @override
+  String get urlImportSuccess => 'Import abgeschlossen';
+
+  @override
+  String get urlImportFailed => 'Import fehlgeschlagen';
+
+  @override
+  String get sampleContentLoad => 'Beispielinhalte laden';
+
+  @override
+  String get autoSplitSave => 'Automatisch teilen & speichern';
+
+  @override
+  String get waveformLoading => 'Wellenform wird geladen...';
+
+  @override
+  String get podcastTitle => 'Podcasts';
+
+  @override
+  String get podcastAddFeed => 'Feed hinzufügen';
+
+  @override
+  String get podcastFeedUrl => 'RSS-Feed-URL';
+
+  @override
+  String get podcastSubscribe => 'Abonnieren';
+
+  @override
+  String get podcastEpisodes => 'Episoden';
+
+  @override
+  String get podcastDownload => 'Herunterladen';
+
+  @override
+  String get podcastAddToLibrary => 'Zur Bibliothek hinzufügen';
+
+  @override
+  String get podcastNoFeeds => 'Keine abonnierten Podcasts';
+
+  @override
+  String get statsTitle => 'Lernstatistiken';
+
+  @override
+  String get statsTotalSessions => 'Gesamtsitzungen';
+
+  @override
+  String get statsMastered => 'Gemeisterte Sätze';
+
+  @override
+  String get statsStreak => 'Lernserie';
+
+  @override
+  String get statsRecentScores => 'Letzte Aussprache-Scores';
+
+  @override
+  String get statsDailyGoal => 'Tagesziel';
+
+  @override
+  String get statsDailyGoalDone => 'Ziel erreicht!';
+
+  @override
+  String get statsLanguageDist => 'Sprachverteilung';
 }

@@ -373,5 +373,52 @@
   "syncTranslationLanguage": "لغة الترجمة",
   "syncAudioLanguage": "لغة الصوت",
   "syncAnnotating": "جارٍ توليد النطق والترجمة…",
-  "syncScriptSaved": "تمت مزامنة {count} جملة! تم حفظ النص."
+  "syncScriptSaved": "تمت مزامنة {count} جملة! تم حفظ النص.",
+  "shadowingAttempt": "محاولة",
+  "shadowingRetry": "إعادة التسجيل ({current}/{max})",
+  "@shadowingRetry": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "shadowingBestScore": "أفضل نتيجة",
+  "shadowingNewSession": "جلسة جديدة",
+  "shadowingAttemptCount": "تم الوصول إلى الحد الأقصى من المحاولات ({max})",
+  "@shadowingAttemptCount": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "urlImportTitle": "استيراد من URL",
+  "urlImportHint": "الصق رابط YouTube أو البودكاست",
+  "urlImportButton": "استيراد",
+  "urlImportDownloading": "جارٍ التنزيل...",
+  "urlImportSuccess": "اكتمل الاستيراد",
+  "urlImportFailed": "فشل الاستيراد",
+  "sampleContentLoad": "تحميل المحتوى النموذجي",
+  "autoSplitSave": "تقسيم تلقائي وحفظ",
+  "waveformLoading": "جارٍ تحميل الموجة الصوتية...",
+  "podcastTitle": "بودكاست",
+  "podcastAddFeed": "إضافة تغذية",
+  "podcastFeedUrl": "رابط تغذية RSS",
+  "podcastSubscribe": "اشتراك",
+  "podcastEpisodes": "حلقات",
+  "podcastDownload": "تحميل",
+  "podcastAddToLibrary": "إضافة إلى المكتبة",
+  "podcastNoFeeds": "لا توجد بودكاست مشترك",
+  "statsTitle": "إحصائيات التعلم",
+  "statsTotalSessions": "إجمالي الجلسات",
+  "statsMastered": "الجمل المتقنة",
+  "statsStreak": "أيام متتالية",
+  "statsRecentScores": "نتائج النطق الأخيرة",
+  "statsDailyGoal": "هدف اليوم",
+  "statsDailyGoalDone": "تم بلوغ الهدف!",
+  "statsLanguageDist": "توزيع اللغات"
 }
